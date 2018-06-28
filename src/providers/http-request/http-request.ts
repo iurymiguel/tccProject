@@ -26,8 +26,9 @@ export class HttpRequestProvider {
         const options = new RequestOptions();
 
         const headers = new Headers({
+            'Accept': 'application/json; charset=UTF-8',
             'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': LocalStorageProvider.getValue('token')
+            'Authorization': 'Basic aXVyeW1pZy5zaHRAZ21haWwuY29tOkVuaDA2c3JDdWFYS1U2aURhV2x3QjEyRg=='
         })
         options.headers = headers;
 
