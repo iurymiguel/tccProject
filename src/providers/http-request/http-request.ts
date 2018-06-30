@@ -26,10 +26,12 @@ export class HttpRequestProvider {
         const options = new RequestOptions();
 
         const headers = new Headers({
+            'X-Atlassian-Token': 'no-check',
             'Accept': 'application/json; charset=UTF-8',
             'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': 'Basic aXVyeW1pZy5zaHRAZ21haWwuY29tOkVuaDA2c3JDdWFYS1U2aURhV2x3QjEyRg=='
+            'Authorization': `Basic ${btoa(`${Config.ADMIN_EMAIL}:${Config.API_TOKEN}`)}`,
         })
+        console.log(headers)
         options.headers = headers;
 
         if (filter) {
@@ -49,13 +51,14 @@ export class HttpRequestProvider {
         return new Promise<any>((resolve, reject) => {
             this.http.get(Config.API_URL + url, this.getRequestOptions(filter))
                 .toPromise().then((response: any) => {
-                console.log(response);
+                console.log('ddd',response);
                 if (response.status === 200) {
                     resolve(response._body);
                 } else {
                     reject(response._body);
                 }
             }).catch(err => {
+                console.log(err);
                 reject(err._body);
             });
         });
@@ -63,7 +66,7 @@ export class HttpRequestProvider {
 
     /**
      * @description Method responsible to make a POST request.
-     * @param {data} data which will be sent.
+     * @param {data} data the body of the request.
      * @param {url} the url used in the request.
      */
     public post(data: any, url: string): Promise<any> {
@@ -93,7 +96,8 @@ export class HttpRequestProvider {
      */
     public put(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.put(Config.API_URL + url, data, this.getRequestOptions()).toPromise().then((response: any) => {
+            this.http.put(Config.API_URL + url, data, this.getRequestOptions())
+            .toPromise().then((response: any) => {
                 if (response.status == '200') {
                     resolve(response._body);
                 } else {
@@ -131,13 +135,16 @@ export class HttpRequestProvider {
      */
     public delete(url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.delete(Config.API_URL + url, this.getRequestOptions()).toPromise().then((response: any) => {
+            this.http.delete(Config.API_URL + url, this.getRequestOptions())
+            .toPromise().then((response: any) => {
+                console.log(response);
                 if (response.status == '200') {
                     resolve(response._body);
                 } else {
                     reject(response._body);
                 }
             }).catch(err => {
+                console.log(err);
                 reject(err._body);
             });
         });
