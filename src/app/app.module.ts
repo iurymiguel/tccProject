@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { HttpRequestProvider } from '../providers/http-request/http-request';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { HttpModule } from '@angular/http';
     HomePage
   ],
   imports: [
+    HttpClientModule,
     HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp)

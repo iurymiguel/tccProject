@@ -32,14 +32,10 @@ export class HomePage {
 
   public createUser() {
     const body = {
-        username: "iurymig.sht@gmail.com",
-        password: "472372irm",
-        // emailAddress: "iurymiguel@gec.inatel.br",
-        // displayName: "iury da rocha miguel",
-        // notification: "true"
+      "username": "tccinatel123@gmail.com",
+      "password":  "tccinatel2018"
     };
-
-    this.http.post(body,Config.API_SESSION_URL)
+    this.http.post(body,Config.API_URL_AUTH)
       .then((res) => {
         console.log(JSON.parse(res));
       })

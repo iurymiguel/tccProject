@@ -27,9 +27,7 @@ export class HttpRequestProvider {
 
         const headers = new Headers({
             'X-Atlassian-Token': 'no-check',
-            'Accept': 'application/json; charset=UTF-8',
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': `Basic ${btoa(`${Config.ADMIN_EMAIL}:${Config.API_TOKEN}`)}`,
+            'Content-Type': 'application/json',
         })
         console.log(headers)
         options.headers = headers;
@@ -49,7 +47,7 @@ export class HttpRequestProvider {
      */
     public get(url: string, filter?: any): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.get(Config.API_URL + url, this.getRequestOptions(filter))
+            this.http.get(url, this.getRequestOptions(filter))
                 .toPromise().then((response: any) => {
                 console.log('ddd',response);
                 if (response.status === 200) {
@@ -71,7 +69,7 @@ export class HttpRequestProvider {
      */
     public post(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.post(Config.API_URL + url, data, this.getRequestOptions())
+            this.http.post(url, data, this.getRequestOptions())
                 .timeoutWith(Config.TIMEOUT, Observable.throw({error: {statusCode: 504, message: 'timeout'}}))
                 .toPromise().then((response: any) => {
                 if (response.status == '200') {
@@ -96,7 +94,7 @@ export class HttpRequestProvider {
      */
     public put(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.put(Config.API_URL + url, data, this.getRequestOptions())
+            this.http.put(url, data, this.getRequestOptions())
             .toPromise().then((response: any) => {
                 if (response.status == '200') {
                     resolve(response._body);
@@ -116,7 +114,7 @@ export class HttpRequestProvider {
      */
     public patch(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.patch(Config.API_URL + url, data, this.getRequestOptions()).toPromise().then((response: any) => {
+            this.http.patch(url, data, this.getRequestOptions()).toPromise().then((response: any) => {
                 if (response.status == '200') {
                     resolve(response._body);
                 } else {
@@ -135,7 +133,7 @@ export class HttpRequestProvider {
      */
     public delete(url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.delete(Config.API_URL + url, this.getRequestOptions())
+            this.http.delete(url, this.getRequestOptions())
             .toPromise().then((response: any) => {
                 console.log(response);
                 if (response.status == '200') {
