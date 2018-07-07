@@ -8,6 +8,9 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { HttpRequestProvider } from '../providers/http-request/http-request';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MyInterceptor } from '../providers/interceptor';
+
 
 @NgModule({
   declarations: [
@@ -15,6 +18,7 @@ import { HttpModule } from '@angular/http';
     HomePage
   ],
   imports: [
+    HttpClientModule,
     HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp)
@@ -28,7 +32,8 @@ import { HttpModule } from '@angular/http';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpRequestProvider
+    HttpRequestProvider,
+    { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true }
   ]
 })
 export class AppModule {}
