@@ -4,5 +4,11 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/jiraapi",
+      "proxyUrl": "http://basetestejira.inatel.br:8080"
+    }
+  ]
 }

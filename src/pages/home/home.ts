@@ -35,9 +35,9 @@ export class HomePage {
       "username": "tccinatel123@gmail.com",
       "password":  "tccinatel2018"
     };
-    this.http.post(body,Config.API_URL_AUTH)
-      .then((res) => {
-        console.log(JSON.parse(res));
+    this.http.post(body,Config.API_URL + Config.AUTH_ENDPOINT)
+      .then((res: any) => {
+        console.log(res);
       })
       .catch((error) => {
         console.log(error);
