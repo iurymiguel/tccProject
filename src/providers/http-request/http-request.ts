@@ -11,10 +11,14 @@ export class HttpRequestProvider {
 
     constructor(public http: HttpClient) {
     }
-  
-    public get(url: string, filter?: any): Promise<any> {
+
+    /**
+     * @description Método responsável por fazer requisções do tipo GET.
+     * @param url A url especificada.
+     */
+    public get(url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.get(url)
+            this.http.get(Config.API_URL + url)
                 .toPromise()
                 .then((response: any) => {
                     if (response.status === 200) {
@@ -29,9 +33,14 @@ export class HttpRequestProvider {
         });
     }
 
+    /**
+     * @description Método responsável por fazer requisções do tipo POST.
+     * @param data Dados que vão no body da requisição.
+     * @param url A url especificada.
+     */
     public post(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.post(url, data)
+            this.http.post(Config.API_URL + url, data)
                 .timeoutWith(Config.TIMEOUT,
                     Observable.throw({ error: { statusCode: 504, message: 'timeout' } }))
                 .toPromise()
@@ -52,9 +61,14 @@ export class HttpRequestProvider {
         });
     }
 
+    /**
+     * @description Método responsável por fazer requisções do tipo PUT.
+     * @param data Dados que vão no body da requisição.
+     * @param url A url especificada.
+     */
     public put(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.put(url, data)
+            this.http.put(Config.API_URL + url, data)
                 .toPromise()
                 .then((response: any) => {
                     if (response.status == '200') {
@@ -68,9 +82,14 @@ export class HttpRequestProvider {
         });
     }
 
+    /**
+     * @description Método responsável por fazer requisções do tipo PATCH.
+     * @param data Dados que vão no body da requisição.
+     * @param url A url especificada.
+     */
     public patch(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.patch(url, data)
+            this.http.patch(Config.API_URL + url, data)
                 .toPromise()
                 .then((response: any) => {
                     if (response.status == '200') {
@@ -84,9 +103,13 @@ export class HttpRequestProvider {
         });
     }
 
+    /**
+     * @description Método responsável por fazer requisções do tipo DELETE.
+     * @param url A url especificada.
+     */
     public delete(url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.delete(url)
+            this.http.delete(Config.API_URL + url)
                 .toPromise()
                 .then((response: any) => {
                     if (response.status == '200') {

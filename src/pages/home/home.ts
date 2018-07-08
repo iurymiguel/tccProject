@@ -20,7 +20,7 @@ export class HomePage {
   }
 
   public getProject() {
-    this.http.get('/user/search?username=iurymig.sht@gmail.com')
+    this.http.get(Config.REST_API + '/user?username=tccinatel123@gmail.com')
       .then((res) => {
         console.log(JSON.parse(res));
       })
@@ -35,7 +35,7 @@ export class HomePage {
       "username": "tccinatel123@gmail.com",
       "password":  "tccinatel2018"
     };
-    this.http.post(body,Config.API_URL + Config.AUTH_ENDPOINT)
+    this.http.post(body,Config.AUTH_ENDPOINT)
       .then((res: any) => {
         console.log(res);
       })
