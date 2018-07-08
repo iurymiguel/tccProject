@@ -4,6 +4,8 @@ import { HttpRequestProvider } from '../../providers/http-request/http-request';
 import { Config } from '../../config/config';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Utils } from '../../utils';
+import { LoadingProvider } from '../../providers/loading/loading';
+import { ToastProvider } from '../../providers/toast/toast';
 
 @Component({
   selector: 'page-home',
@@ -17,11 +19,13 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
     public http: HttpRequestProvider,
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder,
+    public loadingProvider: LoadingProvider,
+    public toast: ToastProvider) {
 
     this.loginForm = this.formBuilder.group({
-      username: new FormControl('',[Validators.required, Validators.pattern(Utils.NO_SPACE_REGEX)]),
-      password: new FormControl('',[Validators.required, Validators.pattern(Utils.NO_SPACE_REGEX)])
+      username: new FormControl('', [Validators.required, Validators.pattern(Utils.NO_SPACE_REGEX)]),
+      password: new FormControl('', [Validators.required, Validators.pattern(Utils.NO_SPACE_REGEX)])
     });
 
     this.login = {
@@ -44,16 +48,19 @@ export class HomePage {
   /**
    * @description Faz o login na aplicação.
    */
-  public doLogin(){
-    if(this.loginForm.valid){
+  public doLogin() {
+    if (this.loginForm.valid) {
+      const loading = this.loadingProvider.create('Carregando...');
       this.http.post(this.login, Config.AUTH_ENDPOINT)
-      .then((res: any) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }else{
+        .then((res: any) => {
+          console.log(res);
+          loading.dismiss();
+        })
+        .catch((error) => {
+          console.log(error);
+          loading.dismiss(() => this.toast.show('Erro na requisição.'))
+        });
+    } else {
       this.setBluredInputState(true);
     }
   }
@@ -62,7 +69,7 @@ export class HomePage {
    * @description Seta true ou false se os inputs pederam o foco.
    * @param state o estado do input.
    */
-  private setBluredInputState(state: boolean){
+  private setBluredInputState(state: boolean) {
     this.bluredInputs = {
       isUsernameInputBlured: state,
       isPasswordInputBlured: state

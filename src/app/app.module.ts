@@ -10,6 +10,8 @@ import { HttpRequestProvider } from '../providers/http-request/http-request';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MyInterceptor } from '../providers/interceptor';
+import { LoadingProvider } from '../providers/loading/loading';
+import { ToastProvider } from '../providers/toast/toast';
 
 
 @NgModule({
@@ -32,8 +34,10 @@ import { MyInterceptor } from '../providers/interceptor';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true },
     HttpRequestProvider,
-    { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true }
+    LoadingProvider,
+    ToastProvider
   ]
 })
 export class AppModule {}
