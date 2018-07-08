@@ -1,12 +1,20 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
- <button (click)="getProject()" ion-button block>Press</button>
- <button (click)="createUser()" ion-button block>Add</button> 
+        <div class="logo"></div>
+  <!-- <form [formGroup]="loginForm" (ngSubmit)="register()" novalidate>
+
+    <ion-item>
+      <ion-label floating>Nome do usuário</ion-label>
+      <ion-input type="text" formControlName="username" [(ngModel)]="login.username" (ionBlur)="bluredInputsMap.isNameInputBlured = true"
+      (ionFocus)="bluredInputsMap.isNameInputBlured = false"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Senha</ion-label>
+      <ion-input type="password" formControlName="password" [(ngModel)]="login.password" (ionBlur)="bluredInputsMap.isPasswordInputBlured = true"
+          (ionFocus)="bluredInputsMap.isPasswordInputBlured = false"></ion-input>
+    </ion-item>
+
+    <button ion-button block color="dark" tappable type="submit">Entrar</button>
+  </form> -->
+
 </ion-content>

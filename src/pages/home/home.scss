@@ -1,3 +1,10 @@
 page-home {
-
+    .logo {
+        width: 40%;
+        height: 40%;
+        margin: 20px auto 0;
+        border-radius: 10%;
+        background: url("../assets/imgs/jira.png") no-repeat;
+        background-size: 100%;
+      }
 }
