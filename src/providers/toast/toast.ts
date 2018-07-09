@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ToastController, Toast } from 'ionic-angular/umd';
+import { ToastController, Toast } from 'ionic-angular';
+
 
 @Injectable()
 export class ToastProvider {

@@ -51,6 +51,7 @@ export class HomePage {
   public doLogin() {
     if (this.loginForm.valid) {
       const loading = this.loadingProvider.create('Carregando...');
+      loading.present();
       this.http.post(this.login, Config.AUTH_ENDPOINT)
         .then((res: any) => {
           console.log(res);
@@ -58,7 +59,8 @@ export class HomePage {
         })
         .catch((error) => {
           console.log(error);
-          loading.dismiss(() => this.toast.show('Erro na requisição.'))
+          loading.dismiss();
+          this.toast.show('Erro na requisição.');
         });
     } else {
       this.setBluredInputState(true);
