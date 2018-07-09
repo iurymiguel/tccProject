@@ -7,11 +7,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { HttpRequestProvider } from '../providers/http-request/http-request';
-import { HttpModule } from '@angular/http';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MyInterceptor } from '../providers/interceptor';
+import { HttpClientModule} from '@angular/common/http';
 import { LoadingProvider } from '../providers/loading/loading';
 import { ToastProvider } from '../providers/toast/toast';
+import { Interceptor } from '../providers/interceptor';
 
 
 @NgModule({
@@ -21,7 +20,7 @@ import { ToastProvider } from '../providers/toast/toast';
   ],
   imports: [
     HttpClientModule,
-    HttpModule,
+    Interceptor,
     BrowserModule,
     IonicModule.forRoot(MyApp)
   ],
@@ -34,7 +33,6 @@ import { ToastProvider } from '../providers/toast/toast';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true },
     HttpRequestProvider,
     LoadingProvider,
     ToastProvider
