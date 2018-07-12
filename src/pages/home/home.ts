@@ -59,6 +59,7 @@ export class HomePage {
           console.log(res);
           if(res.session){
             this.storage.set('authUser',res.session.value).then(() => {
+              this.toast.show(res.session.value);
               loading.dismiss();
             })
           }

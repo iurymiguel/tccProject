@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class HttpRequestProvider {
 
+    private readonly TIMEOUT: number = 10000;
+
     constructor(public http: HttpClient) {
     }
 
@@ -17,7 +19,8 @@ export class HttpRequestProvider {
      */
     public get(url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.get(Config.API_URL + url).toPromise()
+            this.http.get(Config.API_URL + url).timeout(this.TIMEOUT)
+                .toPromise()
                 .then((response: any) => {
                     resolve(response);
                 }).catch(error => {
@@ -33,7 +36,8 @@ export class HttpRequestProvider {
      */
     public post(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.post(Config.API_URL + url, data).toPromise()
+            this.http.post(Config.API_URL + url, data).timeout(this.TIMEOUT)
+                .toPromise()
                 .then((response: any) => {
                     resolve(response);
                 }).catch(error => {
@@ -49,9 +53,10 @@ export class HttpRequestProvider {
      */
     public put(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.put(Config.API_URL + url, data).toPromise()
+            this.http.put(Config.API_URL + url, data).timeout(this.TIMEOUT)
+                .toPromise()
                 .then((response: any) => {
-                   resolve(response);
+                    resolve(response);
                 }).catch(error => {
                     reject(error);
                 });
@@ -65,7 +70,8 @@ export class HttpRequestProvider {
      */
     public patch(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.patch(Config.API_URL + url, data).toPromise()
+            this.http.patch(Config.API_URL + url, data).timeout(this.TIMEOUT)
+                .toPromise()
                 .then((response: any) => {
                     resolve(response);
                 }).catch(error => {
@@ -80,7 +86,8 @@ export class HttpRequestProvider {
      */
     public delete(url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.delete(Config.API_URL + url).toPromise()
+            this.http.delete(Config.API_URL + url).timeout(this.TIMEOUT)
+                .toPromise()
                 .then((response: any) => {
                     resolve(response);
                 }).catch(error => {
