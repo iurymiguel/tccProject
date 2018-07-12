@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Utils } from '../../utils';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { ToastProvider } from '../../providers/toast/toast';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -18,6 +19,7 @@ export class HomePage {
   public bluredInputs: any;
 
   constructor(public navCtrl: NavController,
+    public storage: Storage,
     public http: HttpRequestProvider,
     public formBuilder: FormBuilder,
     public loadingProvider: LoadingProvider,
@@ -55,7 +57,11 @@ export class HomePage {
       this.http.post(this.login, Config.AUTH_ENDPOINT)
         .then((res: any) => {
           console.log(res);
-          loading.dismiss();
+          if(res.session){
+            this.storage.set('authUser',res.session.value).then(() => {
+              loading.dismiss();
+            })
+          }
         })
         .catch((error) => {
           console.log(error);

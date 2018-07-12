@@ -11,6 +11,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { LoadingProvider } from '../providers/loading/loading';
 import { ToastProvider } from '../providers/toast/toast';
 import { InterceptorModule } from '../providers/interceptor';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { InterceptorModule } from '../providers/interceptor';
     HttpClientModule,
     InterceptorModule,
     BrowserModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
