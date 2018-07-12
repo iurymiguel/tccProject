@@ -3,8 +3,6 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS
 import { tap } from "rxjs/operators";
 import { Config } from "../config/config";
 import { Observable } from "rxjs";
-import { Storage } from "@ionic/storage";
-
 
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
