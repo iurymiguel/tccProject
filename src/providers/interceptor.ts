@@ -1,11 +1,14 @@
 import { Injectable, NgModule } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
+
 import { Config } from "../config/config";
+import { Observable } from "rxjs";
+
 
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
-    
+
     private headers = {
         'X-Atlassian-Token': 'no-check',
         'Content-Type': 'application/json',
@@ -14,12 +17,11 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const request = req.clone({ setHeaders: this.headers, withCredentials: true });
-        console.log(request);
-        return next.handle(request).do((event: HttpEvent<any>) => {
-            console.log(event)
-        },(error: any) => {
-            console.log(error);
-        });
+        return next.handle(request).pipe(tap(event => {
+            console.log(event);
+        }, error => {
+            console.log(error)
+        }));
     }
 }
 @NgModule({
@@ -31,4 +33,4 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
         },
     ],
 })
-export class Interceptor { }
+export class InterceptorModule { }

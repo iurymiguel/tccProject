@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs/Rx";
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/timeoutWith';
 
@@ -18,17 +17,11 @@ export class HttpRequestProvider {
      */
     public get(url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.get(Config.API_URL + url)
-                .toPromise()
+            this.http.get(Config.API_URL + url).toPromise()
                 .then((response: any) => {
-                    if (response.status === 200) {
-                        resolve(response._body);
-                    } else {
-                        reject(response._body);
-                    }
-                }).catch(err => {
-                    console.log(err);
-                    reject(err._body);
+                    resolve(response);
+                }).catch(error => {
+                    reject(error);
                 });
         });
     }
@@ -40,23 +33,11 @@ export class HttpRequestProvider {
      */
     public post(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.post(Config.API_URL + url, data)
-                .timeoutWith(Config.TIMEOUT,
-                    Observable.throw({ error: { statusCode: 504, message: 'timeout' } }))
-                .toPromise()
+            this.http.post(Config.API_URL + url, data).toPromise()
                 .then((response: any) => {
-                    if (response.status == '200') {
-                        resolve(response._body);
-                    } else {
-                        reject(response._body);
-                    }
-                }).catch(err => {
-                    console.log(err);
-                    if (err._body) {
-                        reject(err._body);
-                    } else {
-                        reject(err);
-                    }
+                    resolve(response);
+                }).catch(error => {
+                    reject(error);
                 });
         });
     }
@@ -68,16 +49,11 @@ export class HttpRequestProvider {
      */
     public put(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.put(Config.API_URL + url, data)
-                .toPromise()
+            this.http.put(Config.API_URL + url, data).toPromise()
                 .then((response: any) => {
-                    if (response.status == '200') {
-                        resolve(response._body);
-                    } else {
-                        reject(response._body);
-                    }
-                }).catch(err => {
-                    reject(err._body);
+                   resolve(response);
+                }).catch(error => {
+                    reject(error);
                 });
         });
     }
@@ -89,16 +65,11 @@ export class HttpRequestProvider {
      */
     public patch(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.patch(Config.API_URL + url, data)
-                .toPromise()
+            this.http.patch(Config.API_URL + url, data).toPromise()
                 .then((response: any) => {
-                    if (response.status == '200') {
-                        resolve(response._body);
-                    } else {
-                        reject(response._body);
-                    }
-                }).catch(err => {
-                    reject(err._body);
+                    resolve(response);
+                }).catch(error => {
+                    reject(error);
                 });
         });
     }
@@ -109,16 +80,11 @@ export class HttpRequestProvider {
      */
     public delete(url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.delete(Config.API_URL + url)
-                .toPromise()
+            this.http.delete(Config.API_URL + url).toPromise()
                 .then((response: any) => {
-                    if (response.status == '200') {
-                        resolve(response._body);
-                    } else {
-                        reject(response._body);
-                    }
-                }).catch(err => {
-                    reject(err._body);
+                    resolve(response);
+                }).catch(error => {
+                    reject(error);
                 });
         });
     }

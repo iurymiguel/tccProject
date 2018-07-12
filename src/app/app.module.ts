@@ -10,7 +10,7 @@ import { HttpRequestProvider } from '../providers/http-request/http-request';
 import { HttpClientModule} from '@angular/common/http';
 import { LoadingProvider } from '../providers/loading/loading';
 import { ToastProvider } from '../providers/toast/toast';
-import { Interceptor } from '../providers/interceptor';
+import { InterceptorModule } from '../providers/interceptor';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { Interceptor } from '../providers/interceptor';
   ],
   imports: [
     HttpClientModule,
-    Interceptor,
+    InterceptorModule,
     BrowserModule,
     IonicModule.forRoot(MyApp)
   ],
