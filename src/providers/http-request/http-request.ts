@@ -4,6 +4,7 @@ import 'rxjs/add/operator/timeoutWith';
 
 import { Config } from '../../config/config';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class HttpRequestProvider {
@@ -19,7 +20,8 @@ export class HttpRequestProvider {
      */
     public get(url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.get(Config.API_URL + url).timeout(this.TIMEOUT)
+            this.http.get(Config.API_URL + url)
+                .timeoutWith(Config.TIMEOUT, Observable.throw({ error: { statusCode: 504, message: 'timeout' } }))
                 .toPromise()
                 .then((response: any) => {
                     resolve(response);
@@ -36,7 +38,8 @@ export class HttpRequestProvider {
      */
     public post(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.post(Config.API_URL + url, data).timeout(this.TIMEOUT)
+            this.http.post(Config.API_URL + url, data)
+                .timeoutWith(Config.TIMEOUT, Observable.throw({ error: { statusCode: 504, message: 'timeout' } }))
                 .toPromise()
                 .then((response: any) => {
                     resolve(response);
@@ -53,7 +56,8 @@ export class HttpRequestProvider {
      */
     public put(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.put(Config.API_URL + url, data).timeout(this.TIMEOUT)
+            this.http.put(Config.API_URL + url, data)
+                .timeoutWith(Config.TIMEOUT, Observable.throw({ error: { statusCode: 504, message: 'timeout' } }))
                 .toPromise()
                 .then((response: any) => {
                     resolve(response);
@@ -70,7 +74,8 @@ export class HttpRequestProvider {
      */
     public patch(data: any, url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.patch(Config.API_URL + url, data).timeout(this.TIMEOUT)
+            this.http.patch(Config.API_URL + url, data)
+                .timeoutWith(Config.TIMEOUT, Observable.throw({ error: { statusCode: 504, message: 'timeout' } }))
                 .toPromise()
                 .then((response: any) => {
                     resolve(response);
@@ -86,7 +91,8 @@ export class HttpRequestProvider {
      */
     public delete(url: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.http.delete(Config.API_URL + url).timeout(this.TIMEOUT)
+            this.http.delete(Config.API_URL + url)
+                .timeoutWith(Config.TIMEOUT, Observable.throw({ error: { statusCode: 504, message: 'timeout' } }))
                 .toPromise()
                 .then((response: any) => {
                     resolve(response);
