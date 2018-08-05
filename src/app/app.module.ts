@@ -39,8 +39,8 @@ import { DragulaModule, DragulaService } from "ng2-dragula/ng2-dragula"
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpRequestProvider,
     LoadingProvider,
-    ToastProvider
-    DragulaService,
+    ToastProvider,
+    DragulaService
   ]
 })
 export class AppModule {}

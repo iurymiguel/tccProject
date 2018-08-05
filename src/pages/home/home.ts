@@ -67,6 +67,7 @@ export class HomePage {
         .catch((error) => {
           console.log(error);
           loading.dismiss();
+          this.navCtrl.push('KanbanPage');
           this.toast.show('Erro na requisição.');
         });
     } else {
