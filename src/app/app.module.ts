@@ -12,6 +12,7 @@ import { LoadingProvider } from '../providers/loading/loading';
 import { ToastProvider } from '../providers/toast/toast';
 import { InterceptorModule } from '../providers/interceptor';
 import { IonicStorageModule } from '@ionic/storage';
+import { DragulaModule, DragulaService } from "ng2-dragula/ng2-dragula"
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { IonicStorageModule } from '@ionic/storage';
     InterceptorModule,
     BrowserModule,
     IonicStorageModule.forRoot(),
+    DragulaModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -37,7 +39,8 @@ import { IonicStorageModule } from '@ionic/storage';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpRequestProvider,
     LoadingProvider,
-    ToastProvider
+    ToastProvider,
+    DragulaService
   ]
 })
 export class AppModule {}
