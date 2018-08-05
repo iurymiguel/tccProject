@@ -5,10 +5,10 @@ import { DragulaService } from "ng2-dragula/ng2-dragula"
 
 @IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-kanban',
+  templateUrl: 'kanban.html'
 })
-export class HomePage {
+export class KanbanPage {
 
   q1 = [];
   q2 = [];

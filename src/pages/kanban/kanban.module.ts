@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { HomePage } from './home';
 import { DragulaModule, DragulaService } from "ng2-dragula/ng2-dragula"
+import { KanbanPage } from './kanban';
 
 @NgModule({
   declarations: [
-    HomePage
+    KanbanPage
   ],
   imports: [
     DragulaModule,
-    IonicPageModule.forChild(HomePage),
+    IonicPageModule.forChild(KanbanPage),
   ],
   providers: [DragulaService]
 })
-export class HomePageModule {}
+export class KanbanPageModule {}
