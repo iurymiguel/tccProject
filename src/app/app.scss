@@ -14,13 +14,28 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.toolbar-background.toolbar-background-md, 
+.toolbar-background.toolbar-background-ios{
+  background: #052864;
+  color: white;
+}
+
+.toolbar-title.toolbar-title-md,
+.toolbar-title.toolbar-title-ios {
+  color:  white;
+}
+
+span.button-inner {
+  color: white;
+}
+
 .hasError{
     color: #FA2C00;
     margin-left: 5%;
 }
 
 // Dragula stuff
-
 .gu-mirror {
   position: fixed !important;
   margin: 0 !important;

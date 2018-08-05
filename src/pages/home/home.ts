@@ -59,13 +59,11 @@ export class HomePage {
           console.log(res);
           if(res.session){
             this.storage.set('authUser',res.session.value).then(() => {
-              this.toast.show(res.session.value);
-              loading.dismiss();
+              loading.dismiss().then(() => this.navCtrl.push('ProjectsPage'));
             })
           }
         })
         .catch((error) => {
-          console.log(error);
           loading.dismiss();
           this.toast.show('Erro na requisição.');
         });

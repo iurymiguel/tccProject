@@ -3,27 +3,30 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS
 import { tap } from "rxjs/operators";
 import { Config } from "../config/config";
 import { Observable } from "rxjs";
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
 
     private headers: any;
+    constructor(private storage: Storage){}
 
-    private authenticateUser(request){
-        if(request.url === Config.API_URL+Config.AUTH_ENDPOINT && request.method === 'POST'){
-            if(request.body && request.body.username && request.body.password){
+    private authenticateUser(request) {
+        if (request.url === Config.API_URL + Config.AUTH_ENDPOINT && request.method === 'POST') {
+            if (request.body && request.body.username && request.body.password) {
                 const base64 = btoa(`${request.body.username}:${request.body.password}`);
                 this.headers = {
                     'X-Atlassian-Token': 'no-check',
                     'Content-Type': 'application/json',
                     'Authorization': `Basic ${base64}`,
                 }
+                this.storage.set('authBase64', base64);
             }
         }
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.authenticateUser(req);        
+        this.authenticateUser(req);
         const request = req.clone({ setHeaders: this.headers, withCredentials: true });
         return next.handle(request).pipe(tap(event => {
             console.log(event);
