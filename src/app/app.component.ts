@@ -24,7 +24,7 @@ export class MyApp {
 
     storage.get('authUser').then((value) => {
       if(value){
-        this.rootPage = 'ProjectsPage';
+        this.rootPage = ProjectsPage;
       }
     });
 

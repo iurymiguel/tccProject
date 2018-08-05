@@ -13,6 +13,7 @@ import { ToastProvider } from '../providers/toast/toast';
 import { InterceptorModule } from '../providers/interceptor';
 import { IonicStorageModule } from '@ionic/storage';
 import { DragulaModule, DragulaService } from "ng2-dragula/ng2-dragula"
+import { ProjectsPageModule } from '../pages/projects/projects.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { DragulaModule, DragulaService } from "ng2-dragula/ng2-dragula"
     HttpClientModule,
     InterceptorModule,
     BrowserModule,
+    ProjectsPageModule,
     IonicStorageModule.forRoot(),
     DragulaModule,
     IonicModule.forRoot(MyApp)

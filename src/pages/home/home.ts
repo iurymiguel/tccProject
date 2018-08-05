@@ -37,22 +37,12 @@ export class HomePage {
     this.setBluredInputState(false);
   }
 
-  public getProject() {
-    this.http.get(Config.REST_API + '/user?username=tccinatel123@gmail.com')
-      .then((res) => {
-        console.log(JSON.parse(res));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
   /**
    * @description Faz o login na aplicação.
    */
   public doLogin() {
     if (this.loginForm.valid) {
-      const loading = this.loadingProvider.create('Carregando...');
+      const loading = this.loadingProvider.create('Carregando');
       loading.present();
       this.http.post(this.login, Config.AUTH_ENDPOINT)
         .then((res: any) => {
