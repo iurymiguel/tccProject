@@ -15,6 +15,28 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+ion-fab {
+  position: absolute;
+  float:  right;
+  bottom: 3%;
+  left: 80%;
+}
+
+.gray_color{
+  color: #989696
+}
+.direction_column {
+  flex-direction: column;
+}
+.bigger_size{
+  font-size: 55px;
+  margin-top: 10px;
+  color: #b3acac;
+}
+h5 {
+  color: #827b7b
+}
+
 .toolbar-background.toolbar-background-md, 
 .toolbar-background.toolbar-background-ios{
   background: #052864;

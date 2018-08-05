@@ -13,6 +13,7 @@ import { ToastProvider } from '../../providers/toast/toast';
 export class ProjectsPage {
 
 
+  public showLoading: boolean;
   public refresher: Refresher;
   public projectsList: any[] = new Array();
 
@@ -36,6 +37,7 @@ export class ProjectsPage {
     if(!this.refresher){
       loading = this.loadingProvider.create('Carregando');
       loading.present();
+      this.showLoading = true;
     }
     this.http.get(Config.REST_API + '/project?expand=description,lead,url,projectKeys')
       .then((result) => {
@@ -54,6 +56,7 @@ export class ProjectsPage {
     }else{
       loading.dismiss();
     }
+    this.showLoading = false;
   }
 
   public doRefresh(refresher) {

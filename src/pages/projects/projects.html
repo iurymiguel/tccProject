@@ -13,25 +13,38 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <ion-row *ngIf="projectsList?.length === 0 && !showLoading" class="direction_column" align-items-center>
+      <ion-icon class="bigger_size" name="md-alert"></ion-icon>
+      <h5>Nenhum projeto encontrado.</h5>
+    </ion-row>
+
   <ion-card *ngFor="let project of projectsList">
+    <ion-item>
+      <button>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-item>
     <ion-item>
       <ion-avatar item-start>
         <img [src]="project.avatarUrls['48x48']" />
       </ion-avatar>
-      <ion-label>{{ project.name }}</ion-label>
-      <ion-label>{{ project.projectTypeKey }}</ion-label>
-      <ion-label>{{ project.description }}</ion-label>
+      <ion-label text-wrap>{{ project.name }}</ion-label>
+      <ion-label text-wrap>{{ project.description }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-avatar item-start>
-        <ion-label><b>Líder do Projeto</b></ion-label>
+        <ion-label text-wrap><b>Líder do Projeto</b></ion-label>
         <img [src]="project.lead.avatarUrls['48x48']" />
-        <ion-label>{{ project.lead.displayName }}</ion-label>
+        <ion-label text-wrap>{{ project.lead.displayName }}</ion-label>
       </ion-avatar>
     </ion-item>
   </ion-card>
 
-
+  <ion-fab>
+      <button ion-fab color="primary">
+          <ion-icon name="add"></ion-icon>
+      </button>
+  </ion-fab>
 
 
 
