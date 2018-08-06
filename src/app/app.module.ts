@@ -14,6 +14,7 @@ import { InterceptorModule } from '../providers/interceptor';
 import { IonicStorageModule } from '@ionic/storage';
 import { DragulaModule, DragulaService } from "ng2-dragula/ng2-dragula"
 import { ProjectsPageModule } from '../pages/projects/projects.module';
+import { PopoverProjectPageModule } from '../pages/projects/popover-project/popover-project.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ProjectsPageModule } from '../pages/projects/projects.module';
     HttpClientModule,
     InterceptorModule,
     BrowserModule,
+    PopoverProjectPageModule,
     ProjectsPageModule,
     IonicStorageModule.forRoot(),
     DragulaModule,

@@ -26,7 +26,7 @@
       <ion-label text-wrap>{{ project.name }}</ion-label>
       <ion-label text-wrap> {{ project.projectTypeKey }}</ion-label>
     </ion-item>
-    <button class="overflow-btn">
+    <button class="overflow-btn" (click)="presentPopover($event)">
         <ion-icon name="more"></ion-icon>
     </button>
     <ion-label  text-wrap margin style="font-size: 1em">{{ project.description }}</ion-label>

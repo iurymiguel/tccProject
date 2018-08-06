@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Refresher } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Refresher, PopoverController } from 'ionic-angular';
 import { HttpRequestProvider } from '../../providers/http-request/http-request';
 import { Config } from '../../config/config';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { ToastProvider } from '../../providers/toast/toast';
+import { PopoverProjectPage } from './popover-project/popover-project';
 
 @IonicPage()
 @Component({
@@ -11,7 +12,6 @@ import { ToastProvider } from '../../providers/toast/toast';
   templateUrl: 'projects.html',
 })
 export class ProjectsPage {
-
 
   public showLoading: boolean;
   public refresher: Refresher;
@@ -22,6 +22,7 @@ export class ProjectsPage {
     public navParams: NavParams,
     public loadingProvider: LoadingProvider,
     public toastProvider: ToastProvider,
+    public popoverCtrl: PopoverController,
     public http: HttpRequestProvider) {
   }
 
@@ -34,7 +35,7 @@ export class ProjectsPage {
 
   public getProjects() {
     let loading;
-    if(!this.refresher){
+    if (!this.refresher) {
       loading = this.loadingProvider.create('Carregando');
       loading.present();
       this.showLoading = true;
@@ -46,22 +47,29 @@ export class ProjectsPage {
         this.dismissLoading(loading);
       })
       .catch((error) => {
-        this.dismissLoading(loading);        
+        this.dismissLoading(loading);
       });
   }
 
-  public dismissLoading(loading){
-    if(this.refresher){
-      this.refresher.complete();
-    }else{
-      loading.dismiss();
-    }
-    this.showLoading = false;
+  public presentPopover(event){
+    const popover = this.popoverCtrl.create(PopoverProjectPage);
+    popover.present({
+      ev: event
+    });
   }
 
   public doRefresh(refresher) {
     this.refresher = refresher;
     this.getProjects();
+  }
+
+  private dismissLoading(loading) {
+    if (this.refresher) {
+      this.refresher.complete();
+    } else {
+      loading.dismiss();
+    }
+    this.showLoading = false;
   }
 
 }
