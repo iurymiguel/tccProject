@@ -18,15 +18,17 @@ export class MyApp {
     splashScreen: SplashScreen,
     storage: Storage) {
 
+    storage.get('authUser').then((value) => {
+      if (value) {
+        this.rootPage = ProjectsPage;
+      }
+    });
+
     if (platform.is('cordova')) {
       Config.API_URL = 'http://basetestejira.inatel.br:8080';
     }
 
-    storage.get('authUser').then((value) => {
-      if(value){
-        this.rootPage = ProjectsPage;
-      }
-    });
+
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
