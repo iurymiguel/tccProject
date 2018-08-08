@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the PopoverProjectPage page.
+ * Generated class for the ProjectCreateEditPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,24 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-popover-project',
-  templateUrl: 'popover-project.html',
+  selector: 'page-project-create-edit',
+  templateUrl: 'project-create-edit.html',
 })
-export class PopoverProjectPage {
+export class ProjectCreateEditPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PopoverProjectPage');
-  }
-
-  public editProject(){
-
-  }
-
-  public deleteProject(){
-    
+    console.log('ionViewDidLoad ProjectCreateEditPage');
   }
 
 }
