@@ -24,7 +24,8 @@ export class MyApp {
       }
     });
 
-    if (platform.is('cordova')) {
+    Config.IS_CORDOVA = platform.is('cordova');
+    if (Config.IS_CORDOVA) {
       Config.API_URL = 'http://basetestejira.inatel.br:8080';
     }
 

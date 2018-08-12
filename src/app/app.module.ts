@@ -15,6 +15,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { DragulaModule, DragulaService } from "ng2-dragula/ng2-dragula"
 import { ProjectsPageModule } from '../pages/projects/projects.module';
 import { PopoverProjectPageModule } from '../pages/projects/popover-project/popover-project.module';
+import { HttpServiceProvider } from '../providers/http-service/http-service';
+import { HTTP } from '@ionic-native/http';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { PopoverProjectPageModule } from '../pages/projects/popover-project/popo
     HttpRequestProvider,
     LoadingProvider,
     ToastProvider,
-    DragulaService
+    DragulaService,
+    HttpServiceProvider,
+    HTTP
   ]
 })
 export class AppModule {}
