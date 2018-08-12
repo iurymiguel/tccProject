@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { HttpRequestProvider } from '../../providers/http-request/http-request';
 import { Config } from '../../config/config';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Utils } from '../../utils';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { ToastProvider } from '../../providers/toast/toast';
 import { Storage } from '@ionic/storage';
+import { HttpServiceProvider } from '../../providers/http-service/http-service';
 
 @Component({
   selector: 'page-home',
@@ -20,7 +20,7 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
     public storage: Storage,
-    public http: HttpRequestProvider,
+    public httpService: HttpServiceProvider,
     public formBuilder: FormBuilder,
     public loadingProvider: LoadingProvider,
     public toast: ToastProvider) {
@@ -44,7 +44,7 @@ export class HomePage {
     if (this.loginForm.valid) {
       const loading = this.loadingProvider.create('Carregando');
       loading.present();
-      this.http.post(this.login, Config.AUTH_ENDPOINT)
+      this.httpService.post(Config.AUTH_ENDPOINT, this.login)
         .then((res: any) => {
           console.log(res);
           if(res.session){

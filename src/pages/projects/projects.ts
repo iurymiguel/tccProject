@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Refresher, PopoverController } from 'ionic-angular';
-import { HttpRequestProvider } from '../../providers/http-request/http-request';
+
 import { Config } from '../../config/config';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { ToastProvider } from '../../providers/toast/toast';
 import { PopoverProjectPage } from './popover-project/popover-project';
+import { HttpServiceProvider } from '../../providers/http-service/http-service';
 
 @IonicPage()
 @Component({
@@ -23,7 +24,7 @@ export class ProjectsPage {
     public loadingProvider: LoadingProvider,
     public toastProvider: ToastProvider,
     public popoverCtrl: PopoverController,
-    public http: HttpRequestProvider) {
+    public httpService: HttpServiceProvider) {
   }
 
   /**
@@ -40,7 +41,7 @@ export class ProjectsPage {
       loading.present();
       this.showLoading = true;
     }
-    this.http.get(Config.REST_API + '/project?expand=description,lead,url,projectKeys')
+    this.httpService.get(Config.REST_API + '/project?expand=description,lead,url,projectKeys')
       .then((result) => {
         this.projectsList = result;
         console.log(this.projectsList);

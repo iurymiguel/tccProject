@@ -6,7 +6,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { HttpRequestProvider } from '../providers/http-request/http-request';
 import { HttpClientModule} from '@angular/common/http';
 import { LoadingProvider } from '../providers/loading/loading';
 import { ToastProvider } from '../providers/toast/toast';
@@ -43,7 +42,6 @@ import { HTTP } from '@ionic-native/http';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpRequestProvider,
     LoadingProvider,
     ToastProvider,
     DragulaService,

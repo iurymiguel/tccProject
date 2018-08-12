@@ -68,7 +68,12 @@ export class HttpServiceProvider {
     }
   }
 
-  public get(url: string, body: any): Promise<any> {
+  /**
+   * @description Método que faz requisições GET para o cordova e o browser.
+   * @param url a url do endpoint.
+   * @param body o body da requisição.
+   */
+  public get(url: string): Promise<any> {
     if (Config.IS_CORDOVA) {
       return new Promise<any>((resolve, reject) => {
         this.http.get(Config.API_URL + url, {}, HttpServiceProvider.header)
