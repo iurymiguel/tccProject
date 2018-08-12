@@ -14,6 +14,7 @@ export class HttpServiceProvider {
     public httpClient: HttpClient,
     public http: HTTP,
     public storage: Storage) {
+
     this.http.setDataSerializer('json');
   }
 
@@ -48,7 +49,8 @@ export class HttpServiceProvider {
       return new Promise<any>((resolve, reject) => {
         this.http.post(Config.API_URL + url, body, HttpServiceProvider.header)
           .then((result) => {
-            resolve(result);
+            result.data = JSON.parse(result.data);
+            resolve(result.data);
           })
           .catch((error) => {
             reject(error);
@@ -78,7 +80,8 @@ export class HttpServiceProvider {
       return new Promise<any>((resolve, reject) => {
         this.http.get(Config.API_URL + url, {}, HttpServiceProvider.header)
           .then((result) => {
-            resolve(result);
+            result.data = JSON.parse(result.data);
+            resolve(result.data);
           })
           .catch((error) => {
             reject(error);
