@@ -11,7 +11,7 @@ import { ProjectsPage } from '../pages/projects/projects';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = HomePage;
+  rootPage: any;
 
   constructor(platform: Platform,
     statusBar: StatusBar,
@@ -21,6 +21,8 @@ export class MyApp {
     storage.get('authUser').then((value) => {
       if (value) {
         this.rootPage = ProjectsPage;
+      }else{
+        this.rootPage = HomePage;
       }
     });
 
