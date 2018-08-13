@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 import { Config } from '../../config/config';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Utils } from '../../utils/utils';
@@ -23,6 +23,7 @@ export class HomePage {
     public httpService: HttpServiceProvider,
     public formBuilder: FormBuilder,
     public loadingProvider: LoadingProvider,
+    public menu: MenuController,
     public toast: ToastProvider) {
 
     this.loginForm = this.formBuilder.group({
@@ -49,6 +50,7 @@ export class HomePage {
           if (res.session) {
             this.storage.set('authUser', res.session.value).then(() => {
               loading.dismiss().then(() => {
+                this.menu.enable(true,'menuApp');
                 this.navCtrl.setRoot('ProjectsPage', { username: this.login.username });
               });
             })
