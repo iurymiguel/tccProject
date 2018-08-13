@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Refresher, PopoverController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Refresher, PopoverController, Loading } from 'ionic-angular';
 
 import { Config } from '../../config/config';
 import { LoadingProvider } from '../../providers/loading/loading';
@@ -7,6 +7,7 @@ import { ToastProvider } from '../../providers/toast/toast';
 import { PopoverProjectPage } from './popover-project/popover-project';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { Storage } from '../../../node_modules/@ionic/storage';
+import { Utils } from '../../utils/utils';
 
 @IonicPage()
 @Component({
@@ -16,9 +17,11 @@ import { Storage } from '../../../node_modules/@ionic/storage';
 export class ProjectsPage {
 
   public showLoading: boolean;
-  public refresher: Refresher;
   public projectsList: any[] = new Array();
   public user: any;
+  public isAdmin: boolean;
+  private refresher: Refresher;
+  private loading: Loading;
 
   constructor(
     public navCtrl: NavController,
@@ -52,19 +55,20 @@ export class ProjectsPage {
    * @param username o username do usuário.
    */
   public getUser(username) {
-    const loading = this.loadingProvider.create('Carregando');
-    loading.present().then(() => this.showLoading = true);
+    this.loading = this.loadingProvider.create('Carregando');
+    this.loading.present().then(() => this.showLoading = true);
     this.httpService.get(Config.REST_API +
       `/user?username=${username}&expand=groups,applicationRoles`)
       .then((result) => {
         console.log(result);
         this.storage.set('userData', result).then(() => {
-          this.dismissLoading(loading);
+          this.isAdmin = Utils.isAdmin(result);
+          console.log('isAdmin',this.isAdmin)
+          this.getProjects();
         });
-       
       })
       .catch((error) => {
-        this.dismissLoading(loading);
+        this.dismissLoading();
       });
   }
 
@@ -72,20 +76,17 @@ export class ProjectsPage {
    * @description Recupera lista de projetos.
    */
   public getProjects() {
-    let loading;
-    if (!this.refresher) {
-      loading = this.loadingProvider.create('Carregando');
-      loading.present().then(() => this.showLoading = true);
-    }
-    this.httpService.get(Config.REST_API + '/issue/createmeta')
+    const url = this.isAdmin ? '/project?expand=description,lead,url,projectKeys' : '/issue/createmeta';
+    this.httpService.get(Config.REST_API + url)
       .then((result) => {
+        console.log(result);
         if (result.projects) {
           this.projectsList = result.projects;
         }
-        this.dismissLoading(loading);
+        this.dismissLoading();
       })
       .catch((error) => {
-        this.dismissLoading(loading);
+        this.dismissLoading();
       });
   }
 
@@ -111,13 +112,12 @@ export class ProjectsPage {
 
   /**
    * @description Finaliza o loading.
-   * @param loading o componente loading.
    */
-  private dismissLoading(loading) {
+  private dismissLoading() {
     if (this.refresher) {
       this.refresher.complete();
     } else {
-      loading.dismiss();
+      this.loading.dismiss();
     }
     this.showLoading = false;
   }

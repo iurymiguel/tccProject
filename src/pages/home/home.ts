@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Config } from '../../config/config';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Utils } from '../../utils';
+import { Utils } from '../../utils/utils';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { ToastProvider } from '../../providers/toast/toast';
 import { Storage } from '@ionic/storage';
