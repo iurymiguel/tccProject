@@ -16,14 +16,15 @@
 // automatically applied to the <body> element in the app.
 img {
   width: 50px !important;
+  height: 50px !important;
 }
 
 ion-fab {
   position: absolute;
   float:  right;
-  bottom: 3%;
-  margin-right: 40px;
-  left: 80%;
+  right: 0;
+  bottom: 2vh;
+  margin-right: 3vh;
 }
 
 .gray_color{

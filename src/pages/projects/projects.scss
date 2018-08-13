@@ -1,8 +1,9 @@
 page-projects {
     button.overflow-btn {
-        position:  relative;
+        position: absolute;
+        top: 0;
+        right: 0;
         background: transparent;
-        float: right;
-        font-size: 2em;
+        font-size: 1.5em;
     }
 }
