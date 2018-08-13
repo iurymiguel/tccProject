@@ -31,6 +31,8 @@ export class ProjectsPage {
     public popoverCtrl: PopoverController,
     public httpService: HttpServiceProvider,
     public storage: Storage) {
+
+
   }
 
   /**
@@ -44,6 +46,11 @@ export class ProjectsPage {
    * @description Pega o username do local storage para fazer a requisição.
    */
   private getUserDataFromStorage() {
+    this.loading = this.loadingProvider.create('Carregando');
+    if (!this.showLoading) {
+      this.loading.present();
+      this.showLoading = true;
+    }
     this.storage.get('authBase64').then((base64) => {
       const username = atob(base64).split(':')[0];
       this.getUser(username);
@@ -55,9 +62,6 @@ export class ProjectsPage {
    * @param username o username do usuário.
    */
   public getUser(username) {
-    this.loading = this.loadingProvider.create('Carregando');
-    this.loading.present();
-    this.showLoading = true;
     this.httpService.get(Config.REST_API +
       `/user?username=${username}&expand=groups,applicationRoles`)
       .then((result) => {
@@ -78,10 +82,9 @@ export class ProjectsPage {
     const url = this.isAdmin ? '/project?expand=description,lead,url,projectKeys' : '/issue/createmeta';
     this.httpService.get(Config.REST_API + url)
       .then((result) => {
-        console.log(result);
         if (result.projects) {
           this.projectsList = result.projects;
-        }else{
+        } else {
           this.projectsList = result;
         }
         this.dismissLoading();
