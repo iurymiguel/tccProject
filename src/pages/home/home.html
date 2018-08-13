@@ -8,20 +8,22 @@
         <ion-input type="text" formControlName="username" [(ngModel)]="login.username" (ionBlur)="bluredInputs.isUsernameInputBlured = true"
           (ionFocus)="bluredInputs.isUsernameInputBlured = false"></ion-input>
       </ion-item>
-  
-      <ion-label *ngIf="(loginForm.get('username').hasError('required') || loginForm.get('username').hasError('pattern'))&& bluredInputs.isUsernameInputBlured" class="hasError">Campo obrigatório</ion-label>
-  
+
+      <ion-label *ngIf="(loginForm.get('username').hasError('required') || loginForm.get('username').hasError('pattern'))&& bluredInputs.isUsernameInputBlured"
+        class="hasError">Campo obrigatório</ion-label>
+
       <ion-item>
         <ion-label floating>Senha</ion-label>
         <ion-input type="password" formControlName="password" [(ngModel)]="login.password" (ionBlur)="bluredInputs.isPasswordInputBlured = true"
           (ionFocus)="bluredInputs.isPasswordInputBlured = false"></ion-input>
       </ion-item>
-  
-      <ion-label *ngIf="(loginForm.get('password').hasError('required') || loginForm.get('password').hasError('pattern'))&& bluredInputs.isPasswordInputBlured" class="hasError">Campo obrigatório</ion-label>
-  
+
+      <ion-label *ngIf="(loginForm.get('password').hasError('required') || loginForm.get('password').hasError('pattern'))&& bluredInputs.isPasswordInputBlured"
+        class="hasError">Campo obrigatório</ion-label>
+
       <button class="login-btn" ion-button block tappable type="submit">Entrar</button>
     </form>
   </div>
-  
+
 
 </ion-content>

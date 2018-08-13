@@ -27,14 +27,31 @@ export class HttpServiceProvider {
     if (url === Config.API_URL + Config.AUTH_ENDPOINT) {
       if (body && body.username && body.password) {
         const base64 = btoa(`${body.username}:${body.password}`);
-        HttpServiceProvider.header = {
-          'X-Atlassian-Token': 'no-check',
-          'Content-Type': 'application/json',
-          'Authorization': `Basic ${base64}`,
-        }
-        this.storage.set('authBase64', base64);
+        this.storage.set('authBase64', base64).then(() => this.buildHeader(base64));
       }
     }
+  }
+
+  /**
+   * @description Constrói o header das requisições.
+   * @param base64 base64 do username e senha.
+   */
+  private buildHeader(base64: string) {
+    HttpServiceProvider.header = {
+      'X-Atlassian-Token': 'no-check',
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${base64}`,
+    }
+  }
+
+
+  /**
+   * @description Pega a base64 (username:senha) do storage e monta o header.
+   */
+  public getBase64FromStorage(){
+    this.storage.get('authBase64').then((base64) => {
+      this.buildHeader(base64);
+    });
   }
 
 

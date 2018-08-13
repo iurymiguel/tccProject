@@ -6,6 +6,7 @@ import { HomePage } from '../pages/home/home';
 import { Config } from '../config/config';
 import { Storage } from '@ionic/storage';
 import { ProjectsPage } from '../pages/projects/projects';
+import { HttpServiceProvider } from '../providers/http-service/http-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,12 +17,14 @@ export class MyApp {
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
-    storage: Storage) {
+    storage: Storage,
+    httpService: HttpServiceProvider) {
 
     storage.get('authUser').then((value) => {
       if (value) {
         this.rootPage = ProjectsPage;
-      }else{
+        httpService.getBase64FromStorage();
+      } else {
         this.rootPage = HomePage;
       }
     });

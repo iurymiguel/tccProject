@@ -11,6 +11,10 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
     private static headers: any;
     constructor(private storage: Storage){}
 
+    /**
+     * @description Constrói header ao logar na aplicação.
+     * @param request requisição http.
+     */
     private authenticateUser(request) {
         if (request.url === Config.API_URL + Config.AUTH_ENDPOINT && request.method === 'POST') {
             if (request.body && request.body.username && request.body.password) {
@@ -25,6 +29,11 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
         }
     }
 
+    /**
+     * @description Intercepta requisição e resposta http.
+     * @param req Requisição enviada.
+     * @param next objeto que trata de interceptar.
+     */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.authenticateUser(req);
         const request = req.clone({ setHeaders: HttpsRequestInterceptor.headers, withCredentials: true });

@@ -21,30 +21,13 @@
   <ion-card *ngFor="let project of projectsList">
 
     <ion-card-content>
-      <div>
-        <button *ngIf="project.lead.name !== 'admjira'" class="overflow-btn" (click)="presentPopover($event)">
-          <ion-icon name="more"></ion-icon>
-        </button>
-        <div class="project-name-div"> 
-            <ion-avatar item-start>
-                <img [src]="project.avatarUrls['16x16']" />
-              </ion-avatar>
-              <ion-label text-wrap>{{ project.name }}</ion-label>
-        </div>
-        <ion-label text-wrap> {{ project.projectTypeKey }}</ion-label>
-      </div>
-      <div>
-        <ion-label text-wrap style="font-size: 1em">{{ project.description }}</ion-label>
-      </div>
-      <div>
-        <ion-avatar item-start>
-          <ion-label text-wrap>
-            <b>Líder do Projeto</b>
-          </ion-label>
-          <img [src]="project.lead.avatarUrls['48x48']" />
-          <ion-label text-wrap>{{ project.lead.displayName }}</ion-label>
-        </ion-avatar>
-      </div>
+      <button class="overflow-btn" (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+      <ion-avatar item-start>
+        <img [src]="project.avatarUrls['16x16']" />
+      </ion-avatar>
+      <ion-label text-wrap>{{ project.name }}</ion-label>
     </ion-card-content>
   </ion-card>
 

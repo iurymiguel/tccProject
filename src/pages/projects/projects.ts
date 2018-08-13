@@ -34,6 +34,9 @@ export class ProjectsPage {
     this.getProjects();
   }
 
+  /**
+   * @description Recupera lista de projetos.
+   */
   public getProjects() {
     let loading;
     if (!this.refresher) {
@@ -41,10 +44,13 @@ export class ProjectsPage {
       loading.present();
       this.showLoading = true;
     }
-    this.httpService.get(Config.REST_API + '/project?expand=description,lead,url,projectKeys')
+    this.httpService.get(Config.REST_API + '/issue/createmeta')
       .then((result) => {
-        this.projectsList = result;
-        console.log(this.projectsList);
+        console.log(result)
+        if (result.projects) {
+          this.projectsList = result.projects;
+        }
+
         this.dismissLoading(loading);
       })
       .catch((error) => {
@@ -52,18 +58,30 @@ export class ProjectsPage {
       });
   }
 
-  public presentPopover(event){
+  /**
+   * @description Abre popover contendo opções de editar e deletar.
+   * @param event 
+   */
+  public presentPopover(event) {
     const popover = this.popoverCtrl.create(PopoverProjectPage);
     popover.present({
       ev: event
     });
   }
 
+  /**
+   * @description Atualiza a lista de projeto através do refresher.
+   * @param refresher 
+   */
   public doRefresh(refresher) {
     this.refresher = refresher;
     this.getProjects();
   }
 
+  /**
+   * @description Finaliza o loading.
+   * @param loading o componente loading.
+   */
   private dismissLoading(loading) {
     if (this.refresher) {
       this.refresher.complete();
