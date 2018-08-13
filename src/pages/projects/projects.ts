@@ -82,6 +82,8 @@ export class ProjectsPage {
         console.log(result);
         if (result.projects) {
           this.projectsList = result.projects;
+        }else{
+          this.projectsList = result;
         }
         this.dismissLoading();
       })
