@@ -6,6 +6,7 @@ import { LoadingProvider } from '../../providers/loading/loading';
 import { ToastProvider } from '../../providers/toast/toast';
 import { PopoverProjectPage } from './popover-project/popover-project';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
+import { Storage } from '../../../node_modules/@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -17,6 +18,7 @@ export class ProjectsPage {
   public showLoading: boolean;
   public refresher: Refresher;
   public projectsList: any[] = new Array();
+  public user: any;
 
   constructor(
     public navCtrl: NavController,
@@ -24,14 +26,46 @@ export class ProjectsPage {
     public loadingProvider: LoadingProvider,
     public toastProvider: ToastProvider,
     public popoverCtrl: PopoverController,
-    public httpService: HttpServiceProvider) {
+    public httpService: HttpServiceProvider,
+    public storage: Storage) {
   }
 
   /**
    * @description Assim que entrar na página, a lista de projetos é carregada.
    */
   ionViewWillEnter() {
-    this.getProjects();
+    this.getUserDataFromStorage();
+  }
+
+  /**
+   * @description Pega o username do local storage para fazer a requisição.
+   */
+  private getUserDataFromStorage() {
+    this.storage.get('authBase64').then((base64) => {
+      const username = atob(base64).split(':')[0];
+      this.getUser(username);
+    });
+  }
+
+  /**
+   * @description Recupera dados do usuario logado.
+   * @param username o username do usuário.
+   */
+  public getUser(username) {
+    const loading = this.loadingProvider.create('Carregando');
+    loading.present().then(() => this.showLoading = true);
+    this.httpService.get(Config.REST_API +
+      `/user?username=${username}&expand=groups,applicationRoles`)
+      .then((result) => {
+        console.log(result);
+        this.storage.set('userData', result).then(() => {
+          this.dismissLoading(loading);
+        });
+       
+      })
+      .catch((error) => {
+        this.dismissLoading(loading);
+      });
   }
 
   /**
@@ -41,16 +75,13 @@ export class ProjectsPage {
     let loading;
     if (!this.refresher) {
       loading = this.loadingProvider.create('Carregando');
-      loading.present();
-      this.showLoading = true;
+      loading.present().then(() => this.showLoading = true);
     }
     this.httpService.get(Config.REST_API + '/issue/createmeta')
       .then((result) => {
-        console.log(result)
         if (result.projects) {
           this.projectsList = result.projects;
         }
-
         this.dismissLoading(loading);
       })
       .catch((error) => {

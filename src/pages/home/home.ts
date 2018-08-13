@@ -46,10 +46,11 @@ export class HomePage {
       loading.present();
       this.httpService.post(Config.AUTH_ENDPOINT, this.login)
         .then((res: any) => {
-          console.log(res);
-          if(res.session){
-            this.storage.set('authUser',res.session.value).then(() => {
-              loading.dismiss().then(() => this.navCtrl.push('ProjectsPage'));
+          if (res.session) {
+            this.storage.set('authUser', res.session.value).then(() => {
+              loading.dismiss().then(() => {
+                this.navCtrl.setRoot('ProjectsPage', { username: this.login.username });
+              });
             })
           }
         })
