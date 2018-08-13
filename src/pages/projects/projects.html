@@ -13,7 +13,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-row *ngIf="projectsList?.length === 0 && !showLoading" class="direction_column" align-items-center>
+  <ion-row *ngIf="!showLoading && projectsList?.length === 0" class="direction_column" align-items-center>
     <ion-icon class="bigger_size" name="md-alert"></ion-icon>
     <h5>Nenhum projeto encontrado.</h5>
   </ion-row>
@@ -21,7 +21,7 @@
   <ion-card *ngFor="let project of projectsList">
     <ion-card-content>
       <ion-item>
-        <button item-end class="overflow-btn" (click)="presentPopover($event)">
+        <button *ngIf="isAdmin" item-end class="overflow-btn" (click)="presentPopover($event)">
           <ion-icon name="more"></ion-icon>
         </button>
         <ion-avatar item-start>
@@ -43,7 +43,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-fab>
+  <ion-fab *ngIf="isAdmin">
     <button ion-fab color="primary">
       <ion-icon name="add"></ion-icon>
     </button>

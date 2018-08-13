@@ -56,14 +56,13 @@ export class ProjectsPage {
    */
   public getUser(username) {
     this.loading = this.loadingProvider.create('Carregando');
-    this.loading.present().then(() => this.showLoading = true);
+    this.loading.present();
+    this.showLoading = true;
     this.httpService.get(Config.REST_API +
       `/user?username=${username}&expand=groups,applicationRoles`)
       .then((result) => {
-        console.log(result);
         this.storage.set('userData', result).then(() => {
           this.isAdmin = Utils.isAdmin(result);
-          console.log('isAdmin',this.isAdmin)
           this.getProjects();
         });
       })
