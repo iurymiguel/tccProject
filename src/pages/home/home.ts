@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { HttpRequestProvider } from '../../providers/http-request/http-request';
+import { NavController, MenuController } from 'ionic-angular';
 import { Config } from '../../config/config';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Utils } from '../../utils';
+import { Utils } from '../../utils/utils';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { ToastProvider } from '../../providers/toast/toast';
 import { Storage } from '@ionic/storage';
+import { HttpServiceProvider } from '../../providers/http-service/http-service';
 
 @Component({
   selector: 'page-home',
@@ -20,9 +20,10 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
     public storage: Storage,
-    public http: HttpRequestProvider,
+    public httpService: HttpServiceProvider,
     public formBuilder: FormBuilder,
     public loadingProvider: LoadingProvider,
+    public menu: MenuController,
     public toast: ToastProvider) {
 
     this.loginForm = this.formBuilder.group({
@@ -37,35 +38,25 @@ export class HomePage {
     this.setBluredInputState(false);
   }
 
-  public getProject() {
-    this.http.get(Config.REST_API + '/user?username=tccinatel123@gmail.com')
-      .then((res) => {
-        console.log(JSON.parse(res));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
   /**
    * @description Faz o login na aplicação.
    */
   public doLogin() {
     if (this.loginForm.valid) {
-      const loading = this.loadingProvider.create('Carregando...');
+      const loading = this.loadingProvider.create('Carregando');
       loading.present();
-      this.http.post(this.login, Config.AUTH_ENDPOINT)
+      this.httpService.post(Config.AUTH_ENDPOINT, this.login)
         .then((res: any) => {
-          console.log(res);
-          if(res.session){
-            this.storage.set('authUser',res.session.value).then(() => {
-              this.toast.show(res.session.value);
-              loading.dismiss();
+          if (res.session) {
+            this.storage.set('authUser', res.session.value).then(() => {
+              loading.dismiss().then(() => {
+                this.menu.enable(true,'menuApp');
+                this.navCtrl.setRoot('ProjectsPage', { username: this.login.username });
+              });
             })
           }
         })
         .catch((error) => {
-          console.log(error);
           loading.dismiss();
           this.toast.show('Erro na requisição.');
         });
