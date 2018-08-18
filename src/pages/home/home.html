@@ -1,14 +1,29 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <div class="logo"></div>
+  <div class="form-div">
+    <ion-title class="title-style" text-center>Jira Application</ion-title>
+    <form [formGroup]="loginForm" (ngSubmit)="doLogin()" novalidate>
+      <ion-item>
+        <ion-label floating>Nome do usuário</ion-label>
+        <ion-input type="text" formControlName="username" [(ngModel)]="login.username" (ionBlur)="bluredInputs.isUsernameInputBlured = true"
+          (ionFocus)="bluredInputs.isUsernameInputBlured = false"></ion-input>
+      </ion-item>
+
+      <ion-label *ngIf="(loginForm.get('username').hasError('required') || loginForm.get('username').hasError('pattern'))&& bluredInputs.isUsernameInputBlured"
+        class="hasError">Campo obrigatório</ion-label>
+
+      <ion-item>
+        <ion-label floating>Senha</ion-label>
+        <ion-input type="password" formControlName="password" [(ngModel)]="login.password" (ionBlur)="bluredInputs.isPasswordInputBlured = true"
+          (ionFocus)="bluredInputs.isPasswordInputBlured = false"></ion-input>
+      </ion-item>
+
+      <ion-label *ngIf="(loginForm.get('password').hasError('required') || loginForm.get('password').hasError('pattern'))&& bluredInputs.isPasswordInputBlured"
+        class="hasError">Campo obrigatório</ion-label>
+
+      <button class="login-btn" ion-button block tappable type="submit">Entrar</button>
+    </form>
+  </div>
+
+
 </ion-content>

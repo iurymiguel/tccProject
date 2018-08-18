@@ -1,3 +1,31 @@
 page-home {
 
+    .scroll-content{
+        overflow: hidden;
+    }
+    
+    .logo {
+        width: 40%;
+        height: 40%;
+        margin: 20px auto 0;
+        border-radius: 10%;
+        background: url("../assets/imgs/jira.png") no-repeat;
+        background-size: 100%;
+      }
+    
+      .form-div {
+        position:  relative;
+        bottom: 10%;
+    }
+
+    .login-btn{
+        margin-top: 10%;
+    }
+
+    .toolbar-title-md, .title-style {
+        padding: 0 12px;
+        font-size: 2rem;
+        font-weight: 500;
+        color: #052864 !important;
+      }
 }
