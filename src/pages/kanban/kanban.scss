@@ -1,12 +1,18 @@
 page-Kanban {
 
+  ion-col.col{
+    margin-right: 5vh;
+    width: 30vh;
+  }
   ion-list {
     padding: 1vh 1vh 1vh 1vh;
     min-height: 100%;
+    width: 30vh;
     background-color: #eeeeee;
 
     ion-item.item.item-block {
       margin-bottom: 1vh;
+      width: 28vh;
     }
   }
 

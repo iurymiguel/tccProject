@@ -14,6 +14,13 @@ export class KanbanPage {
   public projectId: string;
   q1 = [];
   q2 = [];
+  q3 = [];
+  q4 = [];
+  q5 = [];
+  q6 = [];
+  q7 = [];
+  private onDropSubscription: any;
+  private onDragSubscription: any;
 
   constructor(
     public navCtrl: NavController,
@@ -33,24 +40,39 @@ export class KanbanPage {
       this.q1.push("1...." + i)
     }
 
+    this.subscribeDragulaEvents();
+    this.dragulaSettings();
+  }
 
-    dragulaService.drop.subscribe((value) => {
+  private dragulaSettings() {
+    const bag: any = this.dragulaService.find('bag');
+    if (bag !== undefined) this.dragulaService.destroy('bag');
+    this.dragulaService.setOptions('bag', {
+      revertOnSpill: true
+    });
+  }
+
+  private subscribeDragulaEvents() {
+    this.onDropSubscription = this.dragulaService.drop.subscribe((value) => {
       console.log(value)
     });
 
-    // this is to prevent 'bag already exists error'
-    // https://github.com/valor-software/ng2-dragula/issues/442
-    const bag: any = this.dragulaService.find('bag');
-    if (bag !== undefined) this.dragulaService.destroy('bag');
-
-    dragulaService.setOptions('bag', {
-      resetOnSpill: true
+    this.onDragSubscription = this.dragulaService.drag.subscribe((value) => {
+      console.log(value);
     });
-
   }
 
-  public ionViewWillLeave(){
+  public ionViewWillLeave() {
     this.screen.unlock();
+  }
+
+  public ngOnDestroy(){
+    this.unsubscribeDragulaEvents();
+  }
+
+  private unsubscribeDragulaEvents() {
+    this.onDropSubscription.unsubscribe();
+    this.onDragSubscription.unsubscribe();
   }
 
 }
