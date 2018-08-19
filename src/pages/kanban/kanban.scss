@@ -1,9 +1,13 @@
 page-Kanban {
 
   ion-list {
-    min-height: 100px;
-    padding-bottom: 50px;
-    background-color:yellow;
+    padding: 1vh 1vh 1vh 1vh;
+    min-height: 100%;
+    background-color: #eeeeee;
+
+    ion-item.item.item-block {
+      margin-bottom: 1vh;
+    }
   }
 
 }

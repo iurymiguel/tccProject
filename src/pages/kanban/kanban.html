@@ -7,22 +7,24 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-row>
+  <ion-row>
     <ion-col width-50 class="left">
       <div class="header">First Bucket</div>
-      <ion-list [dragula]='"bag"' [dragulaModel]="q1">
-        <button ion-item *ngFor="let item of q1">
-          {{item}}
-        </button>
+      <ion-list [dragula]='"bag"' [dragulaModel]="q1" no-lines>
+        <ion-item ion-item *ngFor="let item of q1" no-lines>
+          <h4 ion-item item-start>{{item}}</h4>
+          <h1 ion-item item-start>OI</h1>
+        </ion-item>
       </ion-list>
     </ion-col>
 
     <ion-col width-50 class="right">
       <div class="header">Second Bucket</div>
-      <ion-list [dragula]='"bag"' [dragulaModel]="q2">
-        <div ion-item *ngFor="let item of q2">
-          {{item}}
-        </div>
+      <ion-list [dragula]='"bag"' [dragulaModel]="q2" no-lines>
+        <ion-item ion-item *ngFor="let item of q2" no-lines>
+          <h4 ion-item item-start>{{item}}</h4>
+          <h1 ion-item item-start>OI</h1>
+        </ion-item>
       </ion-list>
     </ion-col>
   </ion-row>
