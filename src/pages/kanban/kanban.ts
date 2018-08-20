@@ -71,7 +71,6 @@ export class KanbanPage {
     if (bag !== undefined) this.dragulaService.destroy('bag');
     this.dragulaService.setOptions('bag', {
       revertOnSpill: true,
-      mirrorContainer: document.querySelector('.list')
     });
   }
 
