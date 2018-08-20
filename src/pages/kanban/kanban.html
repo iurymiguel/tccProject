@@ -7,60 +7,11 @@
 </ion-header>
 
 <ion-content padding>
-    <style>
-        #list-container, #container2{
-            /*The height produces the scroll bar.*/
-            height: 100px;
-            /*Make this scrollable.*/
-            overflow-y: auto;
-        }
-        </style>
-    <div id="list-container">
-        <ol id="list" class="list" [dragula]='"bag"' type="1">
-            <li>zero</li>
-            <li>one</li>
-            <li>two</li>
-            <li>three</li>
-            <li>four</li>
-            <li>five</li>
-            <li>six</li>
-            <li>seven</li>
-            <li>eight</li>
-            <li>nine</li>
-            <li>ten</li>
-            <li>eleven</li>
-            <li>twelve</li>
-            <li>thirteen</li>
-            <li>fourteen</li>
-            <li>fifteen</li>
-        </ol>
-    </div>
-    <div id="container2">
-        <ol id="hlist" class="list" [dragula]='"bag"'>
-            <li>zero</li>
-            <li>one</li>
-            <li>two</li>
-            <li>three</li>
-            <li>four</li>
-            <li>five</li>
-            <li>six</li>
-            <li>seven</li>
-            <li>eight</li>
-            <li>nine</li>
-            <li>ten</li>
-            <li>11</li>
-            <li>12</li>
-            <li>13</li>
-            <li>14</li>
-            <li>15</li>
-        </ol>
-    </div>
-
-  <!-- <ion-grid>
+  <ion-grid id="grid">
     <ion-row>
-      <ion-col col-2>
+      <ion-col col-2 >
         <div class="header">To Do</div>
-        <ion-list class="to-do" [dragula]='"bag"' [dragulaModel]="q1" no-lines>
+        <ion-list class="to-do" [dragula]='"bag"' [dragulaModel]="q1" no-lines id="to-do">
           <ion-item ion-item *ngFor="let item of q1" no-lines>
             <h4 ion-item item-start>{{item}}</h4>
             <h1 ion-item item-start>OI</h1>
@@ -70,7 +21,7 @@
 
       <ion-col col-2>
         <div class="header">Doing</div>
-        <ion-list class="doing" [dragula]='"bag"' [dragulaModel]="q2" no-lines>
+        <ion-list class="doing" [dragula]='"bag"' [dragulaModel]="q2" no-lines id="doing">
           <ion-item ion-item *ngFor="let item of q2" no-lines>
             <h4 ion-item item-start>{{item}}</h4>
             <h1 ion-item item-start>OI</h1>
@@ -78,9 +29,9 @@
         </ion-list>
       </ion-col>
 
-      <ion-col col-2>
+      <ion-col col-2  >
         <div class="header">To Test</div>
-        <ion-list class="to-test" [dragula]='"bag"' [dragulaModel]="q3" no-lines>
+        <ion-list class="to-test" [dragula]='"bag"' [dragulaModel]="q3" no-lines id="to-test">
           <ion-item ion-item *ngFor="let item of q3" no-lines>
             <h4 ion-item item-start>{{item}}</h4>
             <h1 ion-item item-start>OI</h1>
@@ -88,9 +39,9 @@
         </ion-list>
       </ion-col>
 
-      <ion-col col-2>
+      <ion-col col-2 >
         <div class="header">Testing</div>
-        <ion-list class="testing" [dragula]='"bag"' [dragulaModel]="q4" no-lines>
+        <ion-list class="testing" [dragula]='"bag"' [dragulaModel]="q4" no-lines  id="testing">
           <ion-item ion-item *ngFor="let item of q4" no-lines>
             <h4 ion-item item-start>{{item}}</h4>
             <h1 ion-item item-start>OI</h1>
@@ -98,7 +49,7 @@
         </ion-list>
       </ion-col>
 
-      <ion-col col-2 style="margin-right: 0">
+      <ion-col col-2 style="margin-right: 0"  id="done">
         <div class="header">Done</div>
         <ion-list class="done" [dragula]='"bag"' [dragulaModel]="q5" no-lines>
           <ion-item ion-item *ngFor="let item of q5" no-lines>
@@ -109,7 +60,7 @@
       </ion-col>
 
     </ion-row>
-  </ion-grid> -->
+  </ion-grid>
 
 
 </ion-content>

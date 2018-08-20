@@ -1,5 +1,15 @@
 page-Kanban {
 
+  .scroll-content{
+    overflow: hidden;
+  }
+
+  #grid{
+    padding-bottom: 10vh;
+    height: 78vh !important;
+    overflow-y: auto;
+  }
+
   ion-col.col{
     margin-right: 4%;
     width: 30vh;

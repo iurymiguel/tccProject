@@ -41,7 +41,7 @@ export class KanbanPage {
     this.projectId = this.navParams.get('projectId');
     console.log(this.projectId);
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 15; i++) {
       this.q1.push("1...." + i)
     }
 
@@ -53,14 +53,12 @@ export class KanbanPage {
     const _this = this;
     
     autoScroll([
-      document.querySelector('#list-container'),
-      document.querySelector('#container2')
+      document.querySelector('#grid'),
     ], {
-        margin: 20,
-        maxSpeed: 5,
+        margin: 150,
+        maxSpeed: 25,
         scrollWhenOutside: true,
         autoScroll: function () {
-          console.log('dragging', _this.isDragging && this.down);
           return this.down && _this.isDragging;
         }
       });
@@ -77,7 +75,6 @@ export class KanbanPage {
   private subscribeDragulaEvents() {
     this.onDropSubscription = this.dragulaService.drop.subscribe((value) => {
       this.isDragging = false;
-      console.log(value)
     });
 
     this.onDragSubsription = this.dragulaService.drag.subscribe((value) => {
@@ -86,7 +83,6 @@ export class KanbanPage {
 
     this.onDragEndSubscription = this.dragulaService.dragend.subscribe((value) => {
       this.isDragging = false;
-      console.log(value);
     });
   }
 
