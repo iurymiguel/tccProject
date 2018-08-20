@@ -7,7 +7,56 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
+    <style>
+        #list-container, #container2{
+            /*The height produces the scroll bar.*/
+            height: 100px;
+            /*Make this scrollable.*/
+            overflow-y: auto;
+        }
+        </style>
+    <div id="list-container">
+        <ol id="list" class="list" [dragula]='"bag"' type="1">
+            <li>zero</li>
+            <li>one</li>
+            <li>two</li>
+            <li>three</li>
+            <li>four</li>
+            <li>five</li>
+            <li>six</li>
+            <li>seven</li>
+            <li>eight</li>
+            <li>nine</li>
+            <li>ten</li>
+            <li>eleven</li>
+            <li>twelve</li>
+            <li>thirteen</li>
+            <li>fourteen</li>
+            <li>fifteen</li>
+        </ol>
+    </div>
+    <div id="container2">
+        <ol id="hlist" class="list" [dragula]='"bag"'>
+            <li>zero</li>
+            <li>one</li>
+            <li>two</li>
+            <li>three</li>
+            <li>four</li>
+            <li>five</li>
+            <li>six</li>
+            <li>seven</li>
+            <li>eight</li>
+            <li>nine</li>
+            <li>ten</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+        </ol>
+    </div>
+
+  <!-- <ion-grid>
     <ion-row>
       <ion-col col-2>
         <div class="header">To Do</div>
@@ -60,7 +109,7 @@
       </ion-col>
 
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
 
 </ion-content>
