@@ -3,7 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DragulaService } from "ng2-dragula/ng2-dragula"
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Config } from '../../config/config';
-
+import autoScroll from 'dom-autoscroller';
+import dragula from 'dragula';
+import * as $ from 'jquery';
 @IonicPage()
 @Component({
   selector: 'page-kanban',
@@ -17,10 +19,12 @@ export class KanbanPage {
   q3 = [];
   q4 = [];
   q5 = [];
-  q6 = [];
-  q7 = [];
+  
+  public drake: any;
+  private isDragging: boolean = false;
   private onDropSubscription: any;
-  private onDragSubscription: any;
+  private onDragSubsription: any;
+  private onDragEndSubscription: any;
 
   constructor(
     public navCtrl: NavController,
@@ -36,7 +40,7 @@ export class KanbanPage {
     this.projectId = this.navParams.get('projectId');
     console.log(this.projectId);
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 15; i++) {
       this.q1.push("1...." + i)
     }
 
@@ -44,21 +48,40 @@ export class KanbanPage {
     this.dragulaSettings();
   }
 
+  ngAfterViewInit() {
+    const _this = this;
+    
+    autoScroll([
+      document.querySelector('#grid'),
+    ], {
+        margin: 40,
+        maxSpeed: 30,
+        scrollWhenOutside: true,
+        autoScroll: function () {
+          return this.down && _this.isDragging;
+        }
+      });
+  }
+
   private dragulaSettings() {
     const bag: any = this.dragulaService.find('bag');
     if (bag !== undefined) this.dragulaService.destroy('bag');
     this.dragulaService.setOptions('bag', {
-      revertOnSpill: true
+      revertOnSpill: true,
     });
   }
 
   private subscribeDragulaEvents() {
     this.onDropSubscription = this.dragulaService.drop.subscribe((value) => {
-      console.log(value)
+      this.isDragging = false;
     });
 
-    this.onDragSubscription = this.dragulaService.drag.subscribe((value) => {
-      console.log(value);
+    this.onDragSubsription = this.dragulaService.drag.subscribe((value) => {
+      this.isDragging = true;
+    });
+
+    this.onDragEndSubscription = this.dragulaService.dragend.subscribe((value) => {
+      this.isDragging = false;
     });
   }
 
@@ -66,13 +89,14 @@ export class KanbanPage {
     this.screen.unlock();
   }
 
-  public ngOnDestroy(){
+  public ngOnDestroy() {
     this.unsubscribeDragulaEvents();
   }
 
   private unsubscribeDragulaEvents() {
     this.onDropSubscription.unsubscribe();
-    this.onDragSubscription.unsubscribe();
+    this.onDragSubsription.unsubscribe();
+    this.onDragEndSubscription.unsubscribe();
   }
 
 }
