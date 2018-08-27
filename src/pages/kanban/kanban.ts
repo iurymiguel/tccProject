@@ -19,8 +19,7 @@ export class KanbanPage {
   q3 = [];
   q4 = [];
   q5 = [];
-  q6 = [];
-  q7 = [];
+  
   public drake: any;
   private isDragging: boolean = false;
   private onDropSubscription: any;
@@ -55,8 +54,8 @@ export class KanbanPage {
     autoScroll([
       document.querySelector('#grid'),
     ], {
-        margin: 150,
-        maxSpeed: 25,
+        margin: 40,
+        maxSpeed: 30,
         scrollWhenOutside: true,
         autoScroll: function () {
           return this.down && _this.isDragging;
