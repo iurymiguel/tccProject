@@ -4,7 +4,7 @@ import { DragulaService } from "ng2-dragula/ng2-dragula"
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Config } from '../../config/config';
 import autoScroll from 'dom-autoscroller';
-
+import * as $ from 'jquery';
 @IonicPage()
 @Component({
   selector: 'page-kanban',
@@ -73,6 +73,7 @@ export class KanbanPage {
   private subscribeDragulaEvents() {
     this.onDropSubscription = this.dragulaService.drop.subscribe((value) => {
       this.isDragging = false;
+      this.setColumnsHeight();
     });
 
     this.onDragSubsription = this.dragulaService.drag.subscribe((value) => {
@@ -96,6 +97,11 @@ export class KanbanPage {
     this.onDropSubscription.unsubscribe();
     this.onDragSubsription.unsubscribe();
     this.onDragEndSubscription.unsubscribe();
+  }
+
+  private setColumnsHeight(){
+    const columns = document.getElementsByClassName('kanban-col');
+    console.log(columns);
   }
 
 }
