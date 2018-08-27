@@ -27,4 +27,20 @@ page-Kanban {
     }
   }
 
+  .kanban-row{
+    margin-top: 5vh;
+  }
+
+  .title-row{
+    position: fixed;
+    background: white;
+    color: black;
+    z-index: 1;
+    margin-top: -10px;
+    ion-col{
+      margin-left: 1vh;
+      margin-right: 10vh;
+    }
+  }
+
 }

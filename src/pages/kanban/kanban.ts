@@ -4,8 +4,7 @@ import { DragulaService } from "ng2-dragula/ng2-dragula"
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Config } from '../../config/config';
 import autoScroll from 'dom-autoscroller';
-import dragula from 'dragula';
-import * as $ from 'jquery';
+
 @IonicPage()
 @Component({
   selector: 'page-kanban',
@@ -54,7 +53,7 @@ export class KanbanPage {
     autoScroll([
       document.querySelector('#grid'),
     ], {
-        margin: 40,
+        margin: 30,
         maxSpeed: 30,
         scrollWhenOutside: true,
         autoScroll: function () {
