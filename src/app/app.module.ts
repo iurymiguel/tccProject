@@ -16,12 +16,16 @@ import { ProjectsPageModule } from '../pages/projects/projects.module';
 import { PopoverProjectPageModule } from '../pages/projects/popover-project/popover-project.module';
 import { HttpServiceProvider } from '../providers/http-service/http-service';
 import { HTTP } from '@ionic-native/http';
+import { PerfilPage } from '../pages/perfil/perfil';
+import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    PerfilPage,
+    HeaderMenuComponent
   ],
   imports: [
     HttpClientModule,
@@ -36,7 +40,8 @@ import { HTTP } from '@ionic-native/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    PerfilPage
   ],
   providers: [
     StatusBar,

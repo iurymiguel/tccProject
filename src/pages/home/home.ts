@@ -17,6 +17,7 @@ export class HomePage {
   public loginForm: FormGroup;
   public login: any;
   public bluredInputs: any;
+  static PerfilPage: any;
 
   constructor(public navCtrl: NavController,
     public storage: Storage,

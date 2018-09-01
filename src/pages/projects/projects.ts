@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Refresher, PopoverController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Refresher, PopoverController, Loading, Events } from 'ionic-angular';
 
 import { Config } from '../../config/config';
 import { LoadingProvider } from '../../providers/loading/loading';
@@ -30,9 +30,8 @@ export class ProjectsPage {
     public toastProvider: ToastProvider,
     public popoverCtrl: PopoverController,
     public httpService: HttpServiceProvider,
-    public storage: Storage) {
-
-
+    public storage: Storage,
+    public events: Events) {
   }
 
   /**
@@ -66,6 +65,10 @@ export class ProjectsPage {
       `/user?username=${username}&expand=groups,applicationRoles`)
       .then((result) => {
         this.storage.set('userData', result).then(() => {
+
+          console.log(result);
+          this.events.publish('header-menu', result);
+
           this.isAdmin = Utils.isAdmin(result);
           this.getProjects();
         });
