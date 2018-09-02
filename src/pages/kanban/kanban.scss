@@ -4,43 +4,45 @@ page-Kanban {
     overflow: hidden;
   }
 
+  .kanban-header{
+    z-index: 10;
+    margin-top: -2vh;
+    position: fixed;
+    background: white;
+    width: 100%;
+  }
+
   #grid{
-    padding-bottom: 10vh;
-    height: 78vh !important;
-    overflow-y: auto;
+    height: 103% !important;
+    overflow: auto;
+  }
+
+  ion-row{
+    padding-right: 10vh;
+    margin-top: 0 !important;
+    width: 150%;
+    margin-top: 5vh;
+  }
+
+  ion-list.kanban-col.done.list {
+    margin-left: -2vh;
   }
 
   ion-col.col{
-    margin-right: 4%;
+    margin-right: 13%;
     width: 30vh;
   }
   ion-list {
+    margin-top: 3vh !important;
     padding: 1vh 1vh 1vh 1vh;
     min-height: 100%;
-    width: 30vh;
+    width: 45vh;
     background-color: #eeeeee;
 
     ion-item.item.item-block {
       margin-bottom: 1vh;
-      width: 28vh;
+      width: 43vh;
       background: white;
     }
   }
-
-  .kanban-row{
-    margin-top: 5vh;
-  }
-
-  .title-row{
-    position: fixed;
-    background: white;
-    color: black;
-    z-index: 1;
-    margin-top: -10px;
-    ion-col{
-      margin-left: 1vh;
-      margin-right: 10vh;
-    }
-  }
-
 }

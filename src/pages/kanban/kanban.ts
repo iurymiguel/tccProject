@@ -54,7 +54,7 @@ export class KanbanPage {
       document.querySelector('#grid'),
     ], {
         margin: 30,
-        maxSpeed: 30,
+        maxSpeed: 40,
         scrollWhenOutside: true,
         autoScroll: function () {
           return this.down && _this.isDragging;
