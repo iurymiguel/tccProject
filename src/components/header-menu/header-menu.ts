@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { App, Nav, MenuController, Events } from 'ionic-angular';
+import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
+import { App, MenuController, Events, Nav } from 'ionic-angular';
 //import { AuthServiceProvider } from '../../providers/auth/auth-service';
 import { HomePage } from '../../pages/home/home';
 import { Storage } from '../../../node_modules/@ionic/storage';
@@ -15,27 +15,34 @@ import { Storage } from '../../../node_modules/@ionic/storage';
 })
 export class HeaderMenuComponent {
 
-  public userData;
+  @ViewChild(Nav) nav: Nav;
+  @Output() public onExitApp: EventEmitter<void>;
+
+  public userData: any = {
+    avatarUrls: '',
+  };
 
   constructor(//public authService: AuthServiceProvider,
     public menuCtrl: MenuController,
     public app: App,
     public storage: Storage,
     public events: Events) {
+
+    this.onExitApp = new EventEmitter<void>();  
+    this.watchUserData();
   }
 
   watchUserData() {
-    this.events.subscribe('header-menu', (userData)=> {
+    this.events.subscribe('header-menu', (userData) => {
       this.userData = userData;
+
+      console.log(this.userData);
     });
   }
 
   logoutClicked() {
-    console.log("Logout");
-    //this.authService.logout();
     this.menuCtrl.close();
-    var nav = this.app.getRootNav();
-    nav.setRoot(HomePage);
+    this.nav.push('HomePage');
   }
 
 }

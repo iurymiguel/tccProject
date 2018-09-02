@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, MenuController, Nav } from 'ionic-angular';
+import { Platform, MenuController, Nav, NavController, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
@@ -12,15 +12,18 @@ import { PerfilPage } from '../pages/perfil/perfil';
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
-  @ViewChild(Nav) nav: Nav;
   rootPage: any;
+
+  @ViewChild(Nav) nav: Nav;
 
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     storage: Storage,
     menu: MenuController,
+    public app: App,
     httpService: HttpServiceProvider) {
 
     storage.get('authUser').then((value) => {

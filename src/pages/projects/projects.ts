@@ -65,8 +65,6 @@ export class ProjectsPage {
       `/user?username=${username}&expand=groups,applicationRoles`)
       .then((result) => {
         this.storage.set('userData', result).then(() => {
-
-          console.log(result);
           this.events.publish('header-menu', result);
 
           this.isAdmin = Utils.isAdmin(result);
