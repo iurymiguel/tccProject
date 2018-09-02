@@ -15,9 +15,6 @@ import { Storage } from '../../../node_modules/@ionic/storage';
 })
 export class HeaderMenuComponent {
 
-  @ViewChild(Nav) nav: Nav;
-  @Output() public onExitApp: EventEmitter<void>;
-
   public userData: any = {
     avatarUrls: '',
   };
@@ -28,21 +25,19 @@ export class HeaderMenuComponent {
     public storage: Storage,
     public events: Events) {
 
-    this.onExitApp = new EventEmitter<void>();  
     this.watchUserData();
   }
 
   watchUserData() {
     this.events.subscribe('header-menu', (userData) => {
       this.userData = userData;
-
       console.log(this.userData);
     });
   }
 
   logoutClicked() {
     this.menuCtrl.close();
-    this.nav.push('HomePage');
-  }
+    this.events.publish('logout');
+   }
 
 }

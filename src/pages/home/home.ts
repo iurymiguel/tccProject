@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
+import { NavController, MenuController, Events } from 'ionic-angular';
 import { Config } from '../../config/config';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Utils } from '../../utils/utils';
@@ -24,6 +24,7 @@ export class HomePage {
     public httpService: HttpServiceProvider,
     public formBuilder: FormBuilder,
     public loadingProvider: LoadingProvider,
+    public events: Events,
     public menu: MenuController,
     public toast: ToastProvider) {
 
@@ -36,6 +37,11 @@ export class HomePage {
       username: '',
       password: ''
     };
+
+    this.events.subscribe('logout', () => {
+      this.navCtrl.setRoot(HomePage);
+    })
+
     this.setBluredInputState(false);
   }
 
