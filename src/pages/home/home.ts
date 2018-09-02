@@ -24,7 +24,6 @@ export class HomePage {
     public httpService: HttpServiceProvider,
     public formBuilder: FormBuilder,
     public loadingProvider: LoadingProvider,
-    public events: Events,
     public menu: MenuController,
     public toast: ToastProvider) {
 
@@ -37,11 +36,6 @@ export class HomePage {
       username: '',
       password: ''
     };
-
-    this.events.subscribe('logout', () => {
-      this.navCtrl.setRoot(HomePage);
-    })
-
     this.setBluredInputState(false);
   }
 

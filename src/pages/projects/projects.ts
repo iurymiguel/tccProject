@@ -8,6 +8,7 @@ import { PopoverProjectPage } from './popover-project/popover-project';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { Storage } from '../../../node_modules/@ionic/storage';
 import { Utils } from '../../utils/utils';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -32,6 +33,10 @@ export class ProjectsPage {
     public httpService: HttpServiceProvider,
     public storage: Storage,
     public events: Events) {
+
+    this.events.subscribe('logout', () => {
+      this.navCtrl.setRoot(HomePage);
+    })
   }
 
   /**
