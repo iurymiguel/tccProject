@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, MenuController } from 'ionic-angular';
 import { DragulaService } from "ng2-dragula/ng2-dragula"
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Config } from '../../config/config';
@@ -30,6 +30,8 @@ export class KanbanPage {
     public navParams: NavParams,
     private dragulaService: DragulaService,
     private screen: ScreenOrientation,
+    public menu: MenuController,
+    public events: Events,
   ) {
 
     if (Config.IS_CORDOVA) {
@@ -47,7 +49,15 @@ export class KanbanPage {
     this.dragulaSettings();
   }
 
-  ngAfterViewInit() {
+  public openMenu(){
+    this.menu.open('menuApp');
+  }
+
+  public ionViewWillEnter(){
+    this.events.publish('kanbanPageOpen', false);
+  } 
+
+  public ngAfterViewInit() {
     const _this = this;
     
     autoScroll([
@@ -87,6 +97,7 @@ export class KanbanPage {
 
   public ionViewWillLeave() {
     this.screen.unlock();
+    this.events.publish('kanbanPageOpen', true);
   }
 
   public ngOnDestroy() {
@@ -103,5 +114,7 @@ export class KanbanPage {
     const columns = document.getElementsByClassName('kanban-col');
     console.log(columns);
   }
+
+  
 
 }

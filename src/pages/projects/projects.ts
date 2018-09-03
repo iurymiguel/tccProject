@@ -34,10 +34,6 @@ export class ProjectsPage {
     public httpService: HttpServiceProvider,
     public storage: Storage,
     public events: Events) {
-
-    this.events.subscribe('logout', () => {
-      this.navCtrl.setRoot(HomePage);
-    })
   }
 
   /**

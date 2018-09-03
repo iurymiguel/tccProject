@@ -1,6 +1,6 @@
 <ion-nav [root]="rootPage"></ion-nav>
 
-<ion-menu [content]="menuApp" id="menuApp">
+<ion-menu [content]="menuApp" id="menuApp" (ionDrag)="getCurrentPage()">
     <ion-header>
         <ion-toolbar>
             <ion-title>
@@ -9,7 +9,7 @@
         </ion-toolbar>
     </ion-header>
     <ion-content>
-        <header-menu></header-menu>
+        <header-menu (onClickEvent)="onMenuClickEvent($event)" [(setCurrentName)]="currentPage"></header-menu>
     </ion-content>
 </ion-menu>
 

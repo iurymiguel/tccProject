@@ -8,20 +8,25 @@ import { Storage } from '@ionic/storage';
 import { ProjectsPage } from '../pages/projects/projects';
 import { HttpServiceProvider } from '../providers/http-service/http-service';
 import { PerfilPage } from '../pages/perfil/perfil';
+import { Utils } from '../utils/utils';
 
 @Component({
   templateUrl: 'app.html'
 })
 
 export class MyApp {
+
+  @ViewChild('menuApp') nav: Nav;
+  currentPage: string;
   rootPage: any;
 
   constructor(platform: Platform,
     statusBar: StatusBar,
     splashScreen: SplashScreen,
-    storage: Storage,
     menu: MenuController,
-    httpService: HttpServiceProvider) {
+    httpService: HttpServiceProvider,
+    public storage: Storage,
+    public events: Events) {
 
     storage.get('authUser').then((value) => {
       if (value) {
@@ -39,18 +44,33 @@ export class MyApp {
       Config.API_URL = 'http://basetestejira.inatel.br:8080';
     }
 
-
-
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.watchItIsKanbanPage();
     });
   }
 
-  goToPerfilPage() {
-    // this.nav.push(PerfilPage);
+  public watchItIsKanbanPage() {
+    this.events.subscribe('kanbanPageOpen', () => {
+      this.currentPage = Utils.PAGES.KANBAN_PAGE;
+    });
+  }
+
+  public getCurrentPage() {
+    this.currentPage = this.nav.getActive().name;
+  }
+
+  public onMenuClickEvent(event) {
+    switch (event) {
+      case Utils.PAGES.HOME_PAGE:
+        this.storage.clear();
+        this.nav.setRoot(HomePage);
+        break;
+      case 'pop':
+        this.nav.pop();
+        break;
+    }
   }
 }
 
