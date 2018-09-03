@@ -8,6 +8,7 @@ import { PopoverProjectPage } from './popover-project/popover-project';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { Storage } from '../../../node_modules/@ionic/storage';
 import { Utils } from '../../utils/utils';
+import { KanbanPage } from '../kanban/kanban';
 
 @IonicPage()
 @Component({
@@ -58,6 +59,14 @@ export class ProjectsPage {
   }
 
   /**
+   * @description Vai para a página do kanban do projeto.
+   * @param projectId id do projeto.
+   */
+  public goToProjectKanban(projectId){
+    this.navCtrl.push('KanbanPage',{projectId});
+  }
+
+  /**
    * @description Recupera dados do usuario logado.
    * @param username o username do usuário.
    */
@@ -99,6 +108,7 @@ export class ProjectsPage {
    * @param event 
    */
   public presentPopover(event) {
+    event.stopPropagation();
     const popover = this.popoverCtrl.create(PopoverProjectPage);
     popover.present({
       ev: event

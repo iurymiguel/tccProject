@@ -118,4 +118,64 @@ export class HttpServiceProvider {
     }
   }
 
+   /**
+   * @description Método que faz requisições PUT para o cordova e o browser.
+   * @param url a url do endpoint.
+   * @param body o body da requisição.
+   */
+  public put(url: string, body: any): Promise<any> {
+    if (Config.IS_CORDOVA) {
+      return new Promise<any>((resolve, reject) => {
+        this.http.put(url, body, HttpServiceProvider.header)
+          .then((result) => {
+            result.data = JSON.parse(result.data);
+            resolve(result.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    } else {
+      return new Promise<any>((resolve, reject) => {
+        this.httpClient.put(Config.API_URL + url, body)
+          .timeoutWith(Config.TIMEOUT, Observable.throw({ error: { statusCode: 504, message: 'timeout' } }))
+          .toPromise()
+          .then((response: any) => {
+            resolve(response);
+          }).catch(error => {
+            reject(error);
+          });
+      });
+    }
+  }
+
+  /**
+  * @description Método que faz requisições DELETE para o cordova e o browser.
+  * @param url a url do endpoint.
+  */
+  public delete(url: string): Promise<any> {
+    if (Config.IS_CORDOVA) {
+      return new Promise<any>((resolve, reject) => {
+        this.http.delete(Config.API_URL + url, {}, HttpServiceProvider.header)
+          .then((result) => {
+            result.data = JSON.parse(result.data);
+            resolve(result.data);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    } else {
+      return new Promise<any>((resolve, reject) => {
+        this.httpClient.delete(Config.API_URL + url)
+          .timeoutWith(Config.TIMEOUT, Observable.throw({ error: { statusCode: 504, message: 'timeout' } }))
+          .toPromise()
+          .then((response: any) => {
+            resolve(response);
+          }).catch(error => {
+            reject(error);
+          });
+      });
+    }
+  }
 }

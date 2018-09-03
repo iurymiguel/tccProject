@@ -18,7 +18,7 @@
     <h5>Nenhum projeto encontrado.</h5>
   </ion-row>
 
-  <ion-card *ngFor="let project of projectsList">
+  <ion-card *ngFor="let project of projectsList" (click)="goToProjectKanban(project.id)">
     <ion-card-content>
       <ion-item>
         <button *ngIf="isAdmin" item-end class="overflow-btn" (click)="presentPopover($event)">

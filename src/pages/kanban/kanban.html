@@ -6,30 +6,82 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
-
+<ion-content>
+  <ion-grid id="grid">
     <ion-row>
-    <ion-col width-50 class="left">
-      <div class="header">First Bucket</div>
-      <ion-list [dragula]='"bag"' [dragulaModel]="q1">
-        <button ion-item *ngFor="let item of q1">
-          {{item}}
-        </button>
-      </ion-list>
-    </ion-col>
+      <ion-col col-1>
+        <div class="kanban-header">To Do</div>
+        <ion-list class="kanban-col to-do" [dragula]='"bag"' [dragulaModel]="q1" no-lines id="to-do">
+          <ion-item ion-item *ngFor="let item of q1" no-lines>
 
-    <ion-col width-50 class="right">
-      <div class="header">Second Bucket</div>
-      <ion-list [dragula]='"bag"' [dragulaModel]="q2">
-        <div ion-item *ngFor="let item of q2">
-          {{item}}
-        </div>
-      </ion-list>
-    </ion-col>
-  </ion-row>
+            <p>OI</p>
+            <p>{{item}}</p>
+            <p>OI</p>
+            <p>{{item}}</p>
+            <p>OI</p>
+            <p>{{item}}</p>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+      <ion-col col-1>
+        <div class="kanban-header">Doing</div>
+        <ion-list class="kanban-col doing" [dragula]='"bag"' [dragulaModel]="q2" no-lines id="doing">
+          <ion-item ion-item *ngFor="let item of q2" no-lines>
+            <p>OI</p>
+            <p>{{item}}</p>
+            <p>OI</p>
+            <p>{{item}}</p>
+            <p>OI</p>
+            <p>{{item}}</p>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+      <ion-col col-1>
+        <div class="kanban-header">To Test</div>
+        <ion-list class="kanban-col to-test" [dragula]='"bag"' [dragulaModel]="q3" no-lines id="to-test">
+          <ion-item ion-item *ngFor="let item of q3" no-lines>
+            <p>OI</p>
+            <p>{{item}}</p>
+            <p>OI</p>
+            <p>{{item}}</p>
+            <p>OI</p>
+            <p>{{item}}</p>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+      <ion-col col-1>
+        <div class="kanban-header">Testing</div>
+        <ion-list class="kanban-col testing" [dragula]='"bag"' [dragulaModel]="q4" no-lines id="testing">
+          <ion-item ion-item *ngFor="let item of q4" no-lines>
+            <p>OI</p>
+            <p>{{item}}</p>
+            <p>OI</p>
+            <p>{{item}}</p>
+            <p>OI</p>
+            <p>{{item}}</p>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+      <ion-col col-1 style="margin-right: 0" id="done">
+        <div class="kanban-header">Done</div>
+        <ion-list class="kanban-col done" [dragula]='"bag"' [dragulaModel]="q5" no-lines>
+          <ion-item ion-item *ngFor="let item of q5" no-lines>
+            <p>OI</p>
+            <p>{{item}}</p>
+            <p>OI</p>
+            <p>{{item}}</p>
+            <p>OI</p>
+            <p>{{item}}</p>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </ion-grid>
+
 
 </ion-content>
