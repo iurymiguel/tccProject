@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DragulaService } from "ng2-dragula/ng2-dragula"
-
-
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { Config } from '../../config/config';
+import autoScroll from 'dom-autoscroller';
+import * as $ from 'jquery';
 @IonicPage()
 @Component({
   selector: 'page-kanban',
@@ -10,32 +12,96 @@ import { DragulaService } from "ng2-dragula/ng2-dragula"
 })
 export class KanbanPage {
 
+  public projectId: string;
   q1 = [];
   q2 = [];
+  q3 = [];
+  q4 = [];
+  q5 = [];
+  
+  public drake: any;
+  private isDragging: boolean = false;
+  private onDropSubscription: any;
+  private onDragSubsription: any;
+  private onDragEndSubscription: any;
 
   constructor(
-    navCtrl: NavController,
-    private dragulaService: DragulaService
-    ) {
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private dragulaService: DragulaService,
+    private screen: ScreenOrientation,
+  ) {
 
-    for (var i = 0; i < 5; i++) {
-      this.q1.push("1...." + i )
+    if (Config.IS_CORDOVA) {
+      this.screen.lock(this.screen.ORIENTATIONS.LANDSCAPE);
     }
 
+    this.projectId = this.navParams.get('projectId');
+    console.log(this.projectId);
 
-    dragulaService.drop.subscribe((value) => {
-      console.log(value)
-    });
+    for (var i = 0; i < 15; i++) {
+      this.q1.push("1...." + i)
+    }
 
-    // this is to prevent 'bag already exists error'
-    // https://github.com/valor-software/ng2-dragula/issues/442
+    this.subscribeDragulaEvents();
+    this.dragulaSettings();
+  }
+
+  ngAfterViewInit() {
+    const _this = this;
+    
+    autoScroll([
+      document.querySelector('#grid'),
+    ], {
+        margin: 30,
+        maxSpeed: 40,
+        scrollWhenOutside: true,
+        autoScroll: function () {
+          return this.down && _this.isDragging;
+        }
+      });
+  }
+
+  private dragulaSettings() {
     const bag: any = this.dragulaService.find('bag');
-    if (bag !== undefined ) this.dragulaService.destroy('bag');
+    if (bag !== undefined) this.dragulaService.destroy('bag');
+    this.dragulaService.setOptions('bag', {
+      revertOnSpill: true,
+    });
+  }
 
-    dragulaService.setOptions('bag', {
-      resetOnSpill: true
+  private subscribeDragulaEvents() {
+    this.onDropSubscription = this.dragulaService.drop.subscribe((value) => {
+      this.isDragging = false;
+      this.setColumnsHeight();
     });
 
+    this.onDragSubsription = this.dragulaService.drag.subscribe((value) => {
+      this.isDragging = true;
+    });
+
+    this.onDragEndSubscription = this.dragulaService.dragend.subscribe((value) => {
+      this.isDragging = false;
+    });
+  }
+
+  public ionViewWillLeave() {
+    this.screen.unlock();
+  }
+
+  public ngOnDestroy() {
+    this.unsubscribeDragulaEvents();
+  }
+
+  private unsubscribeDragulaEvents() {
+    this.onDropSubscription.unsubscribe();
+    this.onDragSubsription.unsubscribe();
+    this.onDragEndSubscription.unsubscribe();
+  }
+
+  private setColumnsHeight(){
+    const columns = document.getElementsByClassName('kanban-col');
+    console.log(columns);
   }
 
 }

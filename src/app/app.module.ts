@@ -16,6 +16,7 @@ import { ProjectsPageModule } from '../pages/projects/projects.module';
 import { PopoverProjectPageModule } from '../pages/projects/popover-project/popover-project.module';
 import { HttpServiceProvider } from '../providers/http-service/http-service';
 import { HTTP } from '@ionic-native/http';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { HTTP } from '@ionic-native/http';
     ToastProvider,
     DragulaService,
     HttpServiceProvider,
-    HTTP
+    HTTP,
+    ScreenOrientation,
   ]
 })
 export class AppModule {}
