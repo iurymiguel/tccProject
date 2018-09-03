@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Refresher, PopoverController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Refresher, PopoverController, Loading, Events } from 'ionic-angular';
 
 import { Config } from '../../config/config';
 import { LoadingProvider } from '../../providers/loading/loading';
@@ -9,6 +9,7 @@ import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { Storage } from '../../../node_modules/@ionic/storage';
 import { Utils } from '../../utils/utils';
 import { KanbanPage } from '../kanban/kanban';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -31,9 +32,12 @@ export class ProjectsPage {
     public toastProvider: ToastProvider,
     public popoverCtrl: PopoverController,
     public httpService: HttpServiceProvider,
-    public storage: Storage) {
+    public storage: Storage,
+    public events: Events) {
 
-
+    this.events.subscribe('logout', () => {
+      this.navCtrl.setRoot(HomePage);
+    })
   }
 
   /**
@@ -75,6 +79,8 @@ export class ProjectsPage {
       `/user?username=${username}&expand=groups,applicationRoles`)
       .then((result) => {
         this.storage.set('userData', result).then(() => {
+          this.events.publish('header-menu', result);
+
           this.isAdmin = Utils.isAdmin(result);
           this.getProjects();
         });

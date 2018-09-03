@@ -1,0 +1,13 @@
+<!-- Generated template for the HeaderMenuComponent component -->
+<div>
+    <ion-list>
+      <ion-list-header>
+          <ion-avatar class="avatar">
+                <img [src]="userData.avatarUrls['32x32']" />
+              <p class="name">{{userData.displayName}}</p>
+          </ion-avatar>
+      </ion-list-header>
+      <ion-item>Perfil</ion-item>
+      <ion-item (click)="logoutClicked()">Sair</ion-item>
+    </ion-list>
+  </div>

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform, MenuController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, MenuController, Nav, NavController, App, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
@@ -7,10 +7,12 @@ import { Config } from '../config/config';
 import { Storage } from '@ionic/storage';
 import { ProjectsPage } from '../pages/projects/projects';
 import { HttpServiceProvider } from '../providers/http-service/http-service';
+import { PerfilPage } from '../pages/perfil/perfil';
 
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
   rootPage: any;
 
@@ -45,6 +47,10 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+
+  goToPerfilPage() {
+    // this.nav.push(PerfilPage);
   }
 }
 
