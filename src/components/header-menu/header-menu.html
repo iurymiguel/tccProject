@@ -1,0 +1,15 @@
+<!-- Generated template for the HeaderMenuComponent component -->
+<div>
+    <ion-list>
+      <ion-list-header>
+          <ion-avatar class="avatar">
+                <img [src]="userData.avatarUrls['16x16']" />
+              <p class="name">{{userData.displayName}}</p>
+          </ion-avatar>
+      </ion-list-header>
+      <ion-item (click)="goToProfilePage()">Perfil</ion-item>
+      <ion-item *ngIf="currentPage === pages.KANBAN_PAGE">Inserir Usuário no Projeto</ion-item>
+      <ion-item *ngIf="currentPage === pages.KANBAN_PAGE" (click)="goBack()">Voltar</ion-item>  
+      <ion-item (click)="logoutClicked()">Sair</ion-item>
+    </ion-list>
+  </div>

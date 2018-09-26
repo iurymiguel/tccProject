@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController } from 'ionic-angular';
+import { NavController, MenuController, Events } from 'ionic-angular';
 import { Config } from '../../config/config';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Utils } from '../../utils/utils';
@@ -17,6 +17,7 @@ export class HomePage {
   public loginForm: FormGroup;
   public login: any;
   public bluredInputs: any;
+  static PerfilPage: any;
 
   constructor(public navCtrl: NavController,
     public storage: Storage,
