@@ -118,6 +118,7 @@ export class KanbanPage {
   }
 
   private watchProjectUsers(){
+    this.events.unsubscribe('ProjectUsersList');
     this.events.subscribe('ProjectUsersList',() => {
       this.menu.close();
       this.navCtrl.push('ProjectUsersPage', {project: this.project});
