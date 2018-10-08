@@ -12,7 +12,7 @@ import * as $ from 'jquery';
 })
 export class KanbanPage {
 
-  public projectId: string;
+  public project: string;
   q1 = [];
   q2 = [];
   q3 = [];
@@ -38,8 +38,8 @@ export class KanbanPage {
       this.screen.lock(this.screen.ORIENTATIONS.LANDSCAPE);
     }
 
-    this.projectId = this.navParams.get('projectId');
-    console.log(this.projectId);
+    this.project = this.navParams.get('project');
+    console.log(this.project);
 
     for (var i = 0; i < 15; i++) {
       this.q1.push("1...." + i)
@@ -55,6 +55,7 @@ export class KanbanPage {
 
   public ionViewWillEnter(){
     this.events.publish('kanbanPageOpen', false);
+    this.watchProjectUsers();
   } 
 
   public ngAfterViewInit() {
@@ -98,6 +99,7 @@ export class KanbanPage {
   public ionViewWillLeave() {
     this.screen.unlock();
     this.events.publish('kanbanPageOpen', true);
+    this.events.unsubscribe('kanbanPageOpen');
   }
 
   public ngOnDestroy() {
@@ -115,6 +117,11 @@ export class KanbanPage {
     console.log(columns);
   }
 
-  
+  private watchProjectUsers(){
+    this.events.subscribe('ProjectUsersList',() => {
+      this.menu.close();
+      this.navCtrl.push('ProjectUsersPage', {project: this.project});
+    });
+  }
 
 }

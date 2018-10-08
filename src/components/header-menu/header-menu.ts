@@ -43,7 +43,6 @@ export class HeaderMenuComponent {
   public watchUserData() {
     this.events.subscribe('header-menu', (userData) => {
       this.userData = userData;
-      console.log(this.userData);
     });
   }
 
@@ -60,6 +59,10 @@ export class HeaderMenuComponent {
     }
   }
 
+  public goToProjectUsersList(){
+    this.events.publish('ProjectUsersList');
+  }
+
   public goToProfilePage() {
     this.menuCtrl.close();
     this.onClickEvent.emit('ProfilePage');
@@ -69,7 +72,6 @@ export class HeaderMenuComponent {
     this.menuCtrl.close();
     this.onClickEvent.emit('pop');
   }
-
 
   public logoutClicked() {
     this.menuCtrl.close();

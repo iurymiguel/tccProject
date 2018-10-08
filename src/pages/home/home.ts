@@ -36,6 +36,7 @@ export class HomePage {
       username: '',
       password: ''
     };
+    menu.enable(false, 'menuApp');
     this.setBluredInputState(false);
   }
 

@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Integrantes do {{ currentProject.name }} </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-row *ngIf="!showLoading && projectUsers?.length === 0" class="direction_column" align-items-center>
+    <ion-icon class="bigger_size" name="md-alert"></ion-icon>
+    <h5>Nenhum usuário vinculado ao projeto.</h5>
+  </ion-row>
+
+  <ion-card *ngFor="let user of projectUsers" (click)="goToProjectKanban(project.id)">
+    <ion-card-content>
+      <ion-item>
+        <img item-start [src]="user.avatarUrl">
+        <ion-label item-start>{{ user.displayName }}</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab (click)="goToAddUserPage()">
+    <button ion-fab color="primary">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+</ion-content>

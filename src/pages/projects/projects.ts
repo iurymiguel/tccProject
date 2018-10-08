@@ -60,10 +60,10 @@ export class ProjectsPage {
 
   /**
    * @description Vai para a página do kanban do projeto.
-   * @param projectId id do projeto.
+   * @param projectId projeto selecionado.
    */
-  public goToProjectKanban(projectId){
-    this.navCtrl.push('KanbanPage',{projectId});
+  public goToProjectKanban(project){
+    this.navCtrl.push('KanbanPage',{project});
   }
 
   /**
