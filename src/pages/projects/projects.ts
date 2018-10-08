@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Refresher, PopoverController, Loading, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Refresher, PopoverController, Loading, Events, MenuController } from 'ionic-angular';
 
 import { Config } from '../../config/config';
 import { LoadingProvider } from '../../providers/loading/loading';
@@ -33,6 +33,7 @@ export class ProjectsPage {
     public popoverCtrl: PopoverController,
     public httpService: HttpServiceProvider,
     public storage: Storage,
+    public menu: MenuController,
     public events: Events) {
   }
 
@@ -40,6 +41,7 @@ export class ProjectsPage {
    * @description Assim que entrar na página, a lista de projetos é carregada.
    */
   ionViewWillEnter() {
+    this.menu.enable(true, 'menuApp');
     this.getUserDataFromStorage();
   }
 
