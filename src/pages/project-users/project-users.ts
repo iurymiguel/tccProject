@@ -40,7 +40,9 @@ export class ProjectUsersPage {
   }
 
   public goToAddUserPage(){
-    
+    const projectUsers = this.projectUsers.map((user) => user.key);
+    console.log(projectUsers);
+    this.navCtrl.push('AddProjectUserPage', {projectUsers, url: this.url});
   }
 
   public getProjectInfo() {

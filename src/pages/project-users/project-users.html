@@ -17,7 +17,7 @@
     <h5>Nenhum usuário vinculado ao projeto.</h5>
   </ion-row>
 
-  <ion-card *ngFor="let user of projectUsers" (click)="goToProjectKanban(project.id)">
+  <ion-card *ngFor="let user of projectUsers">
     <ion-card-content>
       <ion-item>
         <img item-start [src]="user.avatarUrl">
