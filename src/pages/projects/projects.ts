@@ -10,6 +10,7 @@ import { Storage } from '../../../node_modules/@ionic/storage';
 import { Utils } from '../../utils/utils';
 import { KanbanPage } from '../kanban/kanban';
 import { HomePage } from '../home/home';
+import { ProjectCreateEditPage } from '../project-create-edit/project-create-edit';
 
 @IonicPage()
 @Component({
@@ -74,6 +75,7 @@ export class ProjectsPage {
     this.httpService.get(Config.REST_API +
       `/user?username=${username}&expand=groups,applicationRoles`)
       .then((result) => {
+        console.log(result);
         this.storage.set('userData', result).then(() => {
           this.events.publish('header-menu', result);
 
@@ -136,6 +138,10 @@ export class ProjectsPage {
       this.loading.dismiss();
     }
     this.showLoading = false;
+  }
+
+  public createProjectPage() {
+    this.navCtrl.push(ProjectCreateEditPage);
   }
 
 }
