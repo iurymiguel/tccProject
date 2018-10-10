@@ -18,7 +18,7 @@ export class KanbanPage {
   q3 = [];
   q4 = [];
   q5 = [];
-  
+
   public drake: any;
   private isDragging: boolean = false;
   private onDropSubscription: any;
@@ -34,10 +34,6 @@ export class KanbanPage {
     public events: Events,
   ) {
 
-    if (Config.IS_CORDOVA) {
-      this.screen.lock(this.screen.ORIENTATIONS.LANDSCAPE);
-    }
-
     this.project = this.navParams.get('project');
     console.log(this.project);
 
@@ -49,18 +45,21 @@ export class KanbanPage {
     this.dragulaSettings();
   }
 
-  public openMenu(){
+  public openMenu() {
     this.menu.open('menuApp');
   }
 
-  public ionViewWillEnter(){
+  public ionViewWillEnter() {
+    if (Config.IS_CORDOVA) {
+      this.screen.lock(this.screen.ORIENTATIONS.LANDSCAPE);
+    }
     this.events.publish('kanbanPageOpen', false);
     this.watchProjectUsers();
-  } 
+  }
 
   public ngAfterViewInit() {
     const _this = this;
-    
+
     autoScroll([
       document.querySelector('#grid'),
     ], {
@@ -112,16 +111,16 @@ export class KanbanPage {
     this.onDragEndSubscription.unsubscribe();
   }
 
-  private setColumnsHeight(){
+  private setColumnsHeight() {
     const columns = document.getElementsByClassName('kanban-col');
     console.log(columns);
   }
 
-  private watchProjectUsers(){
+  private watchProjectUsers() {
     this.events.unsubscribe('ProjectUsersList');
-    this.events.subscribe('ProjectUsersList',() => {
+    this.events.subscribe('ProjectUsersList', () => {
       this.menu.close();
-      this.navCtrl.push('ProjectUsersPage', {project: this.project});
+      this.navCtrl.push('ProjectUsersPage', { project: this.project });
     });
   }
 

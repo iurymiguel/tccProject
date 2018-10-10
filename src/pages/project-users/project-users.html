@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Integrantes do {{ currentProject.name }} </ion-title>
+    <ion-title text-wrap>Integrantes do {{ currentProject.name }} </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -21,7 +21,7 @@
     <ion-card-content>
       <ion-item>
         <img item-start [src]="user.avatarUrl">
-        <ion-label item-start>{{ user.displayName }}</ion-label>
+        <ion-label item-start tex-wrap>{{ user.displayName }}</ion-label>
       </ion-item>
     </ion-card-content>
   </ion-card>

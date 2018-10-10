@@ -11,8 +11,8 @@ import { ToastProvider } from '../../providers/toast/toast';
 })
 export class AddProjectUserPage {
 
+  public systemUsers: any[];
   private projectUsers: any[];
-  private systemUsers: any[];
   private url: string;
   private loading: Loading;
   private showLoading: boolean;
@@ -47,8 +47,8 @@ export class AddProjectUserPage {
         const users: any[] = result.users.items;
         if (users) {
           this.systemUsers = users.filter((user) => {
-            const index = this.projectUsers.indexOf(user.key);
-            return (index === -1);
+            const index = this.projectUsers.indexOf(user.name);
+            return (index < 0);
           });
           this.dismissLoading();
         }
@@ -67,26 +67,39 @@ export class AddProjectUserPage {
   public confirmAddUser(user: any) {
     const alert = this.alertCtrl.create({
       title: 'Confirmar Adição no Projeto',
+      cssClass:'buttonCss',
       message: `Deseja inserir ${user.displayName} no projeto?`,
       buttons: [
         {
           text: 'Sim',
+          role: 'sim',
           handler: () => {
             this.insertUserInProject(user);
           },
         },
         {
           text: 'Não',
-          handler: () => {
-            alert.dismiss();
-          },
+          role: 'nao',
         }
       ],
     });
+    alert.present();
   }
 
   private insertUserInProject(user: any){
+    this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
+    this.loading.present();
+    console.log({user: [user.key]})
     this.http.post(this.url, {user: [user.key]})
+      .then((result) => {
+        console.log(result);
+        this.projectUsers.push(user.name);
+        this.getAllUsers();
+      })
+      .catch((error) => {
+        this.dismissLoading();
+        this.toast.show('Erro na requisição.');
+      })
   }
 
   private dismissLoading() {

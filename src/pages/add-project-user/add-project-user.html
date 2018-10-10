@@ -12,7 +12,7 @@
 
   <ion-row *ngIf="!showLoading && systemUsers?.length === 0" class="direction_column" align-items-center>
     <ion-icon class="bigger_size" name="md-alert"></ion-icon>
-    <h5>Nenhum usuário no sistema.</h5>
+    <h5>Nenhum usuário no sistema disponivel para este projeto.</h5>
   </ion-row>
 
   <ion-card *ngFor="let user of systemUsers">

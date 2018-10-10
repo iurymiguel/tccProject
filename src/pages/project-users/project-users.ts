@@ -40,7 +40,7 @@ export class ProjectUsersPage {
   }
 
   public goToAddUserPage(){
-    const projectUsers = this.projectUsers.map((user) => user.key);
+    const projectUsers = this.projectUsers.map((user) => user.name);
     console.log(projectUsers);
     this.navCtrl.push('AddProjectUserPage', {projectUsers, url: this.url});
   }
@@ -61,10 +61,12 @@ export class ProjectUsersPage {
     this.url = this.url.replace('http://basetestejira.inatel.br:8080','');
     this.http.get(this.url)
       .then((result) => {
-        this.dismissLoading();
+
+        console.log(result);
         if(result.actors){
           this.projectUsers = result.actors;
         }
+        this.dismissLoading();
       })
       .catch((error) => {
         this.dismissLoading();
