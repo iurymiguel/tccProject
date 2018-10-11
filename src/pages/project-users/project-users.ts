@@ -61,7 +61,6 @@ export class ProjectUsersPage {
     this.url = this.url.replace('http://basetestejira.inatel.br:8080','');
     this.http.get(this.url)
       .then((result) => {
-
         console.log(result);
         if(result.actors){
           this.projectUsers = result.actors;
@@ -82,9 +81,8 @@ export class ProjectUsersPage {
   private dismissLoading() {
     if (this.refresher) {
       this.refresher.complete();
-    }else{
-      this.loading.dismiss();
     }
+    this.loading.dismiss();
     this.showLoading = false;
   }
 
