@@ -4,13 +4,6 @@ import { Storage } from '../../../node_modules/@ionic/storage';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { Config } from '../../config/config';
 import { ToastProvider } from '../../providers/toast/toast';
-/**
- * Generated class for the ProjectCreateEditPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-project-create-edit',
@@ -19,17 +12,25 @@ import { ToastProvider } from '../../providers/toast/toast';
 export class ProjectCreateEditPage {
 
   public users: any[];
-  public project = {
-    "projectTemplateKey": "com.atlassian.jira-core-project-templates:jira-core-project-management",
-    "url": "http://atlassian.com",
-    "assigneeType": "PROJECT_LEAD",
-    "avatarId": 10200
+  public project: any ={
+    key: '',
+    name: '',
+    projectTypeKey: '',
+    description: '',
+    lead: '',
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public httpService: HttpServiceProvider, public toast: ToastProvider) { }
 
   ionViewWillEnter() {
+    this.project = {
+      key: '',
+      name: '',
+      projectTypeKey: '',
+      description: '',
+      lead: '',
+    };
     this.getAllUsers();
   }
 
@@ -45,7 +46,7 @@ export class ProjectCreateEditPage {
   }
 
   public createProject() {
-
+    debugger
     console.log(this.project);
     this.httpService.post(Config.CREATE_PROJECT, this.project)
       .then((res: any) => {
