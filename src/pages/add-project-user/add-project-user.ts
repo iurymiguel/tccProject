@@ -95,6 +95,7 @@ export class AddProjectUserPage {
         console.log(result);
         this.projectUsers.push(user.name);
         this.getAllUsers();
+        this.toast.show('Usuário inserido com sucesso');
       })
       .catch((error) => {
         this.dismissLoading();

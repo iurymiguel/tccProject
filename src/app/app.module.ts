@@ -19,6 +19,7 @@ import { HTTP } from '@ionic-native/http';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
+import { PopoverProjectUsersPageModule } from '../pages/project-users/popover-project-users/popover-project-users.module';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { HeaderMenuComponent } from '../components/header-menu/header-menu';
     InterceptorModule,
     BrowserModule,
     PopoverProjectPageModule,
+    PopoverProjectUsersPageModule,
     ProjectsPageModule,
     IonicStorageModule.forRoot(),
     DragulaModule,

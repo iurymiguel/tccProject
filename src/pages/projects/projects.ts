@@ -40,7 +40,7 @@ export class ProjectsPage {
   /**
    * @description Assim que entrar na página, a lista de projetos é carregada.
    */
-  ionViewWillEnter() {
+  public ionViewWillEnter() {
     this.menu.enable(true, 'menuApp');
     this.getUserDataFromStorage();
   }
@@ -80,6 +80,7 @@ export class ProjectsPage {
           this.events.publish('header-menu', result);
 
           this.isAdmin = Utils.isAdmin(result);
+          this.storage.set('isAdmin', this.isAdmin);
           this.getProjects();
         });
       })
