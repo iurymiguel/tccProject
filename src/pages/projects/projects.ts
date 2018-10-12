@@ -64,8 +64,8 @@ export class ProjectsPage {
    * @description Vai para a página do kanban do projeto.
    * @param projectId projeto selecionado.
    */
-  public goToProjectKanban(project){
-    this.navCtrl.push('KanbanPage',{project});
+  public goToProjectKanban(project) {
+    this.navCtrl.push('KanbanPage', { project });
   }
 
   /**
@@ -96,6 +96,7 @@ export class ProjectsPage {
     const url = this.isAdmin ? '/project?expand=description,lead,url,projectKeys' : '/issue/createmeta';
     this.httpService.get(Config.REST_API + url)
       .then((result) => {
+        console.log(result)
         if (result.projects) {
           this.projectsList = result.projects;
         } else {

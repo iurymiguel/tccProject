@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, MenuController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, MenuController, ModalController, LoadingController, Loading } from 'ionic-angular';
 import { DragulaService } from "ng2-dragula/ng2-dragula"
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Config } from '../../config/config';
 import autoScroll from 'dom-autoscroller';
 import * as $ from 'jquery';
+import { HttpServiceProvider } from '../../providers/http-service/http-service';
+import { ToastProvider } from '../../providers/toast/toast';
 @IonicPage()
 @Component({
   selector: 'page-kanban',
@@ -12,13 +14,15 @@ import * as $ from 'jquery';
 })
 export class KanbanPage {
 
-  public project: string;
-  q1 = [];
-  q2 = [];
-  q3 = [];
-  q4 = [];
-  q5 = [];
 
+  
+  toDoIssues = [];
+  doingIssues = [];
+  toTestIssues = [];
+  testingIssues = [];
+  doneIssues = [];
+  public project: any;
+  private loading: Loading;
   public drake: any;
   private isDragging: boolean = false;
   private onDropSubscription: any;
@@ -31,7 +35,10 @@ export class KanbanPage {
     private dragulaService: DragulaService,
     private screen: ScreenOrientation,
     public menu: MenuController,
+    public loadingCtrl: LoadingController,
+    public http: HttpServiceProvider,
     public modalCtrl: ModalController,
+    public toast: ToastProvider,
     public events: Events,
   ) {
 
@@ -39,7 +46,7 @@ export class KanbanPage {
     console.log(this.project);
 
     for (var i = 0; i < 15; i++) {
-      this.q1.push("1...." + i)
+      this.toDoIssues.push("1...." + i)
     }
 
     this.subscribeDragulaEvents();
@@ -56,6 +63,7 @@ export class KanbanPage {
     }
     this.events.publish('kanbanPageOpen', false);
     this.watchProjectUsers();
+    this.getIssues();
   }
 
   public ngAfterViewInit() {
@@ -123,6 +131,20 @@ export class KanbanPage {
       this.menu.close();
       this.navCtrl.push('ProjectUsersPage', { project: this.project });
     });
+  }
+
+  private getIssues() {
+    this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
+    this.loading.present();
+    this.http.get(`${Config.REST_API}/search?jql=project=${this.project.key}`)
+      .then((result) => { 
+        console.log(result);
+        this.loading.dismiss();
+      })
+      .catch((error) => {
+        console.log(error);
+        this.loading.dismiss().then(() => this.toast.show('Erro na requisição.'));
+      });
   }
 
   public editIssue(issue) {
