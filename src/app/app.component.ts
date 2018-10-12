@@ -52,7 +52,6 @@ export class MyApp {
   }
 
   public watchItIsKanbanPage() {
-    this.events.unsubscribe('kanbanPageOpen');
     this.events.subscribe('kanbanPageOpen', () => {
       this.currentPage = Utils.PAGES.KANBAN_PAGE;
     });

@@ -142,4 +142,8 @@ export class ProjectsPage {
     this.showLoading = false;
   }
 
+
+  public openMenu() {
+    this.menu.open('menuApp');
+  }
 }

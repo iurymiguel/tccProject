@@ -35,14 +35,12 @@ export class HeaderMenuComponent {
   }
 
   public watchItIsKanbanPage(){
-    this.events.unsubscribe('kanbanPageOpen');
     this.events.subscribe('kanbanPageOpen', (swipeMenu) => {
       this.menuCtrl.swipeEnable(swipeMenu);
     })
   }
 
   public watchUserData() {
-    this.events.unsubscribe('header-menu');
     this.events.subscribe('header-menu', (userData) => {
       this.userData = userData;
     });
