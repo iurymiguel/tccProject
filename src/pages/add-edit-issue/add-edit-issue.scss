@@ -1,0 +1,38 @@
+page-add-edit-issue {
+    ion-modal,.show-page {
+        background-color: rgba(0, 0, 0, .5) !important;
+        padding: 50px !important;
+      }
+     
+      ion-modal.modal-wrapper {
+          transform: translateY(30%) !important;
+      }
+    
+      ion-page.modal {
+          padding: 30px;
+          background: rgba(0, 0, 0, 0.5);
+      }
+    
+      .modal-backdrop-bg {
+          background-color: #000;
+          opacity: 0;
+      }
+    
+      .active .modal-backdrop-bg {
+          opacity: 0.5;
+      }    
+}
+ion-modal.issue-modal {
+    ion-backdrop {
+        visibility: visible;
+    }
+    .modal-wrapper{
+        height: 100pt;
+        position: relative;
+        top: 36%;
+        border-radius: 13px;
+        overflow: hidden;
+        margin: 2%;
+        transform: none !important;
+    }
+  }

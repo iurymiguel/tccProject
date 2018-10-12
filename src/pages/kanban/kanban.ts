@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, MenuController, ModalController } from 'ionic-angular';
 import { DragulaService } from "ng2-dragula/ng2-dragula"
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Config } from '../../config/config';
@@ -31,6 +31,7 @@ export class KanbanPage {
     private dragulaService: DragulaService,
     private screen: ScreenOrientation,
     public menu: MenuController,
+    public modalCtrl: ModalController,
     public events: Events,
   ) {
 
@@ -122,6 +123,20 @@ export class KanbanPage {
       this.menu.close();
       this.navCtrl.push('ProjectUsersPage', { project: this.project });
     });
+  }
+
+  public editIssue(issue) {
+    this.presentAddEditIssueModal(issue);
+  }
+
+  public presentAddEditIssueModal(issue) {
+    const rangeModal = this.modalCtrl.create('AddEditIssuePage', { issue, project: this.project },
+      {
+        cssClass: 'issue-modal',
+        enableBackdropDismiss: true,
+        showBackdrop: true,
+      });
+    rangeModal.present();
   }
 
 }
