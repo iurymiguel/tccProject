@@ -20,7 +20,16 @@ page-add-edit-issue {
     
       .active .modal-backdrop-bg {
           opacity: 0.5;
-      }    
+      }
+      
+      .issue-btn-edit {
+        display: -webkit-inline-box;
+        width: 50%;
+        margin-top: 15px;
+        button {
+            margin-right: 5px;
+        }
+    }
 }
 ion-modal.issue-modal {
     ion-backdrop {

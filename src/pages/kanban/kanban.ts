@@ -7,6 +7,9 @@ import autoScroll from 'dom-autoscroller';
 import * as $ from 'jquery';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { ToastProvider } from '../../providers/toast/toast';
+
+const ROLE = 'Developer';
+
 @IonicPage()
 @Component({
   selector: 'page-kanban',
@@ -14,8 +17,6 @@ import { ToastProvider } from '../../providers/toast/toast';
 })
 export class KanbanPage {
 
-
-  
   toDoIssues = [];
   doingIssues = [];
   toTestIssues = [];
@@ -28,6 +29,9 @@ export class KanbanPage {
   private onDropSubscription: any;
   private onDragSubsription: any;
   private onDragEndSubscription: any;
+  private issueTypes: any = [];
+  private projectUsers: any = [];
+  private url: string;
 
   constructor(
     public navCtrl: NavController,
@@ -137,7 +141,7 @@ export class KanbanPage {
     this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
     this.loading.present();
     this.http.get(`${Config.REST_API}/search?jql=project=${this.project.key}`)
-      .then((result) => { 
+      .then((result) => {
         console.log(result);
         this.loading.dismiss();
       })
@@ -148,17 +152,62 @@ export class KanbanPage {
   }
 
   public editIssue(issue) {
-    this.presentAddEditIssueModal(issue);
+    this.getIssuesType(issue);
   }
 
   public presentAddEditIssueModal(issue) {
-    const rangeModal = this.modalCtrl.create('AddEditIssuePage', { issue, project: this.project },
+    const rangeModal = this.modalCtrl.create('AddEditIssuePage',
+      {
+        issue, project: this.project, issueTypes: this.issueTypes,
+        projectUsers: this.projectUsers
+      },
       {
         cssClass: 'issue-modal',
         enableBackdropDismiss: true,
         showBackdrop: true,
       });
     rangeModal.present();
+  }
+
+  private getIssuesType(issue) {
+    this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
+    this.loading.present();
+    this.http.get(`${Config.REST_API}/issuetype`)
+      .then((result) => {
+        this.issueTypes = (result) ? result : [];
+        this.getProjectInfo(issue);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.loading.dismiss().then(() => this.toast.show('Erro na requisição.'));
+      });
+  }
+
+  public getProjectInfo(issue) {
+    this.http.get(`${Config.REST_API}/project/${this.project.id}`)
+      .then((res) => {
+        this.url = res.roles[ROLE];
+        this.getProjectUsersList(issue);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.loading.dismiss().then(() => this.toast.show('Erro na requisição.'));
+      });
+  }
+
+  public getProjectUsersList(issue) {
+    this.url = this.url.replace('http://basetestejira.inatel.br:8080', '');
+    this.http.get(this.url)
+      .then((result) => {
+        console.log(result);
+        if (result.actors) {
+          this.projectUsers = result.actors;
+        }
+        this.loading.dismiss().then(() => this.presentAddEditIssueModal(issue));
+      })
+      .catch((error) => {
+        this.loading.dismiss().then(() => this.toast.show('Erro na requisição.'));
+      });
   }
 
 }

@@ -8,14 +8,14 @@
     <ion-item>
      <ion-label>Responsável pela Issue:</ion-label>
       <ion-select>
-        <ion-option></ion-option>
+        <ion-option [value]="user.name" *ngFor="let user of projectUsers">{{user.displayName}}</ion-option>
       </ion-select>
     </ion-item>
     <span *ngIf="formGroup.get('assignee').hasError('required') && bluredInputs.name">Campo obrigatório</span>
     <ion-item>
       <ion-label>Tipo da Issue:</ion-label>
       <ion-select>
-        <ion-option></ion-option>
+        <ion-option [value]="issueType.id" *ngFor="let issueType of issueTypes">{{issueType.name}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -23,7 +23,7 @@
       <ion-textarea></ion-textarea>
     </ion-item>
     <button *ngIf="!isEditing" margin-top ion-button block>Criar</button>
-    <div *ngIf="isEditing">
+    <div *ngIf="isEditing" class="issue-btn-edit">
         <button ion-button block>Salvar</button>
         <button ion-button block>Deletar</button>
     </div>

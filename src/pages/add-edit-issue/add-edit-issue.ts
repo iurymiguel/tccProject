@@ -22,6 +22,9 @@ export class AddEditIssuePage {
   public isEditing: boolean;
   private formGroup: FormGroup;
   public bluredInputs: any;
+  public issueTypes: any[];
+  public projectUsers: any[];
+  public project: any;
 
   constructor(
     public navCtrl: NavController,
@@ -34,6 +37,9 @@ export class AddEditIssuePage {
         assignee: new FormControl('', [Validators.required, Validators.pattern(Utils.NO_SPACE_REGEX)]),
       });
       this.issue = this.navParams.get('issue');
+      this.projectUsers = this.navParams.get('projectUsers');
+      this.project = this.navParams.get('project');
+      this.issueTypes = this.navParams.get('issueTypes');
       this.isEditing = !!this.issue;
       this.setBluredInputState(false);
   }

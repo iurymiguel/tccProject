@@ -10,7 +10,7 @@
       <ion-icon class="menu-button-icon" name="refresh" (click)="getIssues()"></ion-icon>
     </button>
     <button class="plus-btn">
-      <ion-icon class="menu-button-icon" name="add" (click)="presentAddEditIssueModal()"></ion-icon>
+      <ion-icon class="menu-button-icon" name="add" (click)="getIssuesType()"></ion-icon>
     </button>
   </ion-navbar>
 </ion-header>
@@ -21,7 +21,7 @@
       <ion-col col-1>
         <div class="kanban-header">To Do</div>
         <ion-list class="kanban-col to-do" [dragula]='"bag"' [dragulaModel]="toDoIssues" no-lines id="to-do">
-          <ion-item ion-item *ngFor="let item of toDoIssues" no-lines (click)="editIssue()">
+          <ion-item ion-item *ngFor="let item of toDoIssues" no-lines (click)="editIssue(item)">
 
             <p>OI</p>
             <p>{{item}}</p>
