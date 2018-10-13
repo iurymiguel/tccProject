@@ -1,33 +1,30 @@
 <ion-content padding class="issue-modal">
-  <form id="form_issue" (ngSubmit)="createOrEditIssue()" [formGroup]="formGroup">
+  <form id="form_issue">
     <ion-item>
       <ion-label>Resumo da Issue:</ion-label>
-      <ion-input></ion-input>
+      <ion-input [ngModel]="issue.fields.summary" [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
-    <span *ngIf="formGroup.get('summary').hasError('required') && bluredInputs.name">Campo obrigatório</span>
     <ion-item>
      <ion-label>Responsável pela Issue:</ion-label>
-      <ion-select>
-        <ion-option [value]="user.name" *ngFor="let user of projectUsers">{{user.displayName}}</ion-option>
+      <ion-select [ngModel]="issue.fields.assignee.name" [ngModelOptions]="{standalone: true}">
+        <ion-option [value]="user.name" *ngFor="let user of projectUsers" name="assignee">{{user.displayName}}</ion-option>
       </ion-select>
     </ion-item>
-    <span *ngIf="formGroup.get('assignee').hasError('required') && bluredInputs.name">Campo obrigatório</span>
     <ion-item>
       <ion-label>Tipo da Issue:</ion-label>
-      <ion-select>
-        <ion-option [value]="issueType.id" *ngFor="let issueType of issueTypes">{{issueType.name}}</ion-option>
+      <ion-select [ngModel]="issue.fields.issuetype.id" [ngModelOptions]="{standalone: true}">
+        <ion-option [value]="issueType.id" *ngFor="let issueType of issueTypes" >{{issueType.name}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
         <ion-label>Descrição da Issue:</ion-label>
-      <ion-textarea></ion-textarea>
+      <ion-textarea [ngModel]="issue.fields.description" [ngModelOptions]="{standalone: true}"></ion-textarea>
     </ion-item>
-    <button *ngIf="!isEditing" margin-top ion-button block>Criar</button>
+    <button *ngIf="!isEditing" margin-top ion-button block (click)="createIssue()">Criar</button>
     <div *ngIf="isEditing" class="issue-btn-edit">
-        <button ion-button block>Salvar</button>
-        <button ion-button block>Deletar</button>
+        <button ion-button block (click)="editIssue()">Salvar</button>
+        <button ion-button block (click)="deleteIssue()">Deletar</button>
     </div>
   </form>
-
 
 </ion-content>
