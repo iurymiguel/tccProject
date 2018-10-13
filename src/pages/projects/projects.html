@@ -21,7 +21,7 @@
   <ion-card *ngFor="let project of projectsList" (click)="goToProjectKanban(project.id)">
     <ion-card-content>
       <ion-item>
-        <button *ngIf="isAdmin" item-end class="overflow-btn" (click)="presentPopover($event)">
+        <button *ngIf="isAdmin" item-end class="overflow-btn" (click)="presentPopover($event, project)">
           <ion-icon name="more"></ion-icon>
         </button>
         <ion-avatar item-start>

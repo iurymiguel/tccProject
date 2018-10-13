@@ -12,16 +12,15 @@
 
 </ion-header>
 
-
 <ion-content padding>
-  <form (ngSubmit)="createProject()" novalidate>
+  <form (ngSubmit)="projectRequest()" novalidate>
     <ion-list>
       <ion-grid>
         <ion-row>
           <ion-col col-12>
               <ion-item>
                   <ion-label floating>Chave do projeto:</ion-label>
-                  <ion-input type="text" [(ngModel)]="project.key" name="key"></ion-input>
+                  <ion-input type="text" [(ngModel)]="project.key" id="key" name="key" required ></ion-input>
                 </ion-item>
           </ion-col>
         </ion-row>
@@ -63,7 +62,7 @@
         </ion-row>
       </ion-grid>
     </ion-list>
-    <button ion-button>Cancelar</button>
-    <button ion-button type="submit">Criar</button>
+    <button ion-button type="button" (click)="goToProjectPage()">Cancelar</button>
+    <button ion-button type="submit">Salvar</button>
   </form>
 </ion-content>

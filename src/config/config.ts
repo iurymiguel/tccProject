@@ -6,7 +6,7 @@ export class Config {
 
     public static API_URL = '/jiraapi';
     public static readonly AUTH_ENDPOINT = '/rest/auth/1/session';
-    public static readonly CREATE_PROJECT = '/rest/api/2/project';
+    public static readonly PROJECT_ENDPOINT = '/rest/api/2/project';
     public static readonly REST_API = '/rest/api/2';
 
     public static readonly TIMEOUT = 10000;

@@ -111,9 +111,9 @@ export class ProjectsPage {
    * @description Abre popover contendo opções de editar e deletar.
    * @param event 
    */
-  public presentPopover(event) {
+  public presentPopover(event, project) {
     event.stopPropagation();
-    const popover = this.popoverCtrl.create(PopoverProjectPage);
+    const popover = this.popoverCtrl.create(PopoverProjectPage, {"project": project});
     popover.present({
       ev: event
     });
