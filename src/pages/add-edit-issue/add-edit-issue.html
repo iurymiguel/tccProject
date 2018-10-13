@@ -1,3 +1,33 @@
 <ion-content padding class="issue-modal">
+  <form id="form_issue" (ngSubmit)="createOrEditIssue()" [formGroup]="formGroup">
+    <ion-item>
+      <ion-label>Resumo da Issue:</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <span *ngIf="formGroup.get('summary').hasError('required') && bluredInputs.name">Campo obrigatório</span>
+    <ion-item>
+     <ion-label>Responsável pela Issue:</ion-label>
+      <ion-select>
+        <ion-option></ion-option>
+      </ion-select>
+    </ion-item>
+    <span *ngIf="formGroup.get('assignee').hasError('required') && bluredInputs.name">Campo obrigatório</span>
+    <ion-item>
+      <ion-label>Tipo da Issue:</ion-label>
+      <ion-select>
+        <ion-option></ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Descrição da Issue:</ion-label>
+      <ion-textarea></ion-textarea>
+    </ion-item>
+    <button *ngIf="!isEditing" margin-top ion-button block>Criar</button>
+    <div *ngIf="isEditing">
+        <button ion-button block>Salvar</button>
+        <button ion-button block>Deletar</button>
+    </div>
+  </form>
+
 
 </ion-content>
