@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, MenuController, ModalController, LoadingController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, MenuController, ModalController, LoadingController, Loading, Label } from 'ionic-angular';
 import { DragulaService } from "ng2-dragula/ng2-dragula"
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Config } from '../../config/config';
@@ -32,6 +32,7 @@ export class KanbanPage {
   private issueTypes: any = [];
   private projectUsers: any = [];
   private url: string;
+  public readonly statusKey: any[] = ['to-do', 'doing', 'to-test', 'testing', 'done'];
 
   constructor(
     public navCtrl: NavController,
@@ -48,10 +49,6 @@ export class KanbanPage {
 
     this.project = this.navParams.get('project');
     console.log(this.project);
-
-    for (var i = 0; i < 15; i++) {
-      this.toDoIssues.push("1...." + i)
-    }
 
     this.subscribeDragulaEvents();
     this.dragulaSettings();
@@ -96,7 +93,13 @@ export class KanbanPage {
   private subscribeDragulaEvents() {
     this.onDropSubscription = this.dragulaService.drop.subscribe((value) => {
       this.isDragging = false;
-      this.setColumnsHeight();
+      console.log(value);
+      const from: string = value[3].id;
+      const to: string = value[2].id;
+      if(from !== to){
+        console.log('from', from);
+        console.log('to', to);
+      }
     });
 
     this.onDragSubsription = this.dragulaService.drag.subscribe((value) => {
@@ -124,11 +127,6 @@ export class KanbanPage {
     this.onDragEndSubscription.unsubscribe();
   }
 
-  private setColumnsHeight() {
-    const columns = document.getElementsByClassName('kanban-col');
-    console.log(columns);
-  }
-
   private watchProjectUsers() {
     this.events.unsubscribe('ProjectUsersList');
     this.events.subscribe('ProjectUsersList', () => {
@@ -143,12 +141,51 @@ export class KanbanPage {
     this.http.get(`${Config.REST_API}/search?jql=project=${this.project.key}`)
       .then((result) => {
         console.log(result);
+        this.organizeIssues(result.issues);
         this.loading.dismiss();
       })
       .catch((error) => {
         console.log(error);
         this.loading.dismiss().then(() => this.toast.show('Erro na requisição.'));
       });
+  }
+
+  public organizeIssues(issues: any[]) {
+    this.toDoIssues = [];
+    this.doingIssues = [];
+    this.toTestIssues = [];
+    this.testingIssues = [];
+    this.doneIssues = [];
+    issues.forEach((issue) => {
+      let issueStatus = undefined;
+      for (let label of issue.fields.labels) {
+        if (label in this.statusKey) {
+          issueStatus = label;
+          break;
+        }
+      }
+      if (!issueStatus) {
+        issueStatus = 'todo';
+        issue.fields.labels.unshift(issueStatus);
+      }
+
+      switch (issueStatus) {
+        case 'todo':
+          this.toDoIssues.push(issue);
+          break;
+        case 'doing':
+          this.doingIssues.push(issue);
+          break;
+        case 'totest':
+          this.toTestIssues.push(issues);
+          break;
+        case 'testing':
+          this.testingIssues.push(issue);
+          break;
+        case 'done':
+          break;
+      }
+    });
   }
 
   public editIssue(issue) {

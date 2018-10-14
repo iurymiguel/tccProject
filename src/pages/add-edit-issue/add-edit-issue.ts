@@ -19,6 +19,10 @@ export class AddEditIssuePage {
   public projectUsers: any[];
   public project: any;
   public loading: Loading;
+  private summary: string;
+  private assigneeName: string;
+  private issueTypeId: string;
+  private description: string;
 
   constructor(
     public navCtrl: NavController,
@@ -33,39 +37,31 @@ export class AddEditIssuePage {
     this.project = this.navParams.get('project');
     this.issueTypes = this.navParams.get('issueTypes');
     this.isEditing = !!this.issue;
-    if (!this.issue) {
-      this.issue = {
-        fields: {
-          project: {
-            id: this.project.id,
-          },
-          summary: '',
-          assignee: {
-            name: ''
-          },
-          issuetype: {
-            id: ''
-          },
-          labels: [
-            "todo"
-          ],
-          description: '',
-        }
-      };
-    }
-    
   }
 
-
-  public ionViewWillEnter() {
-
-  }
-
-  public createIssue(){
+  public createIssue() {
     this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
     this.loading.present();
-    console.log(this.issue);
-    this.http.post(`${Config.REST_API}/issue`, this.issue)
+    const body = {
+      fields: {
+        project: {
+          id: this.project.id,
+        },
+        summary: this.summary,
+        assignee: {
+          name: this.assigneeName,
+        },
+        issuetype: {
+          id: this.issueTypeId,
+        },
+        labels: [
+          "todo"
+        ],
+        description: this.description,
+      }
+    };
+    console.log(body);
+    this.http.post(`${Config.REST_API}/issue`, body)
       .then((result) => {
         console.log(result);
         this.loading.dismiss();
@@ -77,11 +73,11 @@ export class AddEditIssuePage {
       });
   }
 
-  public editIssue(){
+  public editIssue() {
 
   }
 
-  public deleteIssue(){
+  public deleteIssue() {
     this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
     this.loading.present();
     this.http.delete(`${Config.REST_API}/issue/${this.issue.id}`)
