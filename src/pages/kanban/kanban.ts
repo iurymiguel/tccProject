@@ -114,7 +114,4 @@ export class KanbanPage {
     const columns = document.getElementsByClassName('kanban-col');
     console.log(columns);
   }
-
-  
-
 }

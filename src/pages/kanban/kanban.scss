@@ -6,10 +6,10 @@ page-Kanban {
 
   .kanban-header{
     z-index: 10;
-    margin-top: -2vh;
-    position: fixed;
+    position: relative;
     background: white;
-    width: 100%;
+    width: 45vh;
+    text-align: center;
   }
 
   #grid{
@@ -24,16 +24,12 @@ page-Kanban {
     margin-top: 5vh;
   }
 
-  ion-list.kanban-col.done.list {
-    margin-left: -2vh;
-  }
-
   ion-col.col{
     margin-right: 13%;
     width: 30vh;
   }
   ion-list {
-    margin-top: 3vh !important;
+    margin-top: 5vh !important;
     padding: 1vh 1vh 1vh 1vh;
     min-height: 100%;
     width: 45vh;
