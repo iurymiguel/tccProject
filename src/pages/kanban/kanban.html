@@ -23,8 +23,7 @@
         <ion-list class="kanban-col to-do" [dragula]='"bag"' [dragulaModel]="toDoIssues" no-lines id="to-do">
           <ion-item ion-item *ngFor="let item of toDoIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
             <p>{{ item.id}}</p>
-            <p>OI</p>
-            <p>OI</p>
+           
           </ion-item>
         </ion-list>
       </ion-col>

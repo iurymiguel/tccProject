@@ -113,15 +113,43 @@ export class KanbanPage {
         this.issueMoved = this.fromArray.filter((issue) => issue.id === issueId);
         this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
         this.loading.present();
-        this.http.put(`${Config.REST_API}/issue/${issueId}`, body)
+        this.http.delete(`${Config.REST_API}/issue/${issueId}`)
           .then((result) => {
-            console.log(result);
-            this.loading.dismiss();
-            this.toast.show(`Issue movida de ${from} para ${to}`);
+            const body = {
+              fields: {
+                project: {
+                  id: this.project.id,
+                },
+                summary: this.issueMoved[0].fields.summary,
+                assignee: {
+                  name: this.issueMoved[0].fields.assignee.name,
+                },
+                issuetype: {
+                  id: this.issueMoved[0].fields.issuetype.id,
+                },
+                labels: [
+                  to
+                ],
+                description: this.issueMoved[0].fields.description,
+              }
+            };
+            console.log(body)
+            this.http.post(`${Config.REST_API}/issue`, body)
+              .then((result) => {
+                console.log(result)
+                this.loading.dismiss();
+                this.toast.show(`Issue movida de ${from} para ${to}`);
+              })
+              .catch((error) => {
+                this.loading.dismiss();
+                this.handleIssueError(from, to);
+                this.toast.show('Erro na requisicao');
+              });
+
           })
           .catch((error) => {
             this.loading.dismiss();
-            this.handleIssueError(from,to);
+            this.handleIssueError(from, to);
             this.toast.show('Erro na requisicao');
           });
       }
@@ -129,7 +157,6 @@ export class KanbanPage {
 
     this.onDragSubsription = this.dragulaService.drag.subscribe((value) => {
       this.isDragging = true;
-      console.log(value)
       const from: string = value[2].id;
 
       switch (from) {
@@ -244,15 +271,18 @@ export class KanbanPage {
     this.doneIssues = [];
     issues.forEach((issue) => {
       let issueStatus = undefined;
+      console.log('labels', issue.fields.labels);
       for (let label of issue.fields.labels) {
-        if (label in this.statusKey) {
-          issueStatus = label;
-          break;
+        for (let status of this.statusKey) {
+          if (label === status) {
+            issueStatus = label;
+            break;
+          }
         }
       }
       if (!issueStatus) {
         issueStatus = 'to-do';
-        issue.fields.labels.unshift(issueStatus);
+        issue.fields.labels = [issueStatus];
       }
 
       switch (issueStatus) {

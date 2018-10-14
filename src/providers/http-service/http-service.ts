@@ -128,8 +128,13 @@ export class HttpServiceProvider {
       return new Promise<any>((resolve, reject) => {
         this.http.put(url, body, HttpServiceProvider.header)
           .then((result) => {
-            result.data = JSON.parse(result.data);
-            resolve(result.data);
+            console.log(result);
+            if(result.data){
+              result.data = JSON.parse(result.data);
+              resolve(result.data);
+            }else{
+              resolve({});
+            }
           })
           .catch((error) => {
             reject(error);
