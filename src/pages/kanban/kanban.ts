@@ -285,6 +285,9 @@ export class KanbanPage {
         showBackdrop: true,
       });
     rangeModal.present();
+    rangeModal.onDidDismiss(() => {
+      this.getIssues();
+    });
   }
 
   private getIssuesType(issue) {
