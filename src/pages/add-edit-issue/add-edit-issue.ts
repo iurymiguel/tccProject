@@ -33,6 +33,7 @@ export class AddEditIssuePage {
     public http: HttpServiceProvider) {
 
     this.issue = this.navParams.get('issue');
+    console.log('issue', this.issue);
     this.projectUsers = this.navParams.get('projectUsers');
     this.project = this.navParams.get('project');
     this.issueTypes = this.navParams.get('issueTypes');

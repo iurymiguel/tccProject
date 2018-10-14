@@ -100,52 +100,15 @@ export class KanbanPage {
       const issueId = value[1].id;
       const from: string = value[3].id;
       const to: string = value[2].id;
-      const body = {
-        update: {
-          fields: {
-            labels: [
-              to
-            ]
-          }
-        }
-      }
       if (from !== to) {
         this.issueMoved = this.fromArray.filter((issue) => issue.id === issueId);
         this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
         this.loading.present();
-        this.http.delete(`${Config.REST_API}/issue/${issueId}`)
+        const body = { "update": { "labels": [ {"set": [to]} ] } };
+        this.http.put(`${Config.REST_API}/issue/${this.issueMoved[0].id}`, body)
           .then((result) => {
-            const body = {
-              fields: {
-                project: {
-                  id: this.project.id,
-                },
-                summary: this.issueMoved[0].fields.summary,
-                assignee: {
-                  name: this.issueMoved[0].fields.assignee.name,
-                },
-                issuetype: {
-                  id: this.issueMoved[0].fields.issuetype.id,
-                },
-                labels: [
-                  to
-                ],
-                description: this.issueMoved[0].fields.description,
-              }
-            };
-            console.log(body)
-            this.http.post(`${Config.REST_API}/issue`, body)
-              .then((result) => {
-                console.log(result)
-                this.loading.dismiss();
-                this.toast.show(`Issue movida de ${from} para ${to}`);
-              })
-              .catch((error) => {
-                this.loading.dismiss();
-                this.handleIssueError(from, to);
-                this.toast.show('Erro na requisicao');
-              });
-
+            this.loading.dismiss();
+            this.toast.show(`Issue movida de ${from} para ${to}`);
           })
           .catch((error) => {
             this.loading.dismiss();
@@ -254,7 +217,7 @@ export class KanbanPage {
       .then((result) => {
         console.log(result);
         this.organizeIssues(result.issues);
-        console.log(result.issues)
+        console.log('Issues',result.issues)
         this.loading.dismiss();
       })
       .catch((error) => {
@@ -293,7 +256,7 @@ export class KanbanPage {
           this.doingIssues.push(issue);
           break;
         case 'to-test':
-          this.toTestIssues.push(issues);
+          this.toTestIssues.push(issue);
           break;
         case 'testing':
           this.testingIssues.push(issue);
@@ -310,6 +273,7 @@ export class KanbanPage {
   }
 
   public presentAddEditIssueModal(issue) {
+    console.log('PRESENT',issue);
     const rangeModal = this.modalCtrl.create('AddEditIssuePage',
       {
         issue, project: this.project, issueTypes: this.issueTypes,
