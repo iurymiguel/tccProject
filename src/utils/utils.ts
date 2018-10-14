@@ -1,6 +1,10 @@
 export class Utils{
 
     public static readonly NO_SPACE_REGEX: RegExp = /.*\S/;
+    public static readonly PAGES = {
+        KANBAN_PAGE: 'KanbanPage',
+        HOME_PAGE: 'HomePage',
+    }
 
     /**
      * @description Verifica se um usuário é administrador.

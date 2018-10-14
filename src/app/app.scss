@@ -1,24 +1,19 @@
-// http://ionicframework.com/docs/theming/
-
-
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
 img {
   width: 50px !important;
   height: 50px !important;
 }
 
+.alert-checkbox-group, .alert-radio-group {
+  height: 47vh;
+}
+
+.avatar img {
+  margin: auto;
+}
+
+.name {
+  text-align: center;
+}
 ion-fab {
   position: absolute;
   float:  right;
@@ -51,15 +46,24 @@ h5 {
 .toolbar-title.toolbar-title-md,
 .toolbar-title.toolbar-title-ios {
   color:  white;
+  font-size: 1.2em;
 }
 
-span.button-inner {
+.toolbar-content.toolbar-content-md {
+  display: inline-flex;
+}
+
+button.back-button.bar-button.bar-button-md.back-button-md.bar-button-default.bar-button-default-md.show-back-button {
   color: white;
 }
 
 .hasError{
     color: #FA2C00;
     margin-left: 5%;
+}
+
+h5 {
+  text-align: center;
 }
 
 // Dragula stuff

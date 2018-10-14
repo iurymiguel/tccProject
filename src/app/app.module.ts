@@ -17,18 +17,24 @@ import { PopoverProjectPageModule } from '../pages/projects/popover-project/popo
 import { HttpServiceProvider } from '../providers/http-service/http-service';
 import { HTTP } from '@ionic-native/http';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { PerfilPage } from '../pages/perfil/perfil';
+import { HeaderMenuComponent } from '../components/header-menu/header-menu';
+import { PopoverProjectUsersPageModule } from '../pages/project-users/popover-project-users/popover-project-users.module';
 
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    PerfilPage,
+    HeaderMenuComponent
   ],
   imports: [
     HttpClientModule,
     InterceptorModule,
     BrowserModule,
     PopoverProjectPageModule,
+    PopoverProjectUsersPageModule,
     ProjectsPageModule,
     IonicStorageModule.forRoot(),
     DragulaModule,
@@ -37,7 +43,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    PerfilPage
   ],
   providers: [
     StatusBar,

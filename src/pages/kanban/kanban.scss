@@ -45,4 +45,28 @@ page-Kanban {
       background: white;
     }
   }
+
+  .menu-button-icon{
+    font-size: 2em;
+  }
+
+  .toolbar-content.toolbar-content-md {
+    display: flex;
+  }
+
+  .refresh-btn{
+    background: transparent;
+    color: white;
+    position: relative;
+    right: 30px;
+    width: 30px;
+  }
+
+  .plus-btn{
+    background: transparent;
+    color: white;
+    position: relative;
+    right: 10px;
+    width: 30px;
+  }
 }

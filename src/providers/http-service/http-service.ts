@@ -158,8 +158,12 @@ export class HttpServiceProvider {
       return new Promise<any>((resolve, reject) => {
         this.http.delete(Config.API_URL + url, {}, HttpServiceProvider.header)
           .then((result) => {
-            result.data = JSON.parse(result.data);
-            resolve(result.data);
+            if(result.data){
+              result.data = JSON.parse(result.data);
+              resolve(result.data);
+            }else{
+              resolve({});
+            }
           })
           .catch((error) => {
             reject(error);
