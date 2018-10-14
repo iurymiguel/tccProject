@@ -70,6 +70,8 @@ export class MyApp {
       case 'pop':
         this.nav.pop();
         break;
+      case 'ProfilePage':
+        this.nav.push(PerfilPage);
     }
   }
 }

@@ -84,5 +84,9 @@
     <plugin name="cordova-sqlite-storage" spec="^2.3.3" />
     <plugin name="cordova-plugin-advanced-http" spec="~1.11.1" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
+<<<<<<< HEAD
+=======
+    <allow-navigation href="http://192.168.0.104:8100" />
+>>>>>>> feature/JB-App
     <engine name="android" spec="7.0.0" />
 </widget>
