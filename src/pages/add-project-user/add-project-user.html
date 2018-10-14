@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Lista de Usuários</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-row *ngIf="!showLoading && systemUsers?.length === 0" class="direction_column" align-items-center>
+    <ion-icon class="bigger_size" name="md-alert"></ion-icon>
+    <h5>Nenhum usuário no sistema disponivel para este projeto.</h5>
+  </ion-row>
+
+  <ion-card *ngFor="let user of systemUsers">
+    <ion-card-content (click)="confirmAddUser(user)">
+      <ion-item>
+        <img item-start [src]="user.avatarUrls['16x16']">
+        <ion-label item-start text-wrap>{{ user.displayName }}</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

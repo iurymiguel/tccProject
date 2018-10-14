@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Refresher, PopoverController, Loading, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Refresher, PopoverController, Loading, Events, MenuController } from 'ionic-angular';
 
 import { Config } from '../../config/config';
 import { LoadingProvider } from '../../providers/loading/loading';
@@ -33,13 +33,15 @@ export class ProjectsPage {
     public popoverCtrl: PopoverController,
     public httpService: HttpServiceProvider,
     public storage: Storage,
+    public menu: MenuController,
     public events: Events) {
   }
 
   /**
    * @description Assim que entrar na página, a lista de projetos é carregada.
    */
-  ionViewWillEnter() {
+  public ionViewWillEnter() {
+    this.menu.enable(true, 'menuApp');
     this.getUserDataFromStorage();
   }
 
@@ -60,10 +62,10 @@ export class ProjectsPage {
 
   /**
    * @description Vai para a página do kanban do projeto.
-   * @param projectId id do projeto.
+   * @param projectId projeto selecionado.
    */
-  public goToProjectKanban(projectId){
-    this.navCtrl.push('KanbanPage',{projectId});
+  public goToProjectKanban(project) {
+    this.navCtrl.push('KanbanPage', { project });
   }
 
   /**
@@ -78,6 +80,7 @@ export class ProjectsPage {
           this.events.publish('header-menu', result);
 
           this.isAdmin = Utils.isAdmin(result);
+          this.storage.set('isAdmin', this.isAdmin);
           this.getProjects();
         });
       })
@@ -93,6 +96,7 @@ export class ProjectsPage {
     const url = this.isAdmin ? '/project?expand=description,lead,url,projectKeys' : '/issue/createmeta';
     this.httpService.get(Config.REST_API + url)
       .then((result) => {
+        console.log(result)
         if (result.projects) {
           this.projectsList = result.projects;
         } else {
@@ -138,4 +142,8 @@ export class ProjectsPage {
     this.showLoading = false;
   }
 
+
+  public openMenu() {
+    this.menu.open('menuApp');
+  }
 }

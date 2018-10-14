@@ -36,7 +36,12 @@ export class HomePage {
       username: '',
       password: ''
     };
+
     this.setBluredInputState(false);
+  }
+
+  public ionViewWillEnter() {
+    this.menu.enable(false, 'menuApp');
   }
 
   /**
@@ -51,7 +56,7 @@ export class HomePage {
           if (res.session) {
             this.storage.set('authUser', res.session.value).then(() => {
               loading.dismiss().then(() => {
-                this.menu.enable(true,'menuApp');
+                this.menu.enable(true, 'menuApp');
                 this.navCtrl.setRoot('ProjectsPage', { username: this.login.username });
               });
             })

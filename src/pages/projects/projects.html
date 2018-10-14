@@ -1,6 +1,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button (click)="openMenu()" class="menu-button">
+      <ion-icon class="menu-button-icon" name="menu"></ion-icon>
+    </button>
     <ion-title>Lista de Projetos</ion-title>
   </ion-navbar>
 
@@ -18,7 +21,7 @@
     <h5>Nenhum projeto encontrado.</h5>
   </ion-row>
 
-  <ion-card *ngFor="let project of projectsList" (click)="goToProjectKanban(project.id)">
+  <ion-card *ngFor="let project of projectsList" (click)="goToProjectKanban(project)">
     <ion-card-content>
       <ion-item>
         <button *ngIf="isAdmin" item-end class="overflow-btn" (click)="presentPopover($event)">

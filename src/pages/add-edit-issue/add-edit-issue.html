@@ -1,0 +1,29 @@
+<ion-content padding class="issue-modal">
+  <form id="form_issue">
+    <ion-item>
+      <ion-label>Resumo da Issue:</ion-label>
+      <ion-input [(ngModel)]="summary" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+     <ion-label>Responsável pela Issue:</ion-label>
+      <ion-select [(ngModel)]="assigneeName" [ngModelOptions]="{standalone: true}">
+        <ion-option [value]="user.name" *ngFor="let user of projectUsers" name="assignee">{{user.displayName}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Tipo da Issue:</ion-label>
+      <ion-select [(ngModel)]="issueTypeId" [ngModelOptions]="{standalone: true}">
+        <ion-option [value]="issueType.id" *ngFor="let issueType of issueTypes" >{{issueType.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Descrição da Issue:</ion-label>
+      <ion-textarea [(ngModel)]="description" [ngModelOptions]="{standalone: true}"></ion-textarea>
+    </ion-item>
+    <button *ngIf="!isEditing" margin-top ion-button block (click)="createIssue()">Criar</button>
+    <div *ngIf="isEditing" class="issue-btn-edit">
+        <button ion-button block (click)="editIssue()">Salvar</button>
+        <button ion-button block (click)="deleteIssue()">Deletar</button>
+    </div>
+  </form>
+</ion-content>

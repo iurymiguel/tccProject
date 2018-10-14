@@ -4,8 +4,14 @@
       <ion-icon class="menu-button-icon" name="menu"></ion-icon>
     </button>
     <ion-title>
-      Ionic Blank
+      {{project.name}}
     </ion-title>
+    <button class=" refresh-btn">
+      <ion-icon class="menu-button-icon" name="refresh" (click)="getIssues()"></ion-icon>
+    </button>
+    <button class="plus-btn">
+      <ion-icon class="menu-button-icon" name="add" (click)="getIssuesType()"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 
@@ -14,71 +20,55 @@
     <ion-row>
       <ion-col col-1>
         <div class="kanban-header">To Do</div>
-        <ion-list class="kanban-col to-do" [dragula]='"bag"' [dragulaModel]="q1" no-lines id="to-do">
-          <ion-item ion-item *ngFor="let item of q1" no-lines>
-
+        <ion-list class="kanban-col to-do" [dragula]='"bag"' [dragulaModel]="toDoIssues" no-lines id="to-do">
+          <ion-item ion-item *ngFor="let item of toDoIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
+            <p>{{ item.id}}</p>
             <p>OI</p>
-            <p>{{item}}</p>
             <p>OI</p>
-            <p>{{item}}</p>
-            <p>OI</p>
-            <p>{{item}}</p>
           </ion-item>
         </ion-list>
       </ion-col>
 
       <ion-col col-1>
         <div class="kanban-header">Doing</div>
-        <ion-list class="kanban-col doing" [dragula]='"bag"' [dragulaModel]="q2" no-lines id="doing">
-          <ion-item ion-item *ngFor="let item of q2" no-lines>
+        <ion-list class="kanban-col doing" [dragula]='"bag"' [dragulaModel]="doingIssues" no-lines id="doing">
+          <ion-item ion-item *ngFor="let item of doingIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
+            <p>{{ item.id}}</p>
             <p>OI</p>
-            <p>{{item}}</p>
             <p>OI</p>
-            <p>{{item}}</p>
-            <p>OI</p>
-            <p>{{item}}</p>
           </ion-item>
         </ion-list>
       </ion-col>
 
       <ion-col col-1>
         <div class="kanban-header">To Test</div>
-        <ion-list class="kanban-col to-test" [dragula]='"bag"' [dragulaModel]="q3" no-lines id="to-test">
-          <ion-item ion-item *ngFor="let item of q3" no-lines>
+        <ion-list class="kanban-col to-test" [dragula]='"bag"' [dragulaModel]="toTestIssues" no-lines id="to-test">
+          <ion-item ion-item *ngFor="let item of toTestIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
+            <p>{{ item.id}}</p>
             <p>OI</p>
-            <p>{{item}}</p>
             <p>OI</p>
-            <p>{{item}}</p>
-            <p>OI</p>
-            <p>{{item}}</p>
           </ion-item>
         </ion-list>
       </ion-col>
 
       <ion-col col-1>
         <div class="kanban-header">Testing</div>
-        <ion-list class="kanban-col testing" [dragula]='"bag"' [dragulaModel]="q4" no-lines id="testing">
-          <ion-item ion-item *ngFor="let item of q4" no-lines>
+        <ion-list class="kanban-col testing" [dragula]='"bag"' [dragulaModel]="testingIssues" no-lines id="testing">
+          <ion-item ion-item *ngFor="let item of testingIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
+            <p>{{ item.id}}</p>
             <p>OI</p>
-            <p>{{item}}</p>
             <p>OI</p>
-            <p>{{item}}</p>
-            <p>OI</p>
-            <p>{{item}}</p>
           </ion-item>
         </ion-list>
       </ion-col>
 
       <ion-col col-1 style="margin-right: 0" id="done">
         <div class="kanban-header">Done</div>
-        <ion-list class="kanban-col done" [dragula]='"bag"' [dragulaModel]="q5" no-lines>
-          <ion-item ion-item *ngFor="let item of q5" no-lines>
+        <ion-list class="kanban-col done" [dragula]='"bag"' [dragulaModel]="doneIssues" no-lines id="done">
+          <ion-item ion-item *ngFor="let item of doneIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
+            <p>{{ item.id}}</p>
             <p>OI</p>
-            <p>{{item}}</p>
             <p>OI</p>
-            <p>{{item}}</p>
-            <p>OI</p>
-            <p>{{item}}</p>
           </ion-item>
         </ion-list>
       </ion-col>

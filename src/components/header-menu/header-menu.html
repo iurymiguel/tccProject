@@ -8,7 +8,7 @@
           </ion-avatar>
       </ion-list-header>
       <ion-item (click)="goToProfilePage()">Perfil</ion-item>
-      <ion-item *ngIf="currentPage === pages.KANBAN_PAGE">Inserir Usuário no Projeto</ion-item>
+      <ion-item *ngIf="currentPage === pages.KANBAN_PAGE" (click)="goToProjectUsersList()">Listar Usuários no Projeto</ion-item>
       <ion-item *ngIf="currentPage === pages.KANBAN_PAGE" (click)="goBack()">Voltar</ion-item>  
       <ion-item (click)="logoutClicked()">Sair</ion-item>
     </ion-list>
