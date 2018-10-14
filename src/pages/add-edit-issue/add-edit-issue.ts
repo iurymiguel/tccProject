@@ -82,7 +82,33 @@ export class AddEditIssuePage {
   }
 
   public editIssue() {
+    this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
+    this.loading.present();
 
+    const body = {
+      fields: {
+        project: {
+          id: this.project.id,
+        },
+        summary: this.summary,
+        assignee: {
+          name: this.assigneeName,
+        },
+        issuetype: {
+          id: this.issueTypeId,
+        },
+        description: this.description,
+      }
+    }
+
+    this.http.put(`${Config.REST_API}/issue/${this.issue.id}`, body)
+      .then((result) => {
+        this.loading.dismiss();
+        this.toast.show('Issue editada com sucesso').then(() => this.viewCtrl.dismiss());
+      })
+      .catch((error) => {
+        this.loading.dismiss().then(() => this.toast.show('Erro na requisição.'));
+      });
   }
 
   public confirmDelete(){
