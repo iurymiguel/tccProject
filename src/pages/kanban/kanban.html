@@ -21,7 +21,7 @@
       <ion-col col-1>
         <div class="kanban-header">To Do</div>
         <ion-list class="kanban-col to-do" [dragula]='"bag"' [dragulaModel]="toDoIssues" no-lines id="to-do">
-          <ion-item ion-item *ngFor="let item of toDoIssues" no-lines (click)="editIssue(item)">
+          <ion-item ion-item *ngFor="let item of toDoIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
             <p>{{ item.id}}</p>
             <p>OI</p>
             <p>OI</p>
@@ -32,7 +32,7 @@
       <ion-col col-1>
         <div class="kanban-header">Doing</div>
         <ion-list class="kanban-col doing" [dragula]='"bag"' [dragulaModel]="doingIssues" no-lines id="doing">
-          <ion-item ion-item *ngFor="let item of doingIssues" no-lines (click)="editIssue(item)">
+          <ion-item ion-item *ngFor="let item of doingIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
             <p>{{ item.id}}</p>
             <p>OI</p>
             <p>OI</p>
@@ -43,7 +43,7 @@
       <ion-col col-1>
         <div class="kanban-header">To Test</div>
         <ion-list class="kanban-col to-test" [dragula]='"bag"' [dragulaModel]="toTestIssues" no-lines id="to-test">
-          <ion-item ion-item *ngFor="let item of toTestIssues" no-lines (click)="editIssue(item)">
+          <ion-item ion-item *ngFor="let item of toTestIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
             <p>{{ item.id}}</p>
             <p>OI</p>
             <p>OI</p>
@@ -54,7 +54,7 @@
       <ion-col col-1>
         <div class="kanban-header">Testing</div>
         <ion-list class="kanban-col testing" [dragula]='"bag"' [dragulaModel]="testingIssues" no-lines id="testing">
-          <ion-item ion-item *ngFor="let item of testingIssues" no-lines (click)="editIssue(item)">
+          <ion-item ion-item *ngFor="let item of testingIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
             <p>{{ item.id}}</p>
             <p>OI</p>
             <p>OI</p>
@@ -65,7 +65,7 @@
       <ion-col col-1 style="margin-right: 0" id="done">
         <div class="kanban-header">Done</div>
         <ion-list class="kanban-col done" [dragula]='"bag"' [dragulaModel]="doneIssues" no-lines id="done">
-          <ion-item ion-item *ngFor="let item of doneIssues" no-lines (click)="editIssue(item)">
+          <ion-item ion-item *ngFor="let item of doneIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
             <p>{{ item.id}}</p>
             <p>OI</p>
             <p>OI</p>

@@ -22,6 +22,8 @@ export class KanbanPage {
   toTestIssues = [];
   testingIssues = [];
   doneIssues = [];
+  public fromArray: any[] = [];
+  public toArray: any[] = [];
   public project: any;
   private loading: Loading;
   public drake: any;
@@ -94,9 +96,32 @@ export class KanbanPage {
     this.onDropSubscription = this.dragulaService.drop.subscribe((value) => {
       this.isDragging = false;
       console.log(value);
+      const issueId = value[1].id;
       const from: string = value[3].id;
       const to: string = value[2].id;
-      if(from !== to){
+      const body = {
+        update: {
+          fields: {
+            labels: [
+              to
+            ]
+          }
+        }
+      }
+      if (from !== to) {
+        this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
+        this.loading.present();
+        this.http.put(`${Config.REST_API}/issue`, body)
+          .then((result) => {
+            console.log(result);
+            this.loading.dismiss();
+            this.toast.show(`Issue movida de ${from} para ${to}`);
+          })
+          .catch((error) => {
+
+            console.log(error);
+          });
+        console.log(issueId)
         console.log('from', from);
         console.log('to', to);
       }
@@ -104,6 +129,50 @@ export class KanbanPage {
 
     this.onDragSubsription = this.dragulaService.drag.subscribe((value) => {
       this.isDragging = true;
+      // // const from: string = value[3].id;
+      // const to: string = value[2].id;
+
+      // switch (from) {
+      //   case 'to-do':
+      //     this.fromArray = this.toDoIssues;
+      //     break;
+      //   case 'doing':
+      //     this.fromArray = this.doingIssues;
+      //     break;
+      //   case 'to-test':
+      //     this.fromArray = this.toTestIssues;
+      //     break;
+      //   case 'testing':
+      //     this.fromArray = this.testingIssues;
+      //     break;
+      //   case 'done':
+      //     this.fromArray = this.doneIssues;
+      //     break;
+      // }
+
+
+      // switch (to) {
+      //   case 'to-do':
+      //   this.toArray = this.toDoIssues;
+      //   break;
+      // case 'doing':
+      //   this.toArray = this.doingIssues;
+      //   break;
+      // case 'to-test':
+      //   this.toArray = this.toTestIssues;
+      //   break;
+      // case 'testing':
+      //   this.toArray = this.testingIssues;
+      //   break;
+      // case 'done':
+      //   this.toArray = this.doneIssues;
+      //   break;
+      // }
+
+
+      // console.log(value);
+      // console.log(this.toDoIssues);
+      // console.log(this.doingIssues);
     });
 
     this.onDragEndSubscription = this.dragulaService.dragend.subscribe((value) => {
@@ -165,24 +234,25 @@ export class KanbanPage {
         }
       }
       if (!issueStatus) {
-        issueStatus = 'todo';
+        issueStatus = 'to-do';
         issue.fields.labels.unshift(issueStatus);
       }
 
       switch (issueStatus) {
-        case 'todo':
+        case 'to-do':
           this.toDoIssues.push(issue);
           break;
         case 'doing':
           this.doingIssues.push(issue);
           break;
-        case 'totest':
+        case 'to-test':
           this.toTestIssues.push(issues);
           break;
         case 'testing':
           this.testingIssues.push(issue);
           break;
         case 'done':
+          this.doneIssues.push(issue);
           break;
       }
     });
