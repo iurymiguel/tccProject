@@ -31,7 +31,7 @@ export class ProjectCreateEditPage {
      public toast: ToastProvider,
      public loadingProvider: LoadingProvider,) { 
 
-      var data = navParams.get('data');
+      let data = navParams.get('data');
 
       if(data != null) {
         this.project.key = data.key;
@@ -58,6 +58,8 @@ export class ProjectCreateEditPage {
         console.log(this.users);
       })
       .catch((error) => {
+        console.log((error));
+        this.loading.dismiss();
         console.log("Falha ao buscar usuários");
       });
   }
@@ -84,6 +86,8 @@ export class ProjectCreateEditPage {
         this.navCtrl.push(ProjectsPage);
       })
       .catch((error) => {
+        console.log(error);
+        this.loading.dismiss();
         this.toast.show('Erro na requisição.');
       });
     } else {
@@ -94,6 +98,8 @@ export class ProjectCreateEditPage {
         this.navCtrl.push(ProjectsPage);
       })
       .catch((error) => {
+        console.log(error);
+        this.loading.dismiss();
         this.toast.show('Erro na edição do projeto.');
       });
     }
