@@ -13,15 +13,16 @@
 </ion-header>
 
 <ion-content padding>
-  <form (ngSubmit)="projectRequest()" novalidate>
+  <form>
     <ion-list>
       <ion-grid>
         <ion-row>
           <ion-col col-12>
-              <ion-item>
-                  <ion-label floating>Chave do projeto:</ion-label>
-                  <ion-input type="text" [(ngModel)]="project.key" id="key" name="key" required ></ion-input>
-                </ion-item>
+            <ion-item>
+              <ion-label floating>Chave do projeto:</ion-label>
+              <ion-input type="text" [(ngModel)]="project.key" id="key" name="key" required></ion-input>
+            </ion-item>
+            <ion-label text-wrap style="font-size: 0.9em; margin-left: 15px">Ex: AAA123 (deve começar com letras maiúsculas seguido por números, preferencialmente)</ion-label>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -43,8 +44,9 @@
         <ion-row>
           <ion-col col-12>
             <ion-item>
-              <ion-select placeholder="Líder do projeto:" [(ngModel)]="project.lead" name="lead" cancelText="Cancelar" okText="Ok">
-                <ion-option *ngFor="let user of users" value="{{user.name}}">{{user.name}}</ion-option>
+              <ion-label>Líder do projeto:</ion-label>
+              <ion-select [(ngModel)]="project.lead" name="lead" cancelText="Cancelar" okText="Ok">
+                <ion-option [value]="user.name" *ngFor="let user of users">{{user.displayName}}</ion-option>
               </ion-select>
             </ion-item>
           </ion-col>
@@ -52,7 +54,8 @@
         <ion-row>
           <ion-col col-12>
             <ion-item>
-              <ion-select placeholder="Tipo do projeto:" [(ngModel)]="project.projectTypeKey" name="type" cancelText="Cancelar" okText="Ok">
+              <ion-label>Tipo do projeto:</ion-label>
+              <ion-select [(ngModel)]="project.projectTypeKey" name="type" cancelText="Cancelar" okText="Ok">
                 <ion-option value="typeBusiness" selected="true" value="business">Business</ion-option>
                 <ion-option value="typeService" value="service_desk">Service Desk</ion-option>
                 <ion-option value="typeSoftware" value="software">Software</ion-option>
@@ -62,7 +65,7 @@
         </ion-row>
       </ion-grid>
     </ion-list>
-    <button ion-button type="button" (click)="goToProjectPage()">Cancelar</button>
-    <button ion-button type="submit">Salvar</button>
+    <button ion-button *ngIf="!isEditing" (click)="createProject()">Criar</button>
+    <button ion-button *ngIf="isEditing" (click)="editProject()">Editar</button>
   </form>
 </ion-content>

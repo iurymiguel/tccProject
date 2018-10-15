@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ViewController, LoadingController, Loading} from 'ionic-angular';
 import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 import { Config } from '../../../config/config';
 import { ToastProvider } from '../../../providers/toast/toast';
@@ -19,11 +19,15 @@ import { ProjectCreateEditPage } from '../../project-create-edit/project-create-
 export class PopoverProjectPage {
   
   public project:any;
+  public loading: Loading;
+
   constructor(
     public navCtrl: NavController, 
+    public viewCtrl: ViewController,
     public navParams: NavParams,
     public httpService: HttpServiceProvider,
     public toast: ToastProvider,
+    public loadingCtrl: LoadingController,
     private alertCtrl: AlertController) {
 
       this.project = this.navParams.get('project');
@@ -62,11 +66,16 @@ export class PopoverProjectPage {
   }
 
   public deleteProject(){
+    this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
+    this.loading.present();
     this.httpService.delete(Config.PROJECT_ENDPOINT + "/" + this.project.key)
       .then((res: any) => {
+        this.loading.dismiss();
+        this.viewCtrl.dismiss();
         this.toast.show('Projeto excluído com sucesso.');
       })
       .catch((error) => {
+        this.loading.dismiss();
         this.toast.show('Falha ao excluir o projeto.');
       });
   }

@@ -121,6 +121,9 @@ export class ProjectsPage {
     popover.present({
       ev: event
     });
+    popover.onDidDismiss(() => {
+      this.getUserDataFromStorage();
+    });
   }
 
   /**
