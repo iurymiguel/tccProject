@@ -22,9 +22,9 @@
         <div class="kanban-header">To Do</div>
         <ion-list class="kanban-col to-do" [dragula]='"bag"' [dragulaModel]="toDoIssues" no-lines id="to-do">
           <ion-item ion-item *ngFor="let item of toDoIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
-            <p>{{ item.id}}</p>
-            <p>OI</p>
-            <p>OI</p>
+            <p *ngIf="item?.fields?.summary" text-wrap>{{ item?.fields?.summary }}</p>
+            <img *ngIf="item?.fields?.assignee?.avatarUrls['16x16']" [src]="item?.fields?.assignee?.avatarUrls['16x16']">
+            <p *ngIf="item?.fields?.assignee?.displayName" text-wrap>{{ item?.fields?.assignee?.displayName }}</p>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -33,9 +33,9 @@
         <div class="kanban-header">Doing</div>
         <ion-list class="kanban-col doing" [dragula]='"bag"' [dragulaModel]="doingIssues" no-lines id="doing">
           <ion-item ion-item *ngFor="let item of doingIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
-            <p>{{ item.id}}</p>
-            <p>OI</p>
-            <p>OI</p>
+            <p *ngIf="item?.fields?.summary" text-wrap>{{ item?.fields?.summary }}</p>
+            <img *ngIf="item?.fields?.assignee?.avatarUrls['16x16']" [src]="item?.fields?.assignee?.avatarUrls['16x16']">
+            <p *ngIf="item?.fields?.assignee?.displayName" text-wrap>{{ item?.fields?.assignee?.displayName }}</p>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -44,9 +44,9 @@
         <div class="kanban-header">To Test</div>
         <ion-list class="kanban-col to-test" [dragula]='"bag"' [dragulaModel]="toTestIssues" no-lines id="to-test">
           <ion-item ion-item *ngFor="let item of toTestIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
-            <p>{{ item.id}}</p>
-            <p>OI</p>
-            <p>OI</p>
+            <p *ngIf="item?.fields?.summary" text-wrap>{{ item?.fields?.summary }}</p>
+            <img *ngIf="item?.fields?.assignee?.avatarUrls['16x16']" [src]="item?.fields?.assignee?.avatarUrls['16x16']">
+            <p *ngIf="item?.fields?.assignee?.displayName" text-wrap>{{ item?.fields?.assignee?.displayName }}</p>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -55,9 +55,9 @@
         <div class="kanban-header">Testing</div>
         <ion-list class="kanban-col testing" [dragula]='"bag"' [dragulaModel]="testingIssues" no-lines id="testing">
           <ion-item ion-item *ngFor="let item of testingIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
-            <p>{{ item.id}}</p>
-            <p>OI</p>
-            <p>OI</p>
+            <p *ngIf="item?.fields?.summary" text-wrap>{{ item?.fields?.summary }}</p>
+            <img *ngIf="item?.fields?.assignee?.avatarUrls['16x16']" [src]="item?.fields?.assignee?.avatarUrls['16x16']">
+            <p *ngIf="item?.fields?.assignee?.displayName" text-wrap>{{ item?.fields?.assignee?.displayName }}</p>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -66,9 +66,9 @@
         <div class="kanban-header">Done</div>
         <ion-list class="kanban-col done" [dragula]='"bag"' [dragulaModel]="doneIssues" no-lines id="done">
           <ion-item ion-item *ngFor="let item of doneIssues" id="{{item.id}}" no-lines (click)="editIssue(item)">
-            <p>{{ item.id}}</p>
-            <p>OI</p>
-            <p>OI</p>
+            <p *ngIf="item?.fields?.summary" text-wrap>{{ item?.fields?.summary }}</p>
+            <img *ngIf="item?.fields?.assignee?.avatarUrls['16x16']" [src]="item?.fields?.assignee?.avatarUrls['16x16']">
+            <p *ngIf="item?.fields?.assignee?.displayName" text-wrap>{{ item?.fields?.assignee?.displayName }}</p>
           </ion-item>
         </ion-list>
       </ion-col>

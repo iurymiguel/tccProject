@@ -23,7 +23,7 @@
     <button *ngIf="!isEditing" margin-top ion-button block (click)="createIssue()">Criar</button>
     <div *ngIf="isEditing" class="issue-btn-edit">
         <button ion-button block (click)="editIssue()">Salvar</button>
-        <button ion-button block (click)="deleteIssue()">Deletar</button>
+        <button ion-button block (click)="confirmDelete()">Deletar</button>
     </div>
   </form>
 </ion-content>
