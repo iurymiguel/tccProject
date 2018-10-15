@@ -4,10 +4,10 @@
       <ion-label>Resumo da Issue:</ion-label>
       <ion-input [(ngModel)]="summary" [ngModelOptions]="{standalone: true}"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="isEditing">
      <ion-label>Responsável pela Issue:</ion-label>
       <ion-select [(ngModel)]="assigneeName" [ngModelOptions]="{standalone: true}">
-        <ion-option [value]="user.name" *ngFor="let user of projectUsers" name="assignee">{{user.displayName}}</ion-option>
+        <ion-option [value]="user.name" *ngFor="let user of projectUsers">{{user.displayName}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>

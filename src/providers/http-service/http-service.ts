@@ -64,6 +64,7 @@ export class HttpServiceProvider {
     if (Config.IS_CORDOVA) {
       this.authenticateUser(Config.API_URL + url, body);
       return new Promise<any>((resolve, reject) => {
+        console.log(HttpServiceProvider.header);
         this.http.post(Config.API_URL + url, body, HttpServiceProvider.header)
           .then((result) => {
             result.data = JSON.parse(result.data);

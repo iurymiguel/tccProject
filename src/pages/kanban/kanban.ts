@@ -293,9 +293,11 @@ export class KanbanPage {
   private getIssuesType(issue) {
     this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
     this.loading.present();
-    this.http.get(`${Config.REST_API}/issuetype`)
+    this.http.get(`${Config.REST_API}/issue/createmeta`)
       .then((result) => {
-        this.issueTypes = (result) ? result : [];
+        const projects = result.projects;
+        const project = projects.filter((p) => p.id === this.project.id);
+        this.issueTypes = project[0].issuetypes.filter((issuetype) => issuetype.name !== 'Sub-tarefa');
         this.getProjectInfo(issue);
       })
       .catch((error) => {

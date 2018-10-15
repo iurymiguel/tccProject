@@ -10,6 +10,7 @@ import { Storage } from '../../../node_modules/@ionic/storage';
 import { Utils } from '../../utils/utils';
 import { KanbanPage } from '../kanban/kanban';
 import { HomePage } from '../home/home';
+import { ProjectCreateEditPage } from '../project-create-edit/project-create-edit';
 
 @IonicPage()
 @Component({
@@ -76,6 +77,7 @@ export class ProjectsPage {
     this.httpService.get(Config.REST_API +
       `/user?username=${username}&expand=groups,applicationRoles`)
       .then((result) => {
+        console.log(result);
         this.storage.set('userData', result).then(() => {
           this.events.publish('header-menu', result);
 
@@ -113,11 +115,17 @@ export class ProjectsPage {
    * @description Abre popover contendo opções de editar e deletar.
    * @param event 
    */
-  public presentPopover(event) {
+  public presentPopover(event, project) {
     event.stopPropagation();
-    const popover = this.popoverCtrl.create(PopoverProjectPage);
+    const popover = this.popoverCtrl.create(PopoverProjectPage, {"project": project});
     popover.present({
       ev: event
+    });
+    popover.onDidDismiss(() => {
+      this.showLoading = false;
+      this.loading = this.loadingProvider.create('Carregando');
+      this.loading.present();
+      this.getProjects();
     });
   }
 
@@ -142,8 +150,12 @@ export class ProjectsPage {
     this.showLoading = false;
   }
 
-
   public openMenu() {
     this.menu.open('menuApp');
   }
+  
+  public createProjectPage() {
+    this.navCtrl.push(ProjectCreateEditPage);
+  }
+
 }
