@@ -37,9 +37,10 @@ export class AddEditIssuePage {
     console.log('issue', this.issue);
     this.projectUsers = this.navParams.get('projectUsers');
     this.project = this.navParams.get('project');
+    console.log(this.project);
     this.issueTypes = this.navParams.get('issueTypes');
     this.isEditing = !!this.issue;
-    if(this.issue){
+    if (this.issue) {
       this.summary = this.issue.fields.summary;
       this.assigneeName = this.issue.fields.assignee.name;
       this.issueTypeId = this.issue.fields.issuetype.id;
@@ -56,15 +57,9 @@ export class AddEditIssuePage {
           id: this.project.id,
         },
         summary: this.summary,
-        assignee: {
-          name: this.assigneeName,
-        },
         issuetype: {
           id: this.issueTypeId,
         },
-        labels: [
-          "todo"
-        ],
         description: this.description,
       }
     };
@@ -111,7 +106,7 @@ export class AddEditIssuePage {
       });
   }
 
-  public confirmDelete(){
+  public confirmDelete() {
     const alert = this.alertCtrl.create({
       title: 'Confirmar Exclusão da Issue',
       message: `Deseja excluir essa issue do projeto?`,
@@ -141,6 +136,7 @@ export class AddEditIssuePage {
         this.toast.show('Issue deletada com sucesso').then(() => this.viewCtrl.dismiss());
       })
       .catch((error) => {
+        console.log(error);
         this.loading.dismiss().then(() => this.toast.show('Erro na requisição.'));
       });
   }

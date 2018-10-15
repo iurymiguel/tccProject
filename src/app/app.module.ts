@@ -20,6 +20,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { HeaderMenuComponent } from '../components/header-menu/header-menu';
 import { PopoverProjectUsersPageModule } from '../pages/project-users/popover-project-users/popover-project-users.module';
+import { ProjectCreateEditPageModule } from '../pages/project-create-edit/project-create-edit.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { PopoverProjectUsersPageModule } from '../pages/project-users/popover-pr
     PopoverProjectPageModule,
     PopoverProjectUsersPageModule,
     ProjectsPageModule,
+    ProjectCreateEditPageModule,
     IonicStorageModule.forRoot(),
     DragulaModule,
     IonicModule.forRoot(MyApp)
