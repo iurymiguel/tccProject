@@ -7,12 +7,62 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>project-create-edit</ion-title>
+    <ion-title>Novo projeto</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-
+  <form (ngSubmit)="projectRequest()" novalidate>
+    <ion-list>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label floating>Chave do projeto:</ion-label>
+                  <ion-input type="text" [(ngModel)]="project.key" id="key" name="key" required ></ion-input>
+                </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12>
+            <ion-item>
+              <ion-label floating>Nome do projeto:</ion-label>
+              <ion-input type="text" [(ngModel)]="project.name" name="name"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12>
+            <ion-item>
+              <ion-label floating>Descrição:</ion-label>
+              <ion-input type="text" [(ngModel)]="project.description" name="description"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12>
+            <ion-item>
+              <ion-select placeholder="Líder do projeto:" [(ngModel)]="project.lead" name="lead" cancelText="Cancelar" okText="Ok">
+                <ion-option *ngFor="let user of users" value="{{user.name}}">{{user.name}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12>
+            <ion-item>
+              <ion-select placeholder="Tipo do projeto:" [(ngModel)]="project.projectTypeKey" name="type" cancelText="Cancelar" okText="Ok">
+                <ion-option value="typeBusiness" selected="true" value="business">Business</ion-option>
+                <ion-option value="typeService" value="service_desk">Service Desk</ion-option>
+                <ion-option value="typeSoftware" value="software">Software</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+    <button ion-button type="button" (click)="goToProjectPage()">Cancelar</button>
+    <button ion-button type="submit">Salvar</button>
+  </form>
 </ion-content>
