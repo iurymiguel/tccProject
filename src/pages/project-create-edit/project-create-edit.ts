@@ -18,6 +18,10 @@ export class ProjectCreateEditPage {
   public data: any;
   public users: any[];
   public isEditing: boolean;
+  public userData: any = {
+    key: '',
+    name: '',
+  };
   public project: any = {
     key: '',
     name: '',
@@ -40,13 +44,12 @@ export class ProjectCreateEditPage {
       this.project.name = this.data.name;
       this.project.description = this.data.description;
       this.project.projectTypeKey = this.data.projectTypeKey;
-      this.project.lead = this.data.lead.name;
+      this.userData = this.data.lead;
+      console.log('JOKER', this.userData.key)
     }
-
-    console.log("project = " + this.project.key);
   }
 
-  ionViewWillEnter() {
+  public ionViewWillLoad() {
     this.getAllUsers();
   }
 
@@ -81,12 +84,11 @@ export class ProjectCreateEditPage {
       this.loading.present();
       this.showLoading = true;
     }
+    this.project.lead = this.userData.name;
     this.httpService.post(Config.PROJECT_ENDPOINT, this.project)
       .then((res: any) => {
-        this.loading.dismiss();
-        this.showLoading = false;
+        this.getDeveloperRoleUrl(res.id);
         this.toast.show('Projeto criado com sucesso.');
-        this.navCtrl.pop();
       })
       .catch((error) => {
         console.log(error);
@@ -97,19 +99,17 @@ export class ProjectCreateEditPage {
   }
 
 
-  public editProject(){
+  public editProject() {
     this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
-    console.log('PUT', this.project);
     if (!this.showLoading) {
       this.loading.present();
       this.showLoading = true;
     }
+    this.project.lead = this.userData.name;
     this.httpService.put(Config.PROJECT_ENDPOINT + "/" + this.project.key, this.project)
       .then((res: any) => {
-        this.loading.dismiss();
-        this.showLoading = false;
+        this.getDeveloperRoleUrl(this.data.id);
         this.toast.show('Projeto editado com sucesso.');
-        this.navCtrl.pop();
       })
       .catch((error) => {
         console.log(error);
@@ -118,4 +118,35 @@ export class ProjectCreateEditPage {
         this.toast.show('Erro na edição do projeto.');
       });
   }
+
+  private getDeveloperRoleUrl(projectId) {
+    this.httpService.get(`${Config.REST_API}/project/${projectId}/role`)
+      .then((result) => {
+        const devUrl = result['Developer'];
+        this.insertUser(devUrl);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.loading.dismiss();
+        this.showLoading = false;
+        this.toast.show('Erro na requisição.');
+      })
+  }
+
+  private insertUser(url) {
+    url = url.replace('http://basetestejira.inatel.br:8080', '');
+    this.httpService.post(url, { user: [this.userData.key] })
+      .then((result) => {
+        this.loading.dismiss();
+        this.showLoading = false;
+        this.navCtrl.pop();
+      })
+      .catch((error) => {
+        console.log(error);
+        this.loading.dismiss();
+        this.showLoading = false;
+        this.navCtrl.pop();
+      });
+  }
+
 }

@@ -45,8 +45,8 @@
           <ion-col col-12>
             <ion-item>
               <ion-label>Líder do projeto:</ion-label>
-              <ion-select [(ngModel)]="project.lead" name="lead" cancelText="Cancelar" okText="Ok">
-                <ion-option [value]="user.name" *ngFor="let user of users">{{user.displayName}}</ion-option>
+              <ion-select [(ngModel)]="userData" name="lead" cancelText="Cancelar" okText="Ok">
+                <ion-option [value]="user" *ngFor="let user of users" [selected]="userData.key === user.key">{{user.displayName}}</ion-option>
               </ion-select>
             </ion-item>
           </ion-col>

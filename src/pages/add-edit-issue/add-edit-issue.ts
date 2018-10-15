@@ -136,6 +136,7 @@ export class AddEditIssuePage {
         this.toast.show('Issue deletada com sucesso').then(() => this.viewCtrl.dismiss());
       })
       .catch((error) => {
+        console.log(error);
         this.loading.dismiss().then(() => this.toast.show('Erro na requisição.'));
       });
   }

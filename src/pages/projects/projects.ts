@@ -122,7 +122,10 @@ export class ProjectsPage {
       ev: event
     });
     popover.onDidDismiss(() => {
-      this.getUserDataFromStorage();
+      this.showLoading = false;
+      this.loading = this.loadingProvider.create('Carregando');
+      this.loading.present();
+      this.getProjects();
     });
   }
 
