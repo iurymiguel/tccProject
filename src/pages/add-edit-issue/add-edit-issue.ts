@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading, ViewController, AlertController } from 'ionic-angular';
 import { HttpServiceProvider } from '../../providers/http-service/http-service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Utils } from '../../utils/utils';
@@ -30,13 +30,21 @@ export class AddEditIssuePage {
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     public toast: ToastProvider,
+    public alertCtrl: AlertController,
     public http: HttpServiceProvider) {
 
     this.issue = this.navParams.get('issue');
+    console.log('issue', this.issue);
     this.projectUsers = this.navParams.get('projectUsers');
     this.project = this.navParams.get('project');
     this.issueTypes = this.navParams.get('issueTypes');
     this.isEditing = !!this.issue;
+    if(this.issue){
+      this.summary = this.issue.fields.summary;
+      this.assigneeName = this.issue.fields.assignee.name;
+      this.issueTypeId = this.issue.fields.issuetype.id;
+      this.description = this.issue.fields.description;
+    }
   }
 
   public createIssue() {
@@ -74,7 +82,54 @@ export class AddEditIssuePage {
   }
 
   public editIssue() {
+    this.loading = this.loadingCtrl.create({ content: 'Aguarde' });
+    this.loading.present();
 
+    const body = {
+      fields: {
+        project: {
+          id: this.project.id,
+        },
+        summary: this.summary,
+        assignee: {
+          name: this.assigneeName,
+        },
+        issuetype: {
+          id: this.issueTypeId,
+        },
+        description: this.description,
+      }
+    }
+
+    this.http.put(`${Config.REST_API}/issue/${this.issue.id}`, body)
+      .then((result) => {
+        this.loading.dismiss();
+        this.toast.show('Issue editada com sucesso').then(() => this.viewCtrl.dismiss());
+      })
+      .catch((error) => {
+        this.loading.dismiss().then(() => this.toast.show('Erro na requisição.'));
+      });
+  }
+
+  public confirmDelete(){
+    const alert = this.alertCtrl.create({
+      title: 'Confirmar Exclusão da Issue',
+      message: `Deseja excluir essa issue do projeto?`,
+      buttons: [
+        {
+          text: 'Sim',
+          role: 'sim',
+          handler: () => {
+            this.deleteIssue();
+          },
+        },
+        {
+          text: 'Não',
+          role: 'nao',
+        }
+      ],
+    });
+    alert.present();
   }
 
   public deleteIssue() {

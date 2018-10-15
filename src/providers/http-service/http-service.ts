@@ -126,12 +126,19 @@ export class HttpServiceProvider {
   public put(url: string, body: any): Promise<any> {
     if (Config.IS_CORDOVA) {
       return new Promise<any>((resolve, reject) => {
-        this.http.put(url, body, HttpServiceProvider.header)
+        console.log(url, body)
+        this.http.put(Config.API_URL + url, body, HttpServiceProvider.header)
           .then((result) => {
-            result.data = JSON.parse(result.data);
-            resolve(result.data);
+            console.log(result);
+            if(result.data){
+              result.data = JSON.parse(result.data);
+              resolve(result.data);
+            }else{
+              resolve({});
+            }
           })
           .catch((error) => {
+            console.log(error);
             reject(error);
           });
       });
