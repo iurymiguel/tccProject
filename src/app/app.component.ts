@@ -48,12 +48,19 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       this.watchItIsKanbanPage();
+      this.watchItIsHomePage();
     });
   }
 
   public watchItIsKanbanPage() {
     this.events.subscribe('kanbanPageOpen', () => {
       this.currentPage = Utils.PAGES.KANBAN_PAGE;
+    });
+  }
+
+  public watchItIsHomePage(){
+    this.events.subscribe('projectsPageOpen', () => {
+      this.currentPage = Utils.PAGES.HOME_PAGE
     });
   }
 

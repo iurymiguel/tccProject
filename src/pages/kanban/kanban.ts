@@ -65,7 +65,7 @@ export class KanbanPage {
     if (Config.IS_CORDOVA) {
       this.screen.lock(this.screen.ORIENTATIONS.LANDSCAPE);
     }
-    this.events.publish('kanbanPageOpen', false);
+    this.events.publish('kanbanPageOpen');
     this.watchProjectUsers();
     this.getIssues();
   }
@@ -76,7 +76,7 @@ export class KanbanPage {
     autoScroll([
       document.querySelector('#grid'),
     ], {
-        margin: 30,
+        margin: 40,
         maxSpeed: 40,
         scrollWhenOutside: true,
         autoScroll: function () {
@@ -188,8 +188,6 @@ export class KanbanPage {
 
   public ionViewWillLeave() {
     this.screen.unlock();
-    this.events.publish('kanbanPageOpen', true);
-    this.events.unsubscribe('kanbanPageOpen');
   }
 
   public ngOnDestroy() {
@@ -332,6 +330,5 @@ export class KanbanPage {
         this.loading.dismiss().then(() => this.toast.show('Erro na requisição.'));
       });
   }
-
 }
 

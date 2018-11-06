@@ -48,7 +48,6 @@ export class HeaderMenuComponent {
 
   ngOnDestroy(){
     console.log('destroy menu');
-    this.events.unsubscribe('kanbanPageOpen');
     this.events.unsubscribe('header-menu');
   }
 

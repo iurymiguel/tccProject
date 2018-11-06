@@ -44,6 +44,7 @@ export class ProjectsPage {
   public ionViewWillEnter() {
     this.menu.enable(true, 'menuApp');
     this.getUserDataFromStorage();
+    this.events.publish('projectsPageOpen');
   }
 
   /**
